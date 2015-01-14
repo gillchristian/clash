@@ -1,0 +1,96 @@
+<h1 class="page-header">Army Calculator</h1>
+
+<h3 class="page-header">Army</h3>
+
+<div class="row">
+
+	<div class="col-lg-6">
+	<h3>Cuartel</h3>
+
+		<div class="table-responsive">
+	      <table class="table table-hover">
+	        <tr>
+	            <td><b>Unidad</b></td>
+	            <td><b>Nivel</b></td>
+	            <td><b>Cantidad</b></td>
+	            <td><b>Costo Unidad</b></td>
+	            <td><b>Costo Total</b></td>
+	            <td><b>Tiempo Unidad</b></td>
+	            <td><b>Tiempo Total</b></td>
+	        </tr>
+	        <tr ng-repeat="unit in light | orderBy:'id' track by unit.id">
+	          <td><img ng-src="http://gillchristian.com/clash/img/troops/light/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
+	          <td><select ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
+	          <td><input type="text" ng-model="unit.amount"> </td>
+	          <td>{{unit.cost[unit.lvl-1] | number}}</td>
+	          <td ><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'">{{unit.cost[unit.lvl-1] * unit.amount | number}}</div></td>
+	          <td>{{unit.time | creation_time}}</td>
+	          <td><div ng-show="(unit.time*unit.amount) != ''">{{unit.time * unit.amount | creation_time}}</div></td>
+	        </tr>
+	        <tr>
+	        	<td><b>Total</b></td>
+	            <td></td>
+	            <td>{{ cantidad() }}</td>
+	            <td><b></b></td>
+	            <td><b>{{ costo() | number}}</b></td>
+	            <td><b></b></td>
+	            <td><b>{{ tiempo() | creation_time}}</b></td>
+	        </tr>
+	      </table>
+	    </div>
+
+	</div>
+
+	<div class="col-lg-6">
+		<h3>Cuartel Oscuro</h3>
+
+			<div class="table-responsive">
+		      <table class="table table-hover">
+		        <tr>
+		            <td><b>Unidad</b></td>
+		            <td><b>Nivel</b></td>
+		            <td><b>Cantidad</b></td>
+		            <td><b>Costo Unidad</b></td>
+		            <td><b>Costo Total</b></td>
+		            <td><b>Tiempo Unidad</b></td>
+		            <td><b>Tiempo Total</b></td>
+		        </tr>
+		        <tr ng-repeat="unit in dark | orderBy:'id' track by unit.id">
+		          <td><img ng-src="http://gillchristian.com/clash/img/troops/dark/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
+		          <td><select ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
+		          <td><input type="text" ng-model="unit.amount"> </td>
+		          <td>{{unit.cost[unit.lvl-1] | number}}</td>
+		          <td ><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'">{{unit.cost[unit.lvl-1] * unit.amount | number}}</div></td>
+		          <td>{{unit.time | creation_time}}</td>
+		          <td><div ng-show="(unit.time*unit.amount) != ''">{{unit.time * unit.amount | creation_time}}</div></td>
+		        </tr>
+		      </table>
+		    </div>
+
+		    <h3>Hecchizos</h3>
+
+		    <div class="table-responsive">
+		      <table class="table table-hover">
+		        <tr>
+		            <td><b>Unidad</b></td>
+		            <td><b>Nivel</b></td>
+		            <td><b>Cantidad</b></td>
+		            <td><b>Costo Unidad</b></td>
+		            <td><b>Costo Total</b></td>
+		            <td><b>Tiempo Unidad</b></td>
+		            <td><b>Tiempo Total</b></td>
+		        </tr>
+		        <tr ng-repeat="unit in spells | orderBy:'id' track by unit.id">
+		          <td><img ng-src="http://gillchristian.com/clash/img/troops/spells/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
+		          <td><select ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
+		          <td><input type="text" ng-model="unit.amount"> </td>
+		          <td>{{unit.cost[unit.lvl-1] | number}}</td>
+		          <td ><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'">{{unit.cost[unit.lvl-1] * unit.amount | number}}</div></td>
+		          <td>{{unit.time | creation_time}}</td>
+		          <td><div ng-show="(unit.time*unit.amount) != ''">{{unit.time * unit.amount | creation_time}}</div></td>
+		        </tr>
+		      </table>
+		    </div>
+		</div>
+
+</div>

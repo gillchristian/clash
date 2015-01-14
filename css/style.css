@@ -1,0 +1,13 @@
+
+.name-off-need li{
+    display:inline;
+}
+
+.quote {
+	font-style: italic;
+}
+
+.troop-img {
+	max-width: 30px;
+	max-height: 30px;
+}
