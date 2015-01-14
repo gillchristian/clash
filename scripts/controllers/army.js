@@ -53,6 +53,9 @@ angular.module('clashApp.controllers', [])
                         cantidad += aux;
                     };
                     break;
+                case 'total.troops':
+                    cantidad = $scope.cantidad('light') + $scope.cantidad('dark');
+                    break;
             }
             return cantidad;
         }
@@ -82,6 +85,9 @@ angular.module('clashApp.controllers', [])
                         aux = $scope.spells[i].cost[index] * $scope.spells[i].amount;
                         costo += aux;
                     };
+                    break;
+                case 'total.light':
+                    costo = $scope.costo('light') + $scope.costo('spells');
                     break;
             }
             return costo;

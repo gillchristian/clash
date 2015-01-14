@@ -1,6 +1,28 @@
 <h1 class="page-header">Army Calculator</h1>
 
-<h3 class="page-header">Army</h3>
+<h3>Army</h3>
+	<div class="table-responsive">
+		<table class="table table-hover">
+			<tr>
+				<td><b><span class="elixir">Elixir</span> (Cuartel / Hechizos / Total)</b></td>
+				<td><b>Elixir Oscuro</b></td>
+				<td><b>Cantidad Tropas</b></td>
+				<td><b>Cantidad Hechizos</b></td>
+				<td><b>Tiempo Cuartel</b></td>
+				<td><b>Tiempo Cuartel Oscuro</b></td>
+				<td><b>Tiempo Hechizos</b></td>
+			</tr>
+			<tr>
+				<td class="elixir">{{costo('light') | number}}  /  {{costo('spells') | number}}  /  {{costo('total.light') | number}}</td>
+				<td>{{costo('dark') | number}}</td>
+				<td>{{cantidad('total.troops')}}</td>
+				<td>{{cantidad('spells')}}</td>
+				<td>{{tiempo('light') | creation_time}}</td>
+				<td>{{tiempo('dark') | creation_time}}</td>
+				<td>{{tiempo('spells') | creation_time}}</td>
+			</tr>
+		</table>
+	</div>
 
 <div class="row">
 
