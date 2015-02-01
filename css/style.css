@@ -1,5 +1,5 @@
 
-.name-off-need li{
+.inline{
     display:inline;
 }
 
@@ -15,7 +15,37 @@
 .elixir {
 	color: #CC0066;
 }
+.dark-elixir {
+    color: #000;
+}
 
 .content {
 	color: #464342;
+}
+
+.footer {
+	padding-right: 10px;
+}
+
+.autor:link {
+    text-decoration: none;
+    color: #464342;
+}
+
+.autor:visited {
+    text-decoration: none;
+    color: #464342;
+}
+
+.autor:hover {
+    text-decoration: none;
+    color: #006064;
+}
+
+.autor:active {
+    text-decoration: none;
+}
+
+.limit{
+    color: #f00 !important;
 }

@@ -4,7 +4,7 @@ angular.module('clashApp.controllers', [])
   .controller('ArmyController', ['$scope', '$http', 'troopFactory',
     function ($scope, $http, troopFactory ){
 
-        $scope.selected = 1;    	
+
         $scope.services = {
             getLight: function(){
                 troopFactory.getLight()
@@ -23,6 +23,24 @@ angular.module('clashApp.controllers', [])
                     .success(function (data){
                         $scope.spells = data;
                     });
+            },
+            getBarracks: function (){
+                troopFactory.getBarracks()
+                    .success(function (data){
+                        $scope.light_barracks = data;
+                    })
+            },
+            getDarkBarracks: function (){
+                troopFactory.getDarkBarracks()
+                    .success(function (data){
+                        $scope.dark_barracks = data;
+                    })
+            },
+            getCamps: function (){
+                troopFactory.getCamps()
+                    .success(function (data){
+                        $scope.camps = data;
+                    })
             }
         }
         
@@ -30,7 +48,12 @@ angular.module('clashApp.controllers', [])
         $scope.services.getSpells();
         $scope.services.getLight();
         $scope.services.getDark();
+        $scope.services.getBarracks();
+        $scope.services.getDarkBarracks();
+        $scope.services.getCamps();
 
+
+        //Calculate the amount of troops
         $scope.cantidad = function (option) {
             var cantidad = 0;
             var aux = 0;
@@ -60,6 +83,7 @@ angular.module('clashApp.controllers', [])
             return cantidad;
         }
 
+        //Calculate the total cost
         $scope.costo = function (option) {
             var costo = 0;
             var aux = 0;
@@ -99,6 +123,7 @@ angular.module('clashApp.controllers', [])
             return costo;
         }
 
+        //Calculate the total time
         $scope.tiempo = function (option) {
             var tiempo = 0;
             switch (option) {
@@ -121,5 +146,32 @@ angular.module('clashApp.controllers', [])
             return tiempo;
         }
 
+        //Army max amount
+        $scope.max_amount = function () {
+            var max = 0;
+            if (typeof $scope.camps[0].capacity[$scope.camps[0].lvl] != 'undefined') {
+                max += $scope.camps[0].capacity[$scope.camps[0].lvl];
+            }
+            if (typeof $scope.camps[1].capacity[$scope.camps[1].lvl] != 'undefined'){
+                max += $scope.camps[1].capacity[$scope.camps[1].lvl];
+            }
+            if (typeof $scope.camps[2].capacity[$scope.camps[2].lvl] != 'undefined') {
+                max += $scope.camps[2].capacity[$scope.camps[2].lvl];
+            }
+            if (typeof $scope.camps[3].capacity[$scope.camps[3].lvl] != 'undefined' ) {
+                max += $scope.camps[3].capacity[$scope.camps[3].lvl];
+            }
+            return max;
+            
+        }
+
+        //Limit check
+        $scope.unit_limit = function () {
+            if ( $scope.max_amount() < $scope.cantidad('total.troops') ){
+                return true;
+            }
+        }
+
+        
 }
 ]);

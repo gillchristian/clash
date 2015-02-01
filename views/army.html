@@ -1,32 +1,60 @@
-<h1 class="page-header">Army Calculator</h1>
-
-<h3>Army</h3>
+<h3 class="page-header" >Calculá tu ejército</h3>
 	<div class="table-responsive">
 		<table class="table table-hover">
 			<tr>
 				<td><b><span class="elixir">Elixir</span> (Cuartel / Hechizos / Total)</b></td>
-				<td><b>Elixir Oscuro</b></td>
-				<td><b>Cantidad Tropas</b></td>
+				<td class="dark-elixir"><b>Elixir Oscuro</b></td>
+				<td ng-class="{limit : unit_limit()}"><b>Cantidad máxima de tropas</b></td>
+				<td ng-class="{limit : unit_limit()}"><b>Cantidad Tropas</b></td>
 				<td><b>Cantidad Hechizos</b></td>
-				<td><b>Tiempo Cuartel</b></td>
-				<td><b>Tiempo Cuartel Oscuro</b></td>
-				<td><b>Tiempo Hechizos</b></td>
 			</tr>
 			<tr>
-				<td class="elixir">{{costo('light') | number}}  /  {{costo('spells') | number}}  /  {{costo('total.light') | number}}</td>
-				<td>{{costo('dark') | number}}</td>
-				<td>{{cantidad('total.troops')}}</td>
+				<td><span class="elixir">{{costo('light') | number}}</span>  /  <span class="elixir">{{costo('spells') | number}}</span>  /  <span class="elixir">{{costo('total.light') | number}}</span></td>
+				<td class="dark-elixir">{{costo('dark') | number}}</td>
+				<td ng-class="{limit : unit_limit()}">{{max_amount()}}</td>
+				<td  ng-class="{limit : unit_limit()}">{{cantidad('total.troops')}}</td>
 				<td>{{cantidad('spells')}}</td>
-				<td>{{tiempo('light') | creation_time}}</td>
-				<td>{{tiempo('dark') | creation_time}}</td>
-				<td>{{tiempo('spells') | creation_time}}</td>
 			</tr>
+			
 		</table>
 	</div>
 
 <div class="row">
 
-	<div class="col-lg-6">
+	<div class="col-sm-4">
+		<h4>Elije el nivel de los Cuarteles:</h4>
+		<ul class="inline">
+			<li class="inline" ng-repeat="light_barrack in light_barracks">
+				<select ng-init = "light_barrack.lvl = light_barrack.lvls[0]" ng-model="light_barrack.lvl" ng-options="lvl for lvl in light_barrack.lvls"></select>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="col-sm-4">
+		<h4>Elije el nivel de los Cuarteles Oscuros:</h4>
+		<ul class="inline">
+			<li class="inline" ng-repeat="dark_barrack in dark_barracks">
+				<select ng-init = "dark_barrack.lvl = dark_barrack.lvls[0]" ng-model="dark_barrack.lvl" ng-options="lvl for lvl in dark_barrack.lvls"></select>
+			</li>
+		</ul>
+	</div>
+
+
+	<div class="col-sm-4">
+		<h4>Elije el nivel de los Campamentos:</h4>
+		<ul class="inline">
+			<li class="inline" ng-repeat="camp in camps">
+				<select ng-init = "camp.lvl = camp.lvls[0]" ng-model="camp.lvl" ng-options="lvl for lvl in camp.lvls"></select>
+			</li>
+		</ul>
+	</div>
+
+</div>
+
+
+<div class="row">
+
+	<div class="col-lg-7">
 	<h3>Cuartel</h3>
 
 		<div class="table-responsive">
@@ -42,8 +70,8 @@
 	        </tr>
 	        <tr ng-repeat="unit in light | orderBy:'id' track by unit.id">
 	          <td><img ng-src="http://gillchristian.com/clash/img/troops/light/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
-	          <td><select ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
-	          <td><input type="text" ng-model="unit.amount"> </td>
+	          <td><select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
+	          <td><input size="3" type="text" ng-model="unit.amount"> </td>
 	          <td class="elixir">{{unit.cost[unit.lvl-1] | number}}</td>
 	          <td class="elixir"><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'">{{unit.cost[unit.lvl-1] * unit.amount | number}}</div></td>
 	          <td>{{unit.time | creation_time}}</td>
@@ -63,7 +91,7 @@
 
 	</div>
 
-	<div class="col-lg-6">
+	<div class="col-lg-5">
 		<h3>Cuartel Oscuro</h3>
 
 			<div class="table-responsive">
@@ -72,17 +100,17 @@
 		            <td><b>Unidad</b></td>
 		            <td><b>Nivel</b></td>
 		            <td><b>Cantidad</b></td>
-		            <td><b>Costo Unidad</b></td>
-		            <td><b>Costo Total</b></td>
+		            <td class="dark-elixir"><b>Costo Unidad</b></td>
+		            <td class="dark-elixir"><b>Costo Total</b></td>
 		            <td><b>Tiempo Unidad</b></td>
 		            <td><b>Tiempo Total</b></td>
 		        </tr>
 		        <tr ng-repeat="unit in dark | orderBy:'id' track by unit.id">
 		          <td><img ng-src="http://gillchristian.com/clash/img/troops/dark/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
-		          <td><select ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
-		          <td><input type="text" ng-model="unit.amount"> </td>
-		          <td>{{unit.cost[unit.lvl-1] | number}}</td>
-		          <td ><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'">{{unit.cost[unit.lvl-1] * unit.amount | number}}</div></td>
+		          <td><select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
+		          <td><input size="3" type="text" ng-model="unit.amount"> </td>
+		          <td class="dark-elixir">{{unit.cost[unit.lvl-1] | number}}</td>
+		          <td class="dark-elixir"><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'">{{unit.cost[unit.lvl-1] * unit.amount | number}}</div></td>
 		          <td>{{unit.time | creation_time}}</td>
 		          <td><div ng-show="(unit.time*unit.amount) != ''">{{unit.time * unit.amount | creation_time}}</div></td>
 		        </tr>
@@ -113,8 +141,8 @@
 		        </tr>
 		        <tr ng-repeat="unit in spells | orderBy:'id' track by unit.id">
 		          <td><img ng-src="http://gillchristian.com/clash/img/troops/spells/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
-		          <td><select ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
-		          <td><input type="text" ng-model="unit.amount"> </td>
+		          <td><select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
+		          <td><input size="3" type="text" ng-model="unit.amount"> </td>
 		          <td class="elixir">{{unit.cost[unit.lvl-1] | number}}</td>
 		          <td class="elixir" ><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'">{{unit.cost[unit.lvl-1] * unit.amount | number}}</div></td>
 		          <td>{{unit.time | creation_time}}</td>
