@@ -49,3 +49,8 @@
 .limit{
     color: #f00 !important;
 }
+
+th {
+    text-align: center !important;
+    font-size: 120%;
+}

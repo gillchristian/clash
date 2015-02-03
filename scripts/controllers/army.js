@@ -41,6 +41,13 @@ angular.module('clashApp.controllers', [])
                     .success(function (data){
                         $scope.camps = data;
                     })
+            },
+            getFactory: function (){
+                troopFactory.getFactory()
+                    .success(function (data){
+                        $scope.spell_factory = data;
+                        colsole.log('spell factory: ' + $scope.spell_factory);
+                    })
             }
         }
         
@@ -51,6 +58,7 @@ angular.module('clashApp.controllers', [])
         $scope.services.getBarracks();
         $scope.services.getDarkBarracks();
         $scope.services.getCamps();
+        $scope.services.getFactory();
 
 
         //Calculate the amount of troops
@@ -147,29 +155,49 @@ angular.module('clashApp.controllers', [])
         }
 
         //Army max amount
-        $scope.max_amount = function () {
+        $scope.max_amount = function (option) {
             var max = 0;
-            if (typeof $scope.camps[0].capacity[$scope.camps[0].lvl] != 'undefined') {
-                max += $scope.camps[0].capacity[$scope.camps[0].lvl];
-            }
-            if (typeof $scope.camps[1].capacity[$scope.camps[1].lvl] != 'undefined'){
-                max += $scope.camps[1].capacity[$scope.camps[1].lvl];
-            }
-            if (typeof $scope.camps[2].capacity[$scope.camps[2].lvl] != 'undefined') {
-                max += $scope.camps[2].capacity[$scope.camps[2].lvl];
-            }
-            if (typeof $scope.camps[3].capacity[$scope.camps[3].lvl] != 'undefined' ) {
-                max += $scope.camps[3].capacity[$scope.camps[3].lvl];
+            switch (option){
+                case 'troops':
+                    if (typeof $scope.camps[0].capacity[$scope.camps[0].lvl] != 'undefined') {
+                        max += $scope.camps[0].capacity[$scope.camps[0].lvl];
+                    }
+                    if (typeof $scope.camps[1].capacity[$scope.camps[1].lvl] != 'undefined'){
+                        max += $scope.camps[1].capacity[$scope.camps[1].lvl];
+                    }
+                    if (typeof $scope.camps[2].capacity[$scope.camps[2].lvl] != 'undefined') {
+                        max += $scope.camps[2].capacity[$scope.camps[2].lvl];
+                    }
+                    if (typeof $scope.camps[3].capacity[$scope.camps[3].lvl] != 'undefined' ) {
+                        max += $scope.camps[3].capacity[$scope.camps[3].lvl];
+                    }
+                    break;
+                case 'spells':
+                    if (typeof $scope.spell_factory[0].capacity[$scope.spell_factory[0].lvl] != 'undefined' ) {
+                        max = $scope.spell_factory[0].capacity[$scope.spell_factory[0].lvl];
+                    }
+                    break;
             }
             return max;
             
         }
 
         //Limit check
-        $scope.unit_limit = function () {
-            if ( $scope.max_amount() < $scope.cantidad('total.troops') ){
-                return true;
+        $scope.limit = function (option) {
+            var answer = false;
+            switch (option){
+                case 'troops':
+                    if ( $scope.max_amount('troops') < $scope.cantidad('total.troops') ){
+                        answer = true;
+                    }
+                    break;
+                case 'spells':
+                    if ( $scope.max_amount('spells') < $scope.cantidad('spells') ){
+                        answer = true;
+                    }
+                    break;
             }
+            return answer;
         }
 
         

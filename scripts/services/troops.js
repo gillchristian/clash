@@ -44,6 +44,13 @@ angular.module('clashApp.services', [])
                   url: location + '/clash/resources/camps.php',
                   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                });
+            },
+            getFactory: function () {
+               return $http ({
+                  method: 'GET',
+                  url: location + '/clash/resources/spellfactory.php',
+                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+               });
             }
 
          }
