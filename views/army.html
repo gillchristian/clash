@@ -1,39 +1,57 @@
 <h3 class="page-header" >Calculá tu ejército</h3>
-	<div class="table-responsive">
-		<table class="table table-hover">
-			<tr>
-				<th colspan="4">Costos</th>
-				<th colspan="4">Cantidades</th>
-			</tr>
-			<tr>
-				<td class="elixir"><b>Cuarteles</b></td>
-				<td class="elixir"><b>Hechizos</b></td>
-				<td class="elixir"><b>Total</b></td>
-				<td class="dark-elixir"><b>Cuarteles oscuros</b></td>
-				<td ng-class="{limit : limit('troops')}"><b>Tropas</b></td>
-				<td ng-class="{limit : limit('troops')}"><b>Máximo de tropas</b></td>
-				<td ng-class="{limit : limit('spells')}"><b>Hechizos</b></td>
-				<td ng-class="{limit : limit('spells')}"><b>Máximo hechizos</b></td>
-			</tr>
-			<tr>
-				<td class="elixir">{{costo('light') | number}}</td>
-				<td class="elixir"><b>{{costo('spells') | number}}</b></td>
-				<td class="elixir"><b>{{costo('total.light') | number}}</b></td>
-				<td class="dark-elixir">{{costo('dark') | number}}</td>
-				<td ng-class="{limit : limit('troops')}">{{cantidad('total.troops')}}</td>
-				<td ng-class="{limit : limit('troops')}">{{max_amount('troops')}}</td>
-				<td ng-class="{limit : limit('spells')}">{{cantidad('spells')}}</td>
-				<td ng-class="{limit : limit('spells')}">{{max_amount('spells')}}</td>
-			</tr>
-			
-		</table>
-	</div>
 
+<div class="row">
+	<div class="col-sm-6">
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tr>
+					<th colspan="4">Costos</th>
+				</tr>
+				<tr>
+					<td class="elixir"><b>Cuarteles</b></td>
+					<td class="elixir"><b>Hechizos</b></td>
+					<td class="elixir"><b>Total</b></td>
+					<td class="dark-elixir"><b>Cuarteles oscuros</b></td>
+				</tr>
+				<tr>
+					<td class="elixir">{{costo('light') | number}}</td>
+					<td class="elixir"><b>{{costo('spells') | number}}</b></td>
+					<td class="elixir"><b>{{costo('total.light') | number}}</b></td>
+					<td class="dark-elixir">{{costo('dark') | number}}</td>
+				</tr>
+				
+			</table>
+		</div>	
+	</div>
+	
+	<div class="col-sm-6">
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<tr>
+					<th colspan="4">Cantidad de Tropas</th>
+				</tr>
+				<tr>
+					<td ng-class="{limit : limit('troops')}"><b>Tropas</b></td>
+					<td ng-class="{limit : limit('troops')}"><b>Máximo de tropas</b></td>
+					<td ng-class="{limit : limit('spells')}"><b>Hechizos</b></td>
+					<td ng-class="{limit : limit('spells')}"><b>Máximo hechizos</b></td>
+				</tr>
+				<tr>
+					<td ng-class="{limit : limit('troops')}">{{cantidad('total.troops')}}</td>
+					<td ng-class="{limit : limit('troops')}">{{max_amount('troops')}}</td>
+					<td ng-class="{limit : limit('spells')}">{{cantidad('spells')}}</td>
+					<td ng-class="{limit : limit('spells')}">{{max_amount('spells')}}</td>
+				</tr>
+				
+			</table>
+		</div>	
+	</div>
+</div>
 
 <h4>Elije el nivel tus edificios:</h4>
 <div class="row">
 
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		<h4>Campamentos</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="camp in camps">
@@ -42,7 +60,7 @@
 		</ul>
 	</div>
 
-	<div class="col-sm-2">
+	<div class="col-sm-4">
 		<h4>Caldero de hechizos</h4>
 		<ul class="inline">
 			<li class="inline">
