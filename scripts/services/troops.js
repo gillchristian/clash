@@ -1,3 +1,5 @@
+//Factory for troops and buildings data.
+
 angular.module('clashApp.services', [])
    .factory('troopFactory', ['$http',
       function ($http) {

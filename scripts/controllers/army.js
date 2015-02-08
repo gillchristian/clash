@@ -4,7 +4,7 @@ angular.module('clashApp.controllers', [])
   .controller('ArmyController', ['$scope', '$http', 'troopFactory',
     function ($scope, $http, troopFactory ){
 
-
+        //Services manipulation
         $scope.services = {
             getLight: function(){
                 troopFactory.getLight()
@@ -51,7 +51,7 @@ angular.module('clashApp.controllers', [])
             }
         }
         
-        // Execute services to get data
+        //Execute services to get data
         $scope.services.getSpells();
         $scope.services.getLight();
         $scope.services.getDark();
@@ -154,7 +154,7 @@ angular.module('clashApp.controllers', [])
             return tiempo;
         }
 
-        //Army max amount
+        //Max amount of troops and spells calculation
         $scope.max_amount = function (option) {
             var max = 0;
             switch (option){
@@ -182,7 +182,7 @@ angular.module('clashApp.controllers', [])
             
         }
 
-        //Limit check
+        //Troop and spells max amount exceeded check
         $scope.limit = function (option) {
             var answer = false;
             switch (option){
@@ -199,7 +199,5 @@ angular.module('clashApp.controllers', [])
             }
             return answer;
         }
-
-        
 }
 ]);

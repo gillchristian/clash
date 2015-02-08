@@ -1,5 +1,7 @@
 'use strict';
 
+//Filter to show time in "xd xh xm xs" format
+
 angular.module('clashApp.filters', [])
     .filter('creation_time', function (){
         return function(seconds) {

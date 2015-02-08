@@ -14,7 +14,7 @@ angular
   angular.module('clashApp')
     .config(function($stateProvider, $urlRouterProvider) {
 
-      // For any unmatched url, redirect to /state1
+      // For any unmatched url, redirect to /
       $urlRouterProvider.otherwise("/");
       
       $stateProvider
