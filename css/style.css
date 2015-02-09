@@ -3,6 +3,16 @@
     color: #464342;
 }
 
+@font-face {
+    font-family: ClashFont;
+    src: url(fonts/supercell-magic-webfont.ttf);
+}
+
+.clash-font {
+    font-family: ClashFont,Courier !important;
+    color: #FFD700 !important;
+}
+
 /* Army view */
     
     /* Select */
