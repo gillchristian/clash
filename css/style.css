@@ -13,6 +13,10 @@
     color: #FFD700 !important;
 }
 
+.front {
+    z-index: 1 !important;
+}
+
 /* Army view */
     
     /* Select */
