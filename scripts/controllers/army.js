@@ -4,6 +4,12 @@ angular.module('clashApp.controllers', [])
   .controller('ArmyController', ['$scope', '$http', 'troopFactory',
     function ($scope, $http, troopFactory ){
 
+        // Test to fix undefined scopes
+        // Init Variables 
+        $scope.light = [];
+        $scope.dark = [];
+        $scope.spells = [];
+
         //Services manipulation
         $scope.services = {
             getLight: function(){
