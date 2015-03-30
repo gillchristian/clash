@@ -98,11 +98,13 @@ angular.module('clashApp.controllers', [])
             var index = 0;
             switch (option) {
                 case 'light':
-                    for (var i = $scope.light.length - 1; i >= 0; i--) {
-                        index = $scope.light[i].lvl-1;
-                        if (typeof $scope.light[i].cost[index] != 'undefined' && typeof $scope.light[i].amount != 'undefined'){
-                                aux = $scope.light[i].cost[index] * $scope.light[i].amount;
-                                costo += aux;
+                    if ($scope.light.length !== 'undefined'){
+                        for (var i = $scope.light.length - 1; i >= 0; i--) {
+                            index = $scope.light[i].lvl-1;
+                            if (typeof $scope.light[i].cost[index] != 'undefined' && typeof $scope.light[i].amount != 'undefined'){
+                                    aux = $scope.light[i].cost[index] * $scope.light[i].amount;
+                                    costo += aux;
+                            }
                         }
                     }
                     break;
@@ -199,5 +201,7 @@ angular.module('clashApp.controllers', [])
             }
             return answer;
         }
+
+        //Barrack asigner
 }
 ]);
