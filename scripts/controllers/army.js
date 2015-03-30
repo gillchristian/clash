@@ -4,11 +4,13 @@ angular.module('clashApp.controllers', [])
   .controller('ArmyController', ['$scope', '$http', 'troopFactory',
     function ($scope, $http, troopFactory ){
 
-        // Test to fix undefined scopes
         // Init Variables 
         $scope.light = [];
         $scope.dark = [];
         $scope.spells = [];
+        $scope.max_amount = [];
+        $scope.spell_factory = [];
+        $scope.spell_factory.capacity = [];
 
         //Services manipulation
         $scope.services = {
@@ -52,7 +54,7 @@ angular.module('clashApp.controllers', [])
                 troopFactory.getFactory()
                     .success(function (data){
                         $scope.spell_factory = data;
-                        colsole.log('spell factory: ' + $scope.spell_factory);
+                        console.log('spell factory: ' , $scope.spell_factory);
                     })
             }
         }
@@ -104,20 +106,18 @@ angular.module('clashApp.controllers', [])
             var index = 0;
             switch (option) {
                 case 'light':
-                    if ($scope.light.length !== 'undefined'){
                         for (var i = $scope.light.length - 1; i >= 0; i--) {
                             index = $scope.light[i].lvl-1;
-                            if (typeof $scope.light[i].cost[index] != 'undefined' && typeof $scope.light[i].amount != 'undefined'){
+                            if (typeof $scope.light[i].cost[index] !== 'undefined' && typeof $scope.light[i].amount !== 'undefined'){
                                     aux = $scope.light[i].cost[index] * $scope.light[i].amount;
                                     costo += aux;
                             }
                         }
-                    }
                     break;
                 case 'dark':
                     for (var i = $scope.dark.length - 1; i >= 0; i--) {
                         index = $scope.dark[i].lvl-1;
-                        if (typeof $scope.dark[i].cost[index] != 'undefined' && typeof $scope.dark[i].amount != 'undefined'){
+                        if (typeof $scope.dark[i].cost[index] !== 'undefined' && typeof $scope.dark[i].amount !== 'undefined'){
                             aux = $scope.dark[i].cost[index] * $scope.dark[i].amount;
                             costo += aux;
                         }
@@ -126,7 +126,7 @@ angular.module('clashApp.controllers', [])
                 case 'spells':
                     for (var i = $scope.spells.length - 1; i >= 0; i--) {
                         index = $scope.spells[i].lvl-1;
-                        if (typeof $scope.spells[i].cost[index] != 'undefined' && typeof $scope.spells[i].amount != 'undefined'){
+                        if (typeof $scope.spells[i].cost[index] !== 'undefined' && typeof $scope.spells[i].amount !== 'undefined'){
                             aux = $scope.spells[i].cost[index] * $scope.spells[i].amount;
                             costo += aux;
                         }
@@ -167,23 +167,15 @@ angular.module('clashApp.controllers', [])
             var max = 0;
             switch (option){
                 case 'troops':
-                    if (typeof $scope.camps[0].capacity[$scope.camps[0].lvl] != 'undefined') {
-                        max += $scope.camps[0].capacity[$scope.camps[0].lvl];
-                    }
-                    if (typeof $scope.camps[1].capacity[$scope.camps[1].lvl] != 'undefined'){
-                        max += $scope.camps[1].capacity[$scope.camps[1].lvl];
-                    }
-                    if (typeof $scope.camps[2].capacity[$scope.camps[2].lvl] != 'undefined') {
-                        max += $scope.camps[2].capacity[$scope.camps[2].lvl];
-                    }
-                    if (typeof $scope.camps[3].capacity[$scope.camps[3].lvl] != 'undefined' ) {
-                        max += $scope.camps[3].capacity[$scope.camps[3].lvl];
+                    if (typeof $scope.camps !== 'undefined'){
+                        for (var i = $scope.camps.length - 1; i >= 0; i--) {
+                            max += $scope.camps[i].capacity[$scope.camps[i].lvl];
+                        };
+                        
                     }
                     break;
                 case 'spells':
-                    if (typeof $scope.spell_factory[0].capacity[$scope.spell_factory[0].lvl] != 'undefined' ) {
-                        max = $scope.spell_factory[0].capacity[$scope.spell_factory[0].lvl];
-                    }
+                        max = $scope.spell_factory.capacity[$scope.spell_factory.lvl];
                     break;
             }
             return max;
