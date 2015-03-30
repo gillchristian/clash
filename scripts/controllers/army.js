@@ -54,7 +54,6 @@ angular.module('clashApp.controllers', [])
                 troopFactory.getFactory()
                     .success(function (data){
                         $scope.spell_factory = data;
-                        console.log('spell factory: ' , $scope.spell_factory);
                     })
             }
         }
@@ -200,6 +199,5 @@ angular.module('clashApp.controllers', [])
             return answer;
         }
 
-        //Barrack asigner
 }
 ]);
