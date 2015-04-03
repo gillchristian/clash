@@ -6,53 +6,60 @@ angular.module('clashApp.services', [])
          var location = window.location.protocol + '//' + 'gillchristian.com';
          return {
             getLight: function () {
-               return $http({
-                  method: 'GET',
-                  url: location + '/clash/resources/light.php',
-                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-               });
+               var response = [];
+               return $http.get( location + '/clash/resources/lightTroops.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
             },
             getDark: function () {
-               return $http ({
-                  method: 'GET',
-                  url: location + '/clash/resources/dark.php',
-                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-               });
+               var response = [];
+               return $http.get( location + '/clash/resources/darkTroops.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
             },
             getSpells: function () {
-               return $http ({
-                  method: 'GET',
-                  url: location + '/clash/resources/spells.php',
-                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-               });
+               var response = [];
+               return $http.get( location + '/clash/resources/spells.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
             },
             getBarracks: function () {
-               return $http ({
-                  method: 'GET',
-                  url: location + '/clash/resources/barracks.php',
-                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-               });
+               var response = [];
+               return $http.get( location + '/clash/resources/barracks.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
             },
             getDarkBarracks: function () {
-               return $http ({
-                  method: 'GET',
-                  url: location + '/clash/resources/darkbarracks.php',
-                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-               });
+               var response = [];
+               return $http.get( location + '/clash/resources/darkBarracks.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
             },
             getCamps: function () {
-               return $http ({
-                  method: 'GET',
-                  url: location + '/clash/resources/camps.php',
-                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-               });
+               var response = [];
+               return $http.get( location + '/clash/resources/camps.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
             },
             getFactory: function () {
-               return $http ({
-                  method: 'GET',
-                  url: location + '/clash/resources/spellfactory.php',
-                  headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-               });
+               var response = [];
+               return $http.get( location + '/clash/resources/spellsFactory.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
             }
 
          }
