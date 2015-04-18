@@ -26,7 +26,7 @@ angular
         .state('army', {
           url: '/',
           templateUrl: 'views/army.html',
-          controller: 'ArmyController'
+          controller: 'CalculatorController'
         });
       });
 

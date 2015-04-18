@@ -1,16 +1,14 @@
 'use strict';
 
 angular.module('clashApp.controllers', [])
-  .controller('ArmyController', ['$scope', '$http', 'troopFactory',
-    function ($scope, $http, troopFactory ){
+  .controller('CalculatorController', ['$scope', '$http', 'troopFactory', 'buildingFactory',
+    function ($scope, $http, troopFactory, buildingFactory ){
 
         // Init Variables 
         $scope.light = [];
         $scope.dark = [];
         $scope.spells = [];
         $scope.max_amount = [];
-        $scope.spell_factory = [];
-        $scope.spell_factory.capacity = [];
 
         //Services manipulation
         $scope.services = {
@@ -33,25 +31,25 @@ angular.module('clashApp.controllers', [])
                     });
             },
             getBarracks: function (){
-                troopFactory.getBarracks()
+                buildingFactory.getBarracks()
                     .success(function (data){
                         $scope.light_barracks = data;
                     })
             },
             getDarkBarracks: function (){
-                troopFactory.getDarkBarracks()
+                buildingFactory.getDarkBarracks()
                     .success(function (data){
                         $scope.dark_barracks = data;
                     })
             },
             getCamps: function (){
-                troopFactory.getCamps()
+                buildingFactory.getCamps()
                     .success(function (data){
                         $scope.camps = data;
                     })
             },
             getFactory: function (){
-                troopFactory.getFactory()
+                buildingFactory.getFactory()
                     .success(function (data){
                         $scope.spell_factory = data;
                     })
@@ -174,7 +172,9 @@ angular.module('clashApp.controllers', [])
                     }
                     break;
                 case 'spells':
-                        max = $scope.spell_factory.capacity[$scope.spell_factory.lvl];
+                    if (typeof $scope.spell_factory.capacity !== 'undefined'){
+                            max = $scope.spell_factory.capacity[$scope.spell_factory.lvl];
+                    };
                     break;
             }
             return max;
