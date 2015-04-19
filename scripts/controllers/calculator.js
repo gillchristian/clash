@@ -66,6 +66,36 @@ angular.module('clashApp.controllers', [])
         $scope.services.getFactory();
 
 
+        //Calculate the space ocupated by troops
+        $scope.spacing = function (option) {
+            var spacing = 0;
+            var aux = 0;
+            switch (option) {
+                case 'light':
+                    for (var i = $scope.light.length - 1; i >= 0; i--) {
+                        aux = $scope.light[i].amount * $scope.light[i].space;
+                        spacing += aux;
+                    }
+                    break;
+                case 'dark':
+                    for (var i = $scope.dark.length - 1; i >= 0; i--) {
+                        aux = $scope.dark[i].amount * $scope.dark[i].space;
+                        spacing += aux;
+                    }
+                    break;
+                case 'spells':
+                    for (var i = $scope.spells.length - 1; i >= 0; i--) {
+                        aux = $scope.spells[i].amount * $scope.spells[i].space;
+                        spacing += aux;
+                    }
+                    break;
+                case 'total.troops':
+                    spacing = $scope.spacing('light') + $scope.spacing('dark');
+                    break;
+            }
+            return spacing;
+        }
+
         //Calculate the amount of troops
         $scope.cantidad = function (option) {
             var cantidad = 0;
@@ -73,24 +103,21 @@ angular.module('clashApp.controllers', [])
             switch (option) {
                 case 'light':
                     for (var i = $scope.light.length - 1; i >= 0; i--) {
-                        aux = $scope.light[i].amount * $scope.light[i].space;
+                        aux = $scope.light[i].amount;
                         cantidad += aux;
                     }
                     break;
                 case 'dark':
                     for (var i = $scope.dark.length - 1; i >= 0; i--) {
-                        aux = $scope.dark[i].amount * $scope.dark[i].space;
+                        aux = $scope.dark[i].amount;
                         cantidad += aux;
                     }
                     break;
                 case 'spells':
                     for (var i = $scope.spells.length - 1; i >= 0; i--) {
-                        aux = $scope.spells[i].amount * $scope.spells[i].space;
+                        aux = $scope.spells[i].amount;
                         cantidad += aux;
                     }
-                    break;
-                case 'total.troops':
-                    cantidad = $scope.cantidad('light') + $scope.cantidad('dark');
                     break;
             }
             return cantidad;
@@ -172,9 +199,11 @@ angular.module('clashApp.controllers', [])
                     }
                     break;
                 case 'spells':
-                    if (typeof $scope.spell_factory.capacity !== 'undefined'){
-                            max = $scope.spell_factory.capacity[$scope.spell_factory.lvl];
-                    };
+                        if (typeof $scope.spell_factory !== 'undefined') {
+                            for (var i = $scope.spell_factory.length - 1; i >= 0; i--) {
+                                max = $scope.spell_factory[i].capacity[$scope.spell_factory[i].lvl];
+                            };    
+                        };                    
                     break;
             }
             return max;
@@ -186,18 +215,28 @@ angular.module('clashApp.controllers', [])
             var answer = false;
             switch (option){
                 case 'troops':
-                    if ( $scope.max_amount('troops') < $scope.cantidad('total.troops') ){
+                    if ( $scope.max_amount('troops') < $scope.spacing('total.troops') ){
                         answer = true;
                     }
                     break;
                 case 'spells':
-                    if ( $scope.max_amount('spells') < $scope.cantidad('spells') ){
+                    if ( $scope.max_amount('spells') < $scope.spacing('spells') ){
                         answer = true;
                     }
                     break;
             }
             return answer;
         }
+
+
+        /*$scope.troopsAsignment = function () {
+            for (var i = $scope.cantidad('light') - 1; i >= 0; i--) {
+
+                for (var i = 0; i <= $scope.availiable_barracks(); i++) {
+                    $scope.light_barracks[i].lvl
+                };
+            };
+        }*/
 
 }
 ]);

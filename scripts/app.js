@@ -23,9 +23,9 @@ angular
           templateUrl: 'views/home.html',
           controller: 'HomeController'
         })*/
-        .state('army', {
+        .state('calculator', {
           url: '/',
-          templateUrl: 'views/army.html',
+          templateUrl: 'views/calculator.html',
           controller: 'CalculatorController'
         });
       });
