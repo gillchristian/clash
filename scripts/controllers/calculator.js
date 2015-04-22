@@ -6,7 +6,10 @@ angular.module('clashApp.controllers', [])
 
         // Init Variables 
         $scope.light = [];
+        $scope.light_barracks = [];
+        $scope.dark_barracks = [];
         $scope.dark = [];
+        $scope.dark.amount = [];
         $scope.spells = [];
         $scope.max_amount = [];
 
@@ -123,6 +126,7 @@ angular.module('clashApp.controllers', [])
             return cantidad;
         }
 
+
         //Calculate the total cost
         $scope.costo = function (option) {
             var costo = 0;
@@ -228,15 +232,201 @@ angular.module('clashApp.controllers', [])
             return answer;
         }
 
+        //Calculate the total unite queue in a barrack
+        $scope.barrack_total = function (type, index) {
+            var cantidad = 0;
+            switch (type) {
+                case 'light':
+                    for (var i = 10; i > 0; i--) {
+                        cantidad += $scope.light_barracks[index].amount[i];
+                    }
+                    break;
+                case 'dark':
+                    for (var i = 6; i > 0; i--) {
+                        cantidad += $scope.dark_barracks[index].amount[i];
+                    }
+                    break;
+            }
+            return cantidad;
+        }
 
-        /*$scope.troopsAsignment = function () {
-            for (var i = $scope.cantidad('light') - 1; i >= 0; i--) {
+        //Calculate the total time per barrack
+        $scope.barrack_time = function (type, index) {
+            var tiempo = 0;
+            switch (type) {
+                case 'light':
+                        for (var i = 10; i > 0; i--) {
+                            tiempo += ($scope.light[i-1].time * $scope.light_barracks[index].amount[i]);
+                        }
+                    break;
+                case 'dark':
+                    for (var i = 6; i > 0; i--) {
+                        tiempo += ($scope.dark[i-1].time * $scope.dark_barracks[index].amount[i]);
+                    }
+                    break;
+            }
+            return tiempo;
+        }
 
-                for (var i = 0; i <= $scope.availiable_barracks(); i++) {
-                    $scope.light_barracks[i].lvl
-                };
+        //Troops assignment to barracks methods to maximize efficiency in production time
+        $scope.troopsAsignment = function (type) {
+            var check = false;
+            
+            switch(type){
+                case 'light':
+                    for (var i = $scope.light.length - 1; i >= 0; i--) {
+                        for (var g = $scope.light_barracks.length - 1; g >= 0; g--) {
+                                $scope.light_barracks[g].amount[$scope.light[i].id] = 0;
+                            };
+                    };
+
+                    for (var i = $scope.light.length - 1; i >= 0; i--) {
+                        for (var f = $scope.light_barracks.length - 1; f >= 0; f--) {
+                            if ($scope.light_barracks[f].lvl >= $scope.light[i].id){
+                                check = true;
+                            }
+                        };
+
+                        if (check) {
+                            if ($scope.light[i].amount > 0) {
+                                
+                                $scope.asing_unit('light' ,i, $scope.light[i].amount);
+                            };
+                        };
+                    };
+                    break;
+                
+                case 'dark':
+                    for (var i = $scope.dark.length - 1; i >= 0; i--) {
+                        for (var g = $scope.dark_barracks.length - 1; g >= 0; g--) {
+                                $scope.dark_barracks[g].amount[$scope.dark[i].id] = 0;
+                            };
+                    };
+
+                    for (var i = $scope.dark.length - 1; i >= 0; i--) {
+                        for (var f = $scope.dark_barracks.length - 1; f >= 0; f--) {
+                            if ($scope.dark_barracks[f].lvl >= $scope.dark[i].id){
+                                check = true;
+                            }
+                        };
+
+                        if (check) {
+                            if ($scope.dark[i].amount > 0) {
+                                
+                                $scope.asing_unit('dark' ,i, $scope.dark[i].amount);
+                            };
+                        };
+                    };
+                    break;
+            }
+        }
+
+        $scope.asing_unit = function (type, index, amount) {
+            var barrack_index;
+
+            switch (type){
+                case 'light':
+                    for (var i = 0; i < amount; i++) {
+                        
+                        barrack_index = $scope.select_barrack('light',index);
+                        if ($scope.barrack_total('light', barrack_index) + $scope.light[index].space <= $scope.light_barracks[barrack_index].capacity[$scope.light_barracks[barrack_index].lvl]) {
+                            $scope.light_barracks[barrack_index].amount[$scope.light[index].id]++;
+                        };
+                    };
+                    break;
+                
+                case 'dark':
+                    for (var i = 0; i < amount; i++) {
+                            
+                            barrack_index = $scope.select_barrack('dark',index);
+                            if ($scope.barrack_total('dark', barrack_index) + $scope.dark[index].space <= $scope.dark_barracks[barrack_index].capacity[$scope.dark_barracks[barrack_index].lvl]) {
+                                $scope.dark_barracks[barrack_index].amount[$scope.dark[index].id]++;
+                            };
+                        };
+                        break;
+            }
+        }
+
+        $scope.select_barrack = function (type, index) {
+            var diference = 10000000;
+            var lower_barrack = 0;
+            var conditionA, conditionB;
+            
+            $scope.available_barracks = [];
+
+            switch(type) {
+                case 'light':
+                    for (var i = 0; i < $scope.light_barracks.length; i++) {
+                        conditionA= $scope.light[index].id <= $scope.light_barracks[i].lvl;
+                        conditionB = ($scope.light_barracks[i].capacity[$scope.light_barracks[i].lvl] - $scope.barrack_total('light',i)) >= $scope.light[index].space;
+                        if (conditionA && conditionB) {
+                            $scope.available_barracks.push(i);
+                        }
+                    };
+
+                    for (var i = 0; i < $scope.available_barracks.length; i++) {
+                        
+                        if ( ($scope.barrack_time('light', i) + $scope.light[index].time) < diference ) {
+                            lower_barrack = $scope.available_barracks[i];
+                            diference = $scope.barrack_time('light', i) + $scope.light[index].time;
+                        };
+                    };
+                    break;
+
+                case 'dark':
+                    for (var i = 0; i < $scope.dark_barracks.length; i++) {
+                        conditionA= $scope.dark[index].id <= $scope.dark_barracks[i].lvl;
+                        conditionB = ($scope.dark_barracks[i].capacity[$scope.dark_barracks[i].lvl] - $scope.barrack_total('dark',i)) >= $scope.dark[index].space;
+                        if (conditionA && conditionB) {
+                            $scope.available_barracks.push(i);
+                        }
+                    };
+
+                    for (var i = 0; i < $scope.available_barracks.length; i++) {
+                        
+                        if ( ($scope.barrack_time('dark', i) + $scope.dark[index].time) < diference ) {
+                            lower_barrack = $scope.available_barracks[i];
+                            diference = $scope.barrack_time('dark', i) + $scope.dark[index].time;
+                        };
+                    };
+                    break;
+            }
+            
+            return lower_barrack;
+
+        }
+
+        //Watch light and dark troops totals to trigger troop asignment to barracks 
+        $scope.$watch( "spacing('light')", function(newVal, oldVal){
+            if (!newVal) return;
+            var check = false;
+
+            for (var i = $scope.light_barracks.length - 1; i >= 0; i--) {
+                if ($scope.light_barracks[i].lvl > 0){
+                    check = true;
+                }
             };
-        }*/
+            if (check) {
+                $scope.troopsAsignment('light');
+            }
+            
+        });
+
+        $scope.$watch( "spacing('dark')", function(newVal, oldVal){
+            if (!newVal) return;
+            var check = false;
+
+            for (var i = $scope.dark_barracks.length - 1; i >= 0; i--) {
+                if ($scope.dark_barracks[i].lvl > 0){
+                    check = true;
+                }
+            };
+            if (check) {
+                $scope.troopsAsignment('dark');
+            }
+            
+        });
+
 
 }
 ]);

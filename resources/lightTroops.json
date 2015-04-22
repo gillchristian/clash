@@ -8,7 +8,8 @@
     "time": 20,
     "space": 1,
     "amount": ""
-}, {
+},
+{
     "id": 2,
     "unit": "archer",
     "name": "Archer",
@@ -18,7 +19,8 @@
     "time": 25,
     "space": 1,
     "amount": ""
-}, {
+},
+{
     "id": 3,
     "unit": "goblin",
     "name": "Goblin",
@@ -28,7 +30,8 @@
     "time": 30,
     "space": 1,
     "amount": ""
-}, {
+},
+{
     "id": 4,
     "unit": "giant",
     "name": "Giant",
@@ -38,7 +41,8 @@
     "time": 120,
     "space": 5,
     "amount": ""
-}, {
+},
+{
     "id": 5,
     "unit": "wallbreaker",
     "name": "Wall Breaker",
@@ -48,7 +52,8 @@
     "time": 120,
     "space": 2,
     "amount": ""
-}, {
+},
+{
     "id": 6,
     "unit": "balloon",
     "name": "Balloon",
@@ -58,7 +63,8 @@
     "time": 480,
     "space": 5,
     "amount": ""
-}, {
+},
+{
     "id": 7,
     "unit": "wizard",
     "name": "Wizard",
@@ -68,7 +74,8 @@
     "time": 480,
     "space": 4,
     "amount": ""
-}, {
+},
+{
     "id": 8,
     "unit": "healer",
     "name": "Healer",
@@ -78,7 +85,8 @@
     "time": 900,
     "space": 14,
     "amount": ""
-}, {
+},
+{
     "id": 9,
     "unit": "dragon",
     "name": "Dragon",
@@ -88,7 +96,8 @@
     "time": 1800,
     "space": 20,
     "amount": ""
-}, {
+},
+{
     "id": 10,
     "unit": "pekka",
     "name": "P.E.K.K.A.",

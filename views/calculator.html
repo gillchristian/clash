@@ -88,15 +88,6 @@
 		</ul>
 	</div>
 
-	<!-- <div class="col-sm-3">
-		<h4>Caldero de hechizos</h4>
-		<ul class="inline">
-			<li class="inline">
-				<select ng-init = "spell_factory.lvl = spell_factory.lvls[0]" ng-model="spell_factory.lvl" ng-options="lvl for lvl in spell_factory.lvls"></select>
-			</li>
-		</ul>
-	</div> -->
-
 </div>
 
 
@@ -123,11 +114,8 @@
 	          <td class="elixir" ng-bind="unit.cost[unit.lvl-1] | number"></td>
 	          <td class="elixir"><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></div></td>
 	          <td ng-bind="unit.time | creation_time"></td>
-	            <td><b></b></td>
-	            <td><b></b></td>
-	            <td><b></b></td>
-	            <td><b></b></td>
 	          <!--<td><div ng-show="(unit.time*unit.amount) != ''">{{unit.time * unit.amount | creation_time}}</div></td>TIEMPO TOTAL-->
+	           <td ng-repeat="light_barrack in light_barracks"><p ng-show="light_barrack.amount[unit.id] != '0'" ng-bind="light_barrack.amount[unit.id]"></p></td>
 	        </tr>
 	        <tr>
 	        	<td><b>Total</b></td>
@@ -136,10 +124,7 @@
 	            <td><b></b></td>
 	            <td class="elixir"><b ng-bind="costo('light') | number"></b></td>
 	            <td><b></b></td>
-	            <td><b></b></td>
-	            <td><b></b></td>
-	            <td><b></b></td>
-	            <td><b></b></td>
+	            <td ng-repeat="light_barrack in light_barracks">{{ barrack_time('light',$index) | creation_time}}</td>
 	        </tr>
 	      </table>
 	    </div>
@@ -167,8 +152,7 @@
 		          	<td class="dark-elixir" ng-bind="unit.cost[unit.lvl-1] | number"></td>
 		          	<td class="dark-elixir"><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></div></td>
 		          	<td ng-bind="unit.time | creation_time"></td>
-	            	<td><b></b></td>
-	            	<td><b></b></td>
+		          	<td ng-repeat="dark_barrack in dark_barracks"><p ng-show="dark_barrack.amount[unit.id] != '0'" ng-bind="dark_barrack.amount[unit.id]"></p></td>
 		        </tr>
 		        <tr>
 	        		<td><b>Total</b></td>
@@ -177,8 +161,7 @@
 	            	<td><b></b></td>
 	            	<td class="dark-elixir"><b ng-bind="costo('dark') | number"></b></td>
 	            	<td><b></b></td>
-	            	<td><b></b></td>
-	            	<td><b></b></td>
+	            	<td ng-repeat="dark_barrack in dark_barracks">{{ barrack_time('dark',$index) | creation_time}}</td>
 	        	</tr>
 		      </table>
 		    </div>
