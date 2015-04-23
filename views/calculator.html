@@ -50,11 +50,11 @@
 		</div>
 	</div>
 	
+<hr>
 
 <h3>Elije el nivel tus edificios:</h3>
 <div class="row">
-
-	<div class="col-sm-3">
+	<div class="col-md-3 col-xs-12">
 		<h4>Campamentos</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="camp in camps">
@@ -63,7 +63,8 @@
 		</ul>
 	</div>
 
-	<div class="col-sm-3">
+
+	<div class="col-md-3 col-xs-12">	
 		<h4>Cuarteles</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="light_barrack in light_barracks">
@@ -72,7 +73,7 @@
 		</ul>
 	</div>
 
-	<div class="col-sm-3">
+	<div class="col-md-3 col-xs-6">
 		<h4>Cuarteles Oscuros</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="dark_barrack in dark_barracks">
@@ -81,8 +82,7 @@
 		</ul>
 	</div>
 
-
-	<div class="col-sm-3">
+	<div class="col-md-3 col-xs-6">
 		<h4>Caldero de hechizos</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="factory in spell_factory">
@@ -90,9 +90,9 @@
 			</li>
 		</ul>
 	</div>
-
 </div>
-<br>
+
+<hr>
 
 <tabset justified="true" type="pills">
     <tab heading="Cuartel"><!-- TAB -->
@@ -101,66 +101,72 @@
 			<div class="col-md-8 col-md-offset-2">
 
 				<div class="row troop-row" ng-repeat="unit in light | orderBy:'id' track by unit.id">
-					<div class="col-md-2">
-						<img ng-src="http://gillchristian.com/clash/img/troops/light/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
+					<div class="col-md-8 col-xs-12">	
+						<div class="col-md-3 col-xs-3">
+							<img ng-src="http://gillchristian.com/clash/img/troops/light/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
+						</div>
+						<div class="col-md-2 col-xs-3 hidden-xs">
+							<b><p>
+								<span>Unidad: </span>
+							</p>
+							<p>
+								<span>Total: </span>
+							</p></b>
+						</div>
+						<div class="col-md-3 col-xs-3">
+							<p>
+								<select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select>
+							</p>
+							<p>
+								<input size="3" type="text" ng-model="unit.amount">
+							</p>
+						</div>
+						<div class="col-md-2 col-xs-3">
+							<p>
+								1 x <b><span class="elixir" ng-bind="unit.cost[unit.lvl-1] | number"></span></b>
+							</p>
+							<p>
+								<span class="elixir" ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></span>
+							</p>
+						</div>
+						<div class="col-md-2 col-xs-3">
+							<p>
+								1 x <b><span ng-bind="unit.time | creation_time"></span></b>
+							</p>
+							<p>
+								<span ng-show="(unit.time*unit.amount) != ''" ng-bind="unit.time * unit.amount | creation_time"></span>
+							</p>
+						</div>
 					</div>
-					<div class="col-md-1">
-						<b><p>
-							<span>Unidad: </span>
-						</p>
-						<p>
-							<span>Total: </span>
-						</p></b>
-					</div>
-					<div class="col-md-1">
-						<p>
-							<select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select>
-						</p>
-						<p>
-							<input size="3" type="text" ng-model="unit.amount">
-						</p>
-					</div>
-					<div class="col-md-2">
-						<p>
-							1 x <b><span class="elixir" ng-bind="unit.cost[unit.lvl-1] | number"></span></b>
-						</p>
-						<p>
-							<span class="elixir" ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></span>
-						</p>
-					</div>
-					<div class="col-md-2">
-						<p>
-							1 x <b><span ng-bind="unit.time | creation_time"></span></b>
-						</p>
-						<p>
-							<span ng-show="(unit.time*unit.amount) != ''" ng-bind="unit.time * unit.amount | creation_time"></span>
-						</p>
-					</div>
-					<div class="col-md-1" ng-repeat="light_barrack in light_barracks">
-						<p>
-							<span ng-show="light_barrack.amount[unit.id] != '0'" ng-bind="light_barrack.amount[unit.id]"></span>
-						</p>
+					<div class="col-md-4 col-xs-12">
+						<div class="visible-xs col-xs-offset-2 col-xs-4"> <p><b>Cantidad por cuartel:</b></p></div>
+						<div class="hidden-xs col-md-12"> <p><b>Cantidad por cuartel:</b></p></div>
+						<div class="col-md-3 col-xs-1" ng-repeat="light_barrack in light_barracks">
+							<p>
+								<span ng-show="light_barrack.amount[unit.id] != '0'" ng-bind="light_barrack.amount[unit.id]"></span>
+							</p>
+						</div>
 					</div>
 				</div>
 
 				<div class="row troop-row-last">
 
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<p><br><b>Totals</b></p>				
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<p><b>Troops</b></p>
 						<p ng-bind="spacing('light')"></p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<p><b>Cost</b></p>
-						<p ng-bind="costo('light') | number">Total Cost</p>
+						<p class="elixir" ng-bind="costo('light') | number">Total Cost</p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<p><b>Time</b></p>
-						<p ng-bind="costo('light') | number">Total Cost</p>
+						<p ng-bind="tiempo('light') | creation_time">Total Cost</p>
 					</div>
-					<div class="col-md-4">
+					<div class="col-xs-4">
 						<div class="col-md-10 col-md-offset-1">
 							<p><b>Tiempo por cuartel</b></p>
 						</div>
@@ -173,6 +179,7 @@
 				</div>
 			</div>
 		</div>
+		<br>
     </tab> <!-- .TAB -->
 
     <tab heading="Cuartel Oscuro"><!-- TAB -->
@@ -181,66 +188,72 @@
 			<div class="col-md-8 col-md-offset-2">
 
 				<div class="row troop-row" ng-repeat="unit in dark | orderBy:'id' track by unit.id">
-					<div class="col-md-2">
-						<img ng-src="http://gillchristian.com/clash/img/troops/dark/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
+					<div class="col-md-8 col-xs-12">
+						<div class="col-md-3 col-xs-3">
+							<img ng-src="http://gillchristian.com/clash/img/troops/dark/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
+						</div>
+						<div class="col-md-2 col-xs-3 hidden-xs">
+							<b><p>
+								<span>Unidad: </span>
+							</p>
+							<p>
+								<span>Total: </span>
+							</p></b>
+						</div>
+						<div class="col-md-3 col-xs-3">
+							<p>
+								<select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select>
+							</p>
+							<p>
+								<input size="3" type="text" ng-model="unit.amount">
+							</p>
+						</div>
+						<div class="col-md-2 col-xs-3">
+							<p>
+								1 x <b><span class="dark-elixir" ng-bind="unit.cost[unit.lvl-1] | number"></span></b>
+							</p>
+							<p>
+								<span class="dark-elixir" ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></span>
+							</p>
+						</div>
+						<div class="col-md-2 col-xs-3">
+							<p>
+								1 x <b><span ng-bind="unit.time | creation_time"></span></b>
+							</p>
+							<p>
+								<span ng-show="(unit.time*unit.amount) != ''" ng-bind="unit.time * unit.amount | creation_time"></span>
+							</p>
+						</div>
 					</div>
-					<div class="col-md-1">
-						<b><p>
-							<span>Unidad: </span>
-						</p>
-						<p>
-							<span>Total: </span>
-						</p></b>
-					</div>
-					<div class="col-md-1">
-						<p>
-							<select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select>
-						</p>
-						<p>
-							<input size="3" type="text" ng-model="unit.amount">
-						</p>
-					</div>
-					<div class="col-md-2">
-						<p>
-							1 x <b><span class="dark-elixir" ng-bind="unit.cost[unit.lvl-1] | number"></span></b>
-						</p>
-						<p>
-							<span class="dark-elixir" ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></span>
-						</p>
-					</div>
-					<div class="col-md-2">
-						<p>
-							1 x <b><span ng-bind="unit.time | creation_time"></span></b>
-						</p>
-						<p>
-							<span ng-show="(unit.time*unit.amount) != ''" ng-bind="unit.time * unit.amount | creation_time"></span>
-						</p>
-					</div>
-					<div class="col-md-1" ng-repeat="dark_barrack in dark_barracks">
-						<p>
-							<span ng-show="dark_barrack.amount[unit.id] != '0'" ng-bind="dark_barrack.amount[unit.id]"></span>
-						</p>
-					</div>
+					<div class="col-md-4 col-xs-12">
+						<div class="visible-xs col-xs-offset-2 col-xs-4"> <p><b>Cantidad por cuartel:</b></p></div>
+						<div class="hidden-xs col-md-12"> <p><b>Cantidad por cuartel:</b></p></div>
+						<div class="col-md-3 col-xs-1" ng-repeat="dark_barrack in dark_barracks">
+							<p>
+								<span ng-show="dark_barrack.amount[unit.id] != '0'" ng-bind="dark_barrack.amount[unit.id]"></span>
+							</p>
+						</div>
+					</div>	
 				</div>
 
 				<div class="row troop-row-last">
 
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<p><br><b>Totals</b></p>				
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<p><b>Troops</b></p>
 						<p ng-bind="spacing('dark')"></p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<p><b>Cost</b></p>
 						<p ng-bind="costo('dark') | number">Total Cost</p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-xs-2">
 						<p><b>Time</b></p>
 						<p ng-bind="costo('dark') | number">Total Cost</p>
 					</div>
-					<div class="col-md-4">
+					<div class="col-xs-4">
 						<div class="col-md-10 col-md-offset-1">
 							<p><b>Tiempo por cuartel</b></p>
 						</div>
@@ -253,19 +266,19 @@
 				</div>
 			</div>
 		</div>
+		<br>
     </tab> <!-- .TAB -->
 
     <tab heading="Hechizos"><!-- TAB -->
     	<br>
-    	<h5 ng-repeat="factory in spell_factory"> Caldero nivel: {{factory.lvl}}</h5>
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-6 col-md-offset-3">
 
 				<div class="row troop-row" ng-repeat="unit in spells | orderBy:'id' track by unit.id">
-					<div class="col-md-2">
+					<div class="col-md-3 col-xs-3">
 						<img ng-src="http://gillchristian.com/clash/img/troops/spells/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
 					</div>
-					<div class="col-md-1">
+					<div class="col-md-2 col-xs-2 hidden-xs">
 						<b><p>
 							<span>Unidad: </span>
 						</p>
@@ -273,7 +286,7 @@
 							<span>Total: </span>
 						</p></b>
 					</div>
-					<div class="col-md-1">
+					<div class="col-md-3 col-xs-3">
 						<p>
 							<select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select>
 						</p>
@@ -281,7 +294,7 @@
 							<input size="3" type="text" ng-model="unit.amount">
 						</p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2 col-xs-3">
 						<p>
 							1 x <b><span class="elixir" ng-bind="unit.cost[unit.lvl-1] | number"></span></b>
 						</p>
@@ -289,7 +302,7 @@
 							<span class="elixir" ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></span>
 						</p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2 col-xs-3">
 						<p>
 							1 x <b><span ng-bind="unit.time | creation_time"></span></b>
 						</p>
@@ -301,27 +314,26 @@
 
 				<div class="row troop-row-last">
 
-					<div class="col-md-2">
+					<div class="col-md-3 col-xs-3">
 						<p><br><b>Totals</b></p>				
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3 col-xs-3">
 						<p><b>Troops</b></p>
 						<p ng-bind="spacing('spells')"></p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3 col-xs-3">
 						<p><b>Cost</b></p>
 						<p ng-bind="costo('spells') | number"></p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3 col-xs-3">
 						<p><b>Time</b></p>
-						<p ng-bind="tiempo('spells') | number"></p>
+						<p ng-bind="tiempo('spells') | creation_time"></p>
 					</div>
 				</div>
 			</div>
 		</div>
+		<br>
     </tab><!-- .TAB -->
   </tabset>
 
 <br>
-
-<!-- ################################################### -->
