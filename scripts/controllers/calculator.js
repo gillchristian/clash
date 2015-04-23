@@ -285,7 +285,6 @@ angular.module('clashApp.controllers', [])
                                 $scope.asing_unit('light' ,i, $scope.light[i].amount);
                             };
                         };
-                    };
                     break;
                 
                 case 'dark':
@@ -301,7 +300,6 @@ angular.module('clashApp.controllers', [])
                                 $scope.asing_unit('dark' ,i, $scope.dark[i].amount);
                             };
                         };
-                    };
                     break;
             }
         }
