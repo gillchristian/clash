@@ -270,7 +270,6 @@ angular.module('clashApp.controllers', [])
 
         //Troops assignment to barracks methods to maximize efficiency in production time
         $scope.troopsAsignment = function (type) {
-            var check = false;
             
             switch(type){
                 case 'light':
@@ -279,13 +278,6 @@ angular.module('clashApp.controllers', [])
                                 $scope.light_barracks[g].amount[$scope.light[i].id] = 0;
                             };
                     };
-
-                    for (var i = $scope.light.length - 1; i >= 0; i--) {
-                        for (var f = $scope.light_barracks.length - 1; f >= 0; f--) {
-                            if ($scope.light_barracks[f].lvl >= $scope.light[i].id){
-                                check = true;
-                            }
-                        };
 
                         if (check) {
                             if ($scope.light[i].amount > 0) {
@@ -302,13 +294,6 @@ angular.module('clashApp.controllers', [])
                                 $scope.dark_barracks[g].amount[$scope.dark[i].id] = 0;
                             };
                     };
-
-                    for (var i = $scope.dark.length - 1; i >= 0; i--) {
-                        for (var f = $scope.dark_barracks.length - 1; f >= 0; f--) {
-                            if ($scope.dark_barracks[f].lvl >= $scope.dark[i].id){
-                                check = true;
-                            }
-                        };
 
                         if (check) {
                             if ($scope.dark[i].amount > 0) {
@@ -350,7 +335,7 @@ angular.module('clashApp.controllers', [])
         $scope.select_barrack = function (type, index) {
             var diference = 10000000;
             var lower_barrack = 0;
-            var conditionA, conditionB;
+            var conditionA, conditionB, conditionC;
             
             $scope.available_barracks = [];
 
@@ -359,7 +344,8 @@ angular.module('clashApp.controllers', [])
                     for (var i = 0; i < $scope.light_barracks.length; i++) {
                         conditionA= $scope.light[index].id <= $scope.light_barracks[i].lvl;
                         conditionB = ($scope.light_barracks[i].capacity[$scope.light_barracks[i].lvl] - $scope.barrack_total('light',i)) >= $scope.light[index].space;
-                        if (conditionA && conditionB) {
+                        conditionC = $scope.light_barracks[i].lvl >= $scope.light[index].id;
+                        if (conditionA && conditionB && conditionC) {
                             $scope.available_barracks.push(i);
                         }
                     };
@@ -377,7 +363,8 @@ angular.module('clashApp.controllers', [])
                     for (var i = 0; i < $scope.dark_barracks.length; i++) {
                         conditionA= $scope.dark[index].id <= $scope.dark_barracks[i].lvl;
                         conditionB = ($scope.dark_barracks[i].capacity[$scope.dark_barracks[i].lvl] - $scope.barrack_total('dark',i)) >= $scope.dark[index].space;
-                        if (conditionA && conditionB) {
+                        conditionC = $scope.dark_barracks[i].lvl >= $scope.dark[index].id;
+                        if (conditionA && conditionB && conditionC) {
                             $scope.available_barracks.push(i);
                         }
                     };
