@@ -277,14 +277,10 @@ angular.module('clashApp.controllers', [])
                         for (var g = $scope.light_barracks.length - 1; g >= 0; g--) {
                                 $scope.light_barracks[g].amount[$scope.light[i].id] = 0;
                             };
-                    };
-
-                        if (check) {
-                            if ($scope.light[i].amount > 0) {
-                                
-                                $scope.asing_unit('light' ,i, $scope.light[i].amount);
-                            };
+                        if ($scope.light[i].amount > 0) {
+                            $scope.asing_unit('light' ,i, $scope.light[i].amount);
                         };
+                    };
                     break;
                 
                 case 'dark':
@@ -292,14 +288,11 @@ angular.module('clashApp.controllers', [])
                         for (var g = $scope.dark_barracks.length - 1; g >= 0; g--) {
                                 $scope.dark_barracks[g].amount[$scope.dark[i].id] = 0;
                             };
+                        if ($scope.dark[i].amount > 0) {
+                            $scope.asing_unit('dark' ,i, $scope.dark[i].amount);
+                        };
                     };
 
-                        if (check) {
-                            if ($scope.dark[i].amount > 0) {
-                                
-                                $scope.asing_unit('dark' ,i, $scope.dark[i].amount);
-                            };
-                        };
                     break;
             }
         }
