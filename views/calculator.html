@@ -1,52 +1,55 @@
 <h3 class="page-header" >Calculá tu ejército</h3>
 
-<div class="row">
-	<div class="col-sm-6">
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<tr>
-					<th colspan="4">Costos</th>
-				</tr>
-				<tr>
-					<td class="elixir"><b>Cuarteles</b></td>
-					<td class="elixir"><b>Hechizos</b></td>
-					<td class="elixir"><b>Total</b></td>
-					<td class="dark-elixir"><b>Cuarteles oscuros</b></td>
-				</tr>
-				<tr>
-					<td class="elixir" ng-bind="costo('light') | number"></td>
-					<td class="elixir"><b ng-bind="costo('spells') | number"></b></td>
-					<td class="elixir"><b ng-bind="costo('total.light') | number"></b></td>
-					<td class="dark-elixir" ng-bind="costo('dark') | number"></td>
-				</tr>
-				
-			</table>
-		</div>	
+		
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="col-md-6 col-xs-6">
+				<div class="col-md-6">
+					<p>
+						<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
+						<span>Cuarteles</span> <span class="elixir" ng-bind="costo('light') | number"></span>
+					</p>
+					<p>
+						<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
+						<span>Hechizos</span> <span class="elixir" ng-bind="costo('spells') | number"></span>
+					</p>
+					</div>
+				<div class="col-md-6">
+					<p>
+						<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
+						<span>Total</span> <span class="elixir" ng-bind="costo('total.light') | number"></span>
+					</p>
+					<p>
+						<span class="dark-elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
+						<span>Cuarteles Oscuros</span> <span class="dark-elixir" ng-bind="costo('dark') | number"> </span>
+					</p>
+				</div>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<div class="col-md-6">
+					<p ng-class="{limit : limit('troops')}">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						<span>Tropas</span> <span ng-bind="spacing('total.troops')"></span>
+					</p>
+					<p ng-class="{limit : limit('troops')}">
+						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+						<span>Maximo</span> <span ng-bind="max_amount('troops')"></span>
+					</p>
+				</div>
+				<div class="col-md-6">
+					<p ng-class="{limit : limit('spells')}">
+						<span class="elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
+						<span>Hechizos</span> <span ng-bind="spacing('spells')"></span>
+					</p>
+					<p ng-class="{limit : limit('spells')}">
+						<span class="elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
+						<span>Maximo</span> <span ng-bind="max_amount('spells')"></span>
+					</p>
+				</div>
+			</div>
+		</div>
 	</div>
 	
-	<div class="col-sm-6">
-		<div class="table-responsive">
-			<table class="table table-hover">
-				<tr>
-					<th colspan="4">Cantidad de Tropas</th>
-				</tr>
-				<tr>
-					<td ng-class="{limit : limit('troops')}"><b>Tropas</b></td>
-					<td ng-class="{limit : limit('troops')}"><b>Máximo de tropas</b></td>
-					<td ng-class="{limit : limit('spells')}"><b>Hechizos</b></td>
-					<td ng-class="{limit : limit('spells')}"><b>Máximo hechizos</b></td>
-				</tr>
-				<tr>
-					<td ng-class="{limit : limit('troops')}" ng-bind="spacing('total.troops')"></td>
-					<td ng-class="{limit : limit('troops')}" ng-bind="max_amount('troops')"></td>
-					<td ng-class="{limit : limit('spells')}" ng-bind="spacing('spells')"></td>
-					<td ng-class="{limit : limit('spells')}" ng-bind="max_amount('spells')"></td>
-				</tr>
-				
-			</table>
-		</div>	
-	</div>
-</div>
 
 <h3>Elije el nivel tus edificios:</h3>
 <div class="row">
@@ -89,114 +92,236 @@
 	</div>
 
 </div>
+<br>
 
+<tabset justified="true" type="pills">
+    <tab heading="Cuartel"><!-- TAB -->
+    	<br>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
 
-<div class="row">
+				<div class="row troop-row" ng-repeat="unit in light | orderBy:'id' track by unit.id">
+					<div class="col-md-2">
+						<img ng-src="http://gillchristian.com/clash/img/troops/light/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
+					</div>
+					<div class="col-md-1">
+						<b><p>
+							<span>Unidad: </span>
+						</p>
+						<p>
+							<span>Total: </span>
+						</p></b>
+					</div>
+					<div class="col-md-1">
+						<p>
+							<select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select>
+						</p>
+						<p>
+							<input size="3" type="text" ng-model="unit.amount">
+						</p>
+					</div>
+					<div class="col-md-2">
+						<p>
+							1 x <b><span class="elixir" ng-bind="unit.cost[unit.lvl-1] | number"></span></b>
+						</p>
+						<p>
+							<span class="elixir" ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></span>
+						</p>
+					</div>
+					<div class="col-md-2">
+						<p>
+							1 x <b><span ng-bind="unit.time | creation_time"></span></b>
+						</p>
+						<p>
+							<span ng-show="(unit.time*unit.amount) != ''" ng-bind="unit.time * unit.amount | creation_time"></span>
+						</p>
+					</div>
+					<div class="col-md-1" ng-repeat="light_barrack in light_barracks">
+						<p>
+							<span ng-show="light_barrack.amount[unit.id] != '0'" ng-bind="light_barrack.amount[unit.id]"></span>
+						</p>
+					</div>
+				</div>
 
-	<div class="col-lg-7">
-	<h3>Cuartel</h3>
+				<div class="row troop-row-last">
 
-		<div class="table-responsive">
-	      <table class="table table-hover">
-	        <tr>
-	            <td><b>Unidad</b></td>
-	            <td><b>Nivel</b></td>
-	            <td><b>Cantidad</b></td>
-	            <td class="elixir"><b>Costo Unidad</b></td>
-	            <td class="elixir"><b>Costo Total</b></td>
-	            <td><b>Tiempo Unidad</b></td>
-	            <td ng-repeat="light_barrack in light_barracks"><b>Cuartel nivel {{light_barrack.lvl}}</b></td>
-	        </tr>
-	        <tr ng-repeat="unit in light | orderBy:'id' track by unit.id">
-	          <td><img ng-src="http://gillchristian.com/clash/img/troops/light/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
-	          <td><select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
-	          <td><input size="3" type="text" ng-model="unit.amount"> </td>
-	          <td class="elixir" ng-bind="unit.cost[unit.lvl-1] | number"></td>
-	          <td class="elixir"><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></div></td>
-	          <td ng-bind="unit.time | creation_time"></td>
-	          <!--<td><div ng-show="(unit.time*unit.amount) != ''">{{unit.time * unit.amount | creation_time}}</div></td>TIEMPO TOTAL-->
-	           <td ng-repeat="light_barrack in light_barracks"><p ng-show="light_barrack.amount[unit.id] != '0'" ng-bind="light_barrack.amount[unit.id]"></p></td>
-	        </tr>
-	        <tr>
-	        	<td><b>Total</b></td>
-	            <td></td>
-	            <td ng-bind="spacing('light')"></td>
-	            <td><b></b></td>
-	            <td class="elixir"><b ng-bind="costo('light') | number"></b></td>
-	            <td><b></b></td>
-	            <td ng-repeat="light_barrack in light_barracks">{{ barrack_time('light',$index) | creation_time}}</td>
-	        </tr>
-	      </table>
-	    </div>
-
-	</div>
-
-	<div class="col-lg-5">
-		<h3>Cuartel Oscuro</h3>
-
-			<div class="table-responsive">
-		      <table class="table table-hover">
-		        <tr>
-		            <td><b>Unidad</b></td>
-		            <td><b>Nivel</b></td>
-		            <td><b>Cantidad</b></td>
-		            <td class="dark-elixir"><b>Costo Unidad</b></td>
-		            <td class="dark-elixir"><b>Costo Total</b></td>
-		            <td><b>Tiempo Unidad</b></td>
-	            	<td ng-repeat="dark_barrack in dark_barracks"><b>Cuartel nivel {{dark_barrack.lvl}}</b></td>
-		        </tr>
-		        <tr ng-repeat="unit in dark | orderBy:'id' track by unit.id">
-		          	<td><img ng-src="http://gillchristian.com/clash/img/troops/dark/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
-		          	<td><select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
-		          	<td><input size="3" type="text" ng-model="unit.amount"> </td>
-		          	<td class="dark-elixir" ng-bind="unit.cost[unit.lvl-1] | number"></td>
-		          	<td class="dark-elixir"><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></div></td>
-		          	<td ng-bind="unit.time | creation_time"></td>
-		          	<td ng-repeat="dark_barrack in dark_barracks"><p ng-show="dark_barrack.amount[unit.id] != '0'" ng-bind="dark_barrack.amount[unit.id]"></p></td>
-		        </tr>
-		        <tr>
-	        		<td><b>Total</b></td>
-	            	<td></td>
-	            	<td ng-bind="spacing('dark')"></td>
-	            	<td><b></b></td>
-	            	<td class="dark-elixir"><b ng-bind="costo('dark') | number"></b></td>
-	            	<td><b></b></td>
-	            	<td ng-repeat="dark_barrack in dark_barracks">{{ barrack_time('dark',$index) | creation_time}}</td>
-	        	</tr>
-		      </table>
-		    </div>
-
-		    <h3>Hechizos</h3> 
-		    <h5 ng-repeat="factory in spell_factory"> Caldero nivel: {{factory.lvl}}</h5>
-
-		    <div class="table-responsive">
-		      <table class="table table-hover">
-		        <tr>
-		            <td><b>Unidad</b></td>
-		            <td><b>Nivel</b></td>
-		            <td><b>Cantidad</b></td>
-		            <td class="elixir"><b>Costo Unidad</b></td>
-		            <td class="elixir"><b>Costo Total</b></td>
-		            <td><b>Tiempo Unidad</b></td>
-		        </tr>
-		        <tr ng-repeat="unit in spells | orderBy:'id' track by unit.id">
-		          <td><img ng-src="http://gillchristian.com/clash/img/troops/spells/{{unit.unit}}.png" class="troop-img" title="{{unit.name}}" alt="{{unit.name}}"></td>
-		          <td><select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select></td>
-		          <td><input size="3" type="text" ng-model="unit.amount"> </td>
-		          <td class="elixir" ng-bind="unit.cost[unit.lvl-1] | number"></td>
-		          <td class="elixir" ><div ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></div></td>
-		          <td ng-bind="unit.time | creation_time"></td>
-		        </tr>
-		        <tr>
-	        	<td><b>Total</b></td>
-	            <td></td>
-	            <td ng-bind="spacing('spells')"></td>
-	            <td><b></b></td>
-	            <td class="elixir"><b ng-bind="costo('spells') | number"></b></td>
-	            <td><b></b></td>
-	        </tr>
-		      </table>
-		    </div>
+					<div class="col-md-2">
+						<p><br><b>Totals</b></p>				
+					</div>
+					<div class="col-md-2">
+						<p><b>Troops</b></p>
+						<p ng-bind="spacing('light')"></p>
+					</div>
+					<div class="col-md-2">
+						<p><b>Cost</b></p>
+						<p ng-bind="costo('light') | number">Total Cost</p>
+					</div>
+					<div class="col-md-2">
+						<p><b>Time</b></p>
+						<p ng-bind="costo('light') | number">Total Cost</p>
+					</div>
+					<div class="col-md-4">
+						<div class="col-md-10 col-md-offset-1">
+							<p><b>Tiempo por cuartel</b></p>
+						</div>
+						<div class="col-md-3" ng-repeat="light_barrack in light_barracks">
+							<p>
+								<span ng-bind="barrack_time('light',$index) | creation_time"></span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+    </tab> <!-- .TAB -->
 
-</div>
+    <tab heading="Cuartel Oscuro"><!-- TAB -->
+    	<br>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+
+				<div class="row troop-row" ng-repeat="unit in dark | orderBy:'id' track by unit.id">
+					<div class="col-md-2">
+						<img ng-src="http://gillchristian.com/clash/img/troops/dark/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
+					</div>
+					<div class="col-md-1">
+						<b><p>
+							<span>Unidad: </span>
+						</p>
+						<p>
+							<span>Total: </span>
+						</p></b>
+					</div>
+					<div class="col-md-1">
+						<p>
+							<select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select>
+						</p>
+						<p>
+							<input size="3" type="text" ng-model="unit.amount">
+						</p>
+					</div>
+					<div class="col-md-2">
+						<p>
+							1 x <b><span class="dark-elixir" ng-bind="unit.cost[unit.lvl-1] | number"></span></b>
+						</p>
+						<p>
+							<span class="dark-elixir" ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></span>
+						</p>
+					</div>
+					<div class="col-md-2">
+						<p>
+							1 x <b><span ng-bind="unit.time | creation_time"></span></b>
+						</p>
+						<p>
+							<span ng-show="(unit.time*unit.amount) != ''" ng-bind="unit.time * unit.amount | creation_time"></span>
+						</p>
+					</div>
+					<div class="col-md-1" ng-repeat="dark_barrack in dark_barracks">
+						<p>
+							<span ng-show="dark_barrack.amount[unit.id] != '0'" ng-bind="dark_barrack.amount[unit.id]"></span>
+						</p>
+					</div>
+				</div>
+
+				<div class="row troop-row-last">
+
+					<div class="col-md-2">
+						<p><br><b>Totals</b></p>				
+					</div>
+					<div class="col-md-2">
+						<p><b>Troops</b></p>
+						<p ng-bind="spacing('dark')"></p>
+					</div>
+					<div class="col-md-2">
+						<p><b>Cost</b></p>
+						<p ng-bind="costo('dark') | number">Total Cost</p>
+					</div>
+					<div class="col-md-2">
+						<p><b>Time</b></p>
+						<p ng-bind="costo('dark') | number">Total Cost</p>
+					</div>
+					<div class="col-md-4">
+						<div class="col-md-10 col-md-offset-1">
+							<p><b>Tiempo por cuartel</b></p>
+						</div>
+						<div class="col-md-3" ng-repeat="dark_barrack in dark_barracks">
+							<p>
+								<span ng-bind="barrack_time('dark',$index) | creation_time"></span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </tab> <!-- .TAB -->
+
+    <tab heading="Hechizos"><!-- TAB -->
+    	<br>
+    	<h5 ng-repeat="factory in spell_factory"> Caldero nivel: {{factory.lvl}}</h5>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+
+				<div class="row troop-row" ng-repeat="unit in spells | orderBy:'id' track by unit.id">
+					<div class="col-md-2">
+						<img ng-src="http://gillchristian.com/clash/img/troops/spells/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
+					</div>
+					<div class="col-md-1">
+						<b><p>
+							<span>Unidad: </span>
+						</p>
+						<p>
+							<span>Total: </span>
+						</p></b>
+					</div>
+					<div class="col-md-1">
+						<p>
+							<select ng-init = "unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls"></select>
+						</p>
+						<p>
+							<input size="3" type="text" ng-model="unit.amount">
+						</p>
+					</div>
+					<div class="col-md-2">
+						<p>
+							1 x <b><span class="elixir" ng-bind="unit.cost[unit.lvl-1] | number"></span></b>
+						</p>
+						<p>
+							<span class="elixir" ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'" ng-bind="unit.cost[unit.lvl-1] * unit.amount | number"></span>
+						</p>
+					</div>
+					<div class="col-md-2">
+						<p>
+							1 x <b><span ng-bind="unit.time | creation_time"></span></b>
+						</p>
+						<p>
+							<span ng-show="(unit.time*unit.amount) != ''" ng-bind="unit.time * unit.amount | creation_time"></span>
+						</p>
+					</div>
+				</div>
+
+				<div class="row troop-row-last">
+
+					<div class="col-md-2">
+						<p><br><b>Totals</b></p>				
+					</div>
+					<div class="col-md-2">
+						<p><b>Troops</b></p>
+						<p ng-bind="spacing('spells')"></p>
+					</div>
+					<div class="col-md-2">
+						<p><b>Cost</b></p>
+						<p ng-bind="costo('spells') | number"></p>
+					</div>
+					<div class="col-md-2">
+						<p><b>Time</b></p>
+						<p ng-bind="tiempo('spells') | number"></p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </tab><!-- .TAB -->
+  </tabset>
+
+<br>
+
+<!-- ################################################### -->

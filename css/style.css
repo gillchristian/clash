@@ -31,6 +31,25 @@
         max-height: 30px;
     }
 
+    /* Rows */
+    .troop-row{
+        border: 2px solid #E0E0E0;
+        border-bottom: 0px !important;
+        padding: 4px 2px 2px;
+        padding-top: 
+    }
+    .troop-row:hover{
+        background-color: #F5F5F0;
+    }
+
+    .troop-row-last{
+        border: 2px solid #E0E0E0;
+        padding: 4px 2px 2px;
+    }
+    .troop-row-last:hover{
+        background-color: #F5F5F0;
+    }
+
     /* Costs classes*/
     .elixir {
         color: #CC0066;
@@ -66,4 +85,10 @@
 
 .autor:active {
     text-decoration: none;
+}
+
+/* Fix UI Bootstrap problem */
+
+.nav, .pagination, .carousel, .panel-title a { 
+    cursor: pointer;
 }
