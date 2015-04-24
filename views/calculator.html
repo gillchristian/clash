@@ -1,4 +1,4 @@
-<h3 class="page-header" >Calculá tu ejército</h3>
+<h3 class="page-header">Calculate your army</h3>
 
 		
 	<div class="row">
@@ -7,11 +7,11 @@
 				<div class="col-md-6">
 					<p>
 						<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-						<span>Cuarteles</span> <span class="elixir" ng-bind="costo('light') | number"></span>
+						<span>Barracks</span> <span class="elixir" ng-bind="costo('light') | number"></span>
 					</p>
 					<p>
 						<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-						<span>Hechizos</span> <span class="elixir" ng-bind="costo('spells') | number"></span>
+						<span>Spells</span> <span class="elixir" ng-bind="costo('spells') | number"></span>
 					</p>
 					</div>
 				<div class="col-md-6">
@@ -21,7 +21,7 @@
 					</p>
 					<p>
 						<span class="dark-elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-						<span>Cuarteles Oscuros</span> <span class="dark-elixir" ng-bind="costo('dark') | number"> </span>
+						<span>Dark Barracks</span> <span class="dark-elixir" ng-bind="costo('dark') | number"> </span>
 					</p>
 				</div>
 			</div>
@@ -29,21 +29,21 @@
 				<div class="col-md-6">
 					<p ng-class="{limit : limit('troops')}">
 						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-						<span>Tropas</span> <span ng-bind="spacing('total.troops')"></span>
+						<span>Amry</span> <span ng-bind="spacing('total.troops')"></span>
 					</p>
 					<p ng-class="{limit : limit('troops')}">
 						<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-						<span>Maximo</span> <span ng-bind="max_amount('troops')"></span>
+						<span>Max Troops</span> <span ng-bind="max_amount('troops')"></span>
 					</p>
 				</div>
 				<div class="col-md-6">
 					<p ng-class="{limit : limit('spells')}">
 						<span class="elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
-						<span>Hechizos</span> <span ng-bind="spacing('spells')"></span>
+						<span>Spells</span> <span ng-bind="spacing('spells')"></span>
 					</p>
 					<p ng-class="{limit : limit('spells')}">
 						<span class="elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
-						<span>Maximo</span> <span ng-bind="max_amount('spells')"></span>
+						<span>Max Spells</span> <span ng-bind="max_amount('spells')"></span>
 					</p>
 				</div>
 			</div>
@@ -52,10 +52,10 @@
 	
 <hr>
 
-<h3>Elije el nivel tus edificios:</h3>
+<h3>Choose the level of your buildings:</h3>
 <div class="row">
 	<div class="col-md-3 col-xs-12">
-		<h4>Campamentos</h4>
+		<h4>Army Camps</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="camp in camps">
 				<select ng-init = "camp.lvl = camp.lvls[0]" ng-model="camp.lvl" ng-options="lvl for lvl in camp.lvls"></select>
@@ -65,7 +65,7 @@
 
 
 	<div class="col-md-3 col-xs-12">	
-		<h4>Cuarteles</h4>
+		<h4>Barracks</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="light_barrack in light_barracks">
 				<select ng-init = "light_barrack.lvl = light_barrack.lvls[0]" ng-model="light_barrack.lvl" ng-options="lvl for lvl in light_barrack.lvls"></select>
@@ -74,7 +74,7 @@
 	</div>
 
 	<div class="col-md-3 col-xs-6">
-		<h4>Cuarteles Oscuros</h4>
+		<h4>Dark Barracks</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="dark_barrack in dark_barracks">
 				<select ng-init = "dark_barrack.lvl = dark_barrack.lvls[0]" ng-model="dark_barrack.lvl" ng-options="lvl for lvl in dark_barrack.lvls"></select>
@@ -83,7 +83,7 @@
 	</div>
 
 	<div class="col-md-3 col-xs-6">
-		<h4>Caldero de hechizos</h4>
+		<h4>Spell Factory</h4>
 		<ul class="inline">
 			<li class="inline" ng-repeat="factory in spell_factory">
 				<select ng-init = "factory.lvl = factory.lvls[0]" ng-model="factory.lvl" ng-options="lvl for lvl in factory.lvls"></select>
@@ -95,7 +95,7 @@
 <hr>
 
 <tabset justified="true" type="pills">
-    <tab heading="Cuartel"><!-- TAB -->
+    <tab heading="Barracks"><!-- TAB -->
     	<br>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
@@ -107,7 +107,7 @@
 						</div>
 						<div class="col-md-2 col-xs-3 hidden-xs">
 							<b><p>
-								<span>Unidad: </span>
+								<span>Unit: </span>
 							</p>
 							<p>
 								<span>Total: </span>
@@ -139,8 +139,8 @@
 						</div>
 					</div>
 					<div class="col-md-4 col-xs-12">
-						<div class="visible-xs col-xs-offset-2 col-xs-4"> <p><b>Cantidad por cuartel:</b></p></div>
-						<div class="hidden-xs col-md-12"> <p><b>Cantidad por cuartel:</b></p></div>
+						<div class="visible-xs col-xs-offset-2 col-xs-4"> <p><b>Amount per Barrack</b></p></div>
+						<div class="hidden-xs col-md-12"> <p><b>Amount per Barrack</b></p></div>
 						<div class="col-md-3 col-xs-1" ng-repeat="light_barrack in light_barracks">
 							<p>
 								<span ng-show="light_barrack.amount[unit.id] != '0'" ng-bind="light_barrack.amount[unit.id]"></span>
@@ -152,23 +152,23 @@
 				<div class="row troop-row-last">
 
 					<div class="col-xs-2">
-						<p><br><b>Totales</b></p>				
+						<p><br><b>Totals</b></p>				
 					</div>
 					<div class="col-xs-2">
-						<p><b>Tropas</b></p>
+						<p><b>Troops</b></p>
 						<p ng-bind="spacing('light')"></p>
 					</div>
 					<div class="col-xs-2">
-						<p><b>Costo</b></p>
-						<p class="elixir" ng-bind="costo('light') | number">Total Cost</p>
+						<p><b>Cost</b></p>
+						<p class="elixir" ng-bind="costo('light') | number"></p>
 					</div>
 					<div class="col-xs-2">
-						<p><b>Tiempo</b></p>
-						<p ng-bind="tiempo('light') | creation_time">Total Cost</p>
+						<p><b>Time</b></p>
+						<p ng-bind="tiempo('light') | creation_time"></p>
 					</div>
 					<div class="col-xs-4">
 						<div class="col-md-10 col-md-offset-1">
-							<p><b>Tiempo por cuartel</b></p>
+							<p><b>Time per Barrack</b></p>
 						</div>
 						<div class="col-md-3" ng-repeat="light_barrack in light_barracks">
 							<p>
@@ -182,7 +182,7 @@
 		<br>
     </tab> <!-- .TAB -->
 
-    <tab heading="Cuartel Oscuro"><!-- TAB -->
+    <tab heading="Dark Barracks"><!-- TAB -->
     	<br>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
@@ -194,7 +194,7 @@
 						</div>
 						<div class="col-md-2 col-xs-3 hidden-xs">
 							<b><p>
-								<span>Unidad: </span>
+								<span>Unit: </span>
 							</p>
 							<p>
 								<span>Total: </span>
@@ -226,8 +226,8 @@
 						</div>
 					</div>
 					<div class="col-md-4 col-xs-12">
-						<div class="visible-xs col-xs-offset-2 col-xs-4"> <p><b>Cantidad por cuartel:</b></p></div>
-						<div class="hidden-xs col-md-12"> <p><b>Cantidad por cuartel:</b></p></div>
+						<div class="visible-xs col-xs-offset-2 col-xs-4"> <p><b>Amount per Barrack</b></p></div>
+						<div class="hidden-xs col-md-12"> <p><b>Amount per Barrack</b></p></div>
 						<div class="col-md-3 col-xs-1" ng-repeat="dark_barrack in dark_barracks">
 							<p>
 								<span ng-show="dark_barrack.amount[unit.id] != '0'" ng-bind="dark_barrack.amount[unit.id]"></span>
@@ -239,23 +239,23 @@
 				<div class="row troop-row-last">
 
 					<div class="col-xs-2">
-						<p><br><b>Totales</b></p>				
+						<p><br><b>Totals</b></p>				
 					</div>
 					<div class="col-xs-2">
-						<p><b>Tropas</b></p>
+						<p><b>Troops</b></p>
 						<p ng-bind="spacing('dark')"></p>
 					</div>
 					<div class="col-xs-2">
-						<p><b>Costo</b></p>
-						<p ng-bind="costo('dark') | number">Total Cost</p>
+						<p><b>Cost</b></p>
+						<p ng-bind="costo('dark') | number"></p>
 					</div>
 					<div class="col-xs-2">
 						<p><b>Tiempo</b></p>
-						<p ng-bind="costo('dark') | number">Total Cost</p>
+						<p ng-bind="costo('dark') | number"></p>
 					</div>
 					<div class="col-xs-4">
 						<div class="col-md-10 col-md-offset-1">
-							<p><b>Tiempo por cuartel</b></p>
+							<p><b>Time per Barrack</b></p>
 						</div>
 						<div class="col-md-3" ng-repeat="dark_barrack in dark_barracks">
 							<p>
@@ -280,7 +280,7 @@
 					</div>
 					<div class="col-md-2 col-xs-2 hidden-xs">
 						<b><p>
-							<span>Unidad: </span>
+							<span>Unit: </span>
 						</p>
 						<p>
 							<span>Total: </span>
@@ -315,18 +315,18 @@
 				<div class="row troop-row-last">
 
 					<div class="col-md-3 col-xs-3">
-						<p><br><b>Totaless</b></p>				
+						<p><br><b>Totals</b></p>				
 					</div>
 					<div class="col-md-3 col-xs-3">
-						<p><b>Cantidad</b></p>
+						<p><b>Amount</b></p>
 						<p ng-bind="spacing('spells')"></p>
 					</div>
 					<div class="col-md-3 col-xs-3">
-						<p><b>Costo</b></p>
+						<p><b>Cost</b></p>
 						<p ng-bind="costo('spells') | number"></p>
 					</div>
 					<div class="col-md-3 col-xs-3">
-						<p><b>Tiempo</b></p>
+						<p><b>Time</b></p>
 						<p ng-bind="tiempo('spells') | creation_time"></p>
 					</div>
 				</div>
