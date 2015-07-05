@@ -3,6 +3,10 @@
     color: #464342;
 }
 
+.ul-select {
+    padding-left: 0px;
+}
+
 /*Fonts */
 @font-face {
     font-family: ClashFont;

@@ -29,9 +29,17 @@ angular.module('clashApp.services')
                   });
                return response;
             },
-            getFactory: function () {
+            getLightFactory: function () {
                var response = [];
-               return $http.get( location + '/clash/resources/spellsFactory.json')
+               return $http.get( location + '/clash/resources/lightSpellsFactory.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
+            },
+            getDarkFactory: function () {
+               var response = [];
+               return $http.get( location + '/clash/resources/darkSpellsFactory.json')
                   .success(function(data) {
                      response = data;
                   });

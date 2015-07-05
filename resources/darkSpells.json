@@ -1,0 +1,35 @@
+[
+        {
+            "id": 1,
+            "unit": "poison",
+            "name": "Poison",
+            "cost": [95,110,125,140],
+            "lvls": [1,2,3,4],
+            "lvl": "",
+            "time": 900,
+            "space": 1,
+            "amount": ""
+        },
+        {
+            "id": 2,
+            "unit": "earthquake",
+            "name": "Earthquake",
+            "cost": [125,140,160,180],
+            "lvls": [1,2,3,4],
+            "lvl": "",
+            "time": 900,
+            "space": 1,
+            "amount": ""
+        },
+        {
+            "id": 3,
+            "unit": "haste",
+            "name": "Haste",
+            "cost": [80,85,90,95],
+            "lvls": [1,2,3,4],
+            "lvl": "",
+            "time": 900,
+            "space": 1,
+            "amount": ""
+        }
+]

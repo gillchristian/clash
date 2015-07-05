@@ -21,9 +21,17 @@ angular.module('clashApp.services', [])
                   });
                return response;
             },
-            getSpells: function () {
+            getLightSpells: function () {
                var response = [];
-               return $http.get( location + '/clash/resources/spells.json')
+               return $http.get( location + '/clash/resources/lightSpells.json')
+                  .success(function(data) {
+                     response = data;
+                  });
+               return response;
+            },
+            getDarkSpells: function () {
+               var response = [];
+               return $http.get( location + '/clash/resources/darkSpells.json')
                   .success(function(data) {
                      response = data;
                   });

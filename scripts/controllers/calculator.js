@@ -4,13 +4,13 @@ angular.module('clashApp.controllers', [])
   .controller('CalculatorController', ['$scope', '$http', 'troopFactory', 'buildingFactory',
     function ($scope, $http, troopFactory, buildingFactory ){
 
-        // Init Variables 
+        // Init Variables
         $scope.light = [];
         $scope.light_barracks = [];
         $scope.dark_barracks = [];
         $scope.dark = [];
         $scope.dark.amount = [];
-        $scope.spells = [];
+        $scope.lightSpells = [];
         $scope.max_amount = [];
 
         //Services manipulation
@@ -27,10 +27,16 @@ angular.module('clashApp.controllers', [])
                         $scope.dark = data;
                     });
             },
-            getSpells: function (){
-                troopFactory.getSpells()
+            getLightSpells: function (){
+                troopFactory.getLightSpells()
                     .success(function (data){
-                        $scope.spells = data;
+                        $scope.lightSpells = data;
+                    });
+            },
+            getDarkSpells: function (){
+                troopFactory.getDarkSpells()
+                    .success(function (data){
+                        $scope.darkSpells = data;
                     });
             },
             getBarracks: function (){
@@ -51,22 +57,30 @@ angular.module('clashApp.controllers', [])
                         $scope.camps = data;
                     })
             },
-            getFactory: function (){
-                buildingFactory.getFactory()
+            getLightFactory: function (){
+                buildingFactory.getLightFactory()
                     .success(function (data){
-                        $scope.spell_factory = data;
+                        $scope.lightSpellsFactory = data;
+                    })
+            },
+            getDarkFactory: function (){
+                buildingFactory.getDarkFactory()
+                    .success(function (data){
+                        $scope.darkSpellsFactory = data;
                     })
             }
         }
-        
+
         //Execute services to get data
-        $scope.services.getSpells();
+        $scope.services.getLightSpells();
+        $scope.services.getDarkSpells();
         $scope.services.getLight();
         $scope.services.getDark();
         $scope.services.getBarracks();
         $scope.services.getDarkBarracks();
         $scope.services.getCamps();
-        $scope.services.getFactory();
+        $scope.services.getLightFactory();
+        $scope.services.getDarkFactory();
 
 
         //Calculate the space ocupated by troops
@@ -86,14 +100,23 @@ angular.module('clashApp.controllers', [])
                         spacing += aux;
                     }
                     break;
-                case 'spells':
-                    for (var i = $scope.spells.length - 1; i >= 0; i--) {
-                        aux = $scope.spells[i].amount * $scope.spells[i].space;
+                case 'lightSpells':
+                    for (var i = $scope.lightSpells.length - 1; i >= 0; i--) {
+                        aux = $scope.lightSpells[i].amount * $scope.lightSpells[i].space;
+                        spacing += aux;
+                    }
+                    break;
+                case 'darkSpells':
+                    for (var i = $scope.darkSpells.length - 1; i >= 0; i--) {
+                        aux = $scope.darkSpells[i].amount * $scope.darkSpells[i].space;
                         spacing += aux;
                     }
                     break;
                 case 'total.troops':
                     spacing = $scope.spacing('light') + $scope.spacing('dark');
+                    break;
+                case 'total.spells':
+                    spacing = $scope.spacing('darkSpells') + $scope.spacing('lightSpells');
                     break;
             }
             return spacing;
@@ -116,9 +139,15 @@ angular.module('clashApp.controllers', [])
                         cantidad += aux;
                     }
                     break;
-                case 'spells':
-                    for (var i = $scope.spells.length - 1; i >= 0; i--) {
-                        aux = $scope.spells[i].amount;
+                case 'lightSpells':
+                    for (var i = $scope.lightSpells.length - 1; i >= 0; i--) {
+                        aux = $scope.lightSpells[i].amount;
+                        cantidad += aux;
+                    }
+                    break;
+                case 'darkSpells':
+                    for (var i = $scope.darkSpells.length - 1; i >= 0; i--) {
+                        aux = $scope.darkSpells[i].amount;
                         cantidad += aux;
                     }
                     break;
@@ -151,17 +180,29 @@ angular.module('clashApp.controllers', [])
                         }
                     }
                     break;
-                case 'spells':
-                    for (var i = $scope.spells.length - 1; i >= 0; i--) {
-                        index = $scope.spells[i].lvl-1;
-                        if (typeof $scope.spells[i].cost[index] !== 'undefined' && typeof $scope.spells[i].amount !== 'undefined'){
-                            aux = $scope.spells[i].cost[index] * $scope.spells[i].amount;
+                case 'lightSpells':
+                    for (var i = $scope.lightSpells.length - 1; i >= 0; i--) {
+                        index = $scope.lightSpells[i].lvl-1;
+                        if (typeof $scope.lightSpells[i].cost[index] !== 'undefined' && typeof $scope.lightSpells[i].amount !== 'undefined'){
+                            aux = $scope.lightSpells[i].cost[index] * $scope.lightSpells[i].amount;
+                            costo += aux;
+                        }
+                    }
+                    break;
+                case 'darkSpells':
+                    for (var i = $scope.darkSpells.length - 1; i >= 0; i--) {
+                        index = $scope.darkSpells[i].lvl-1;
+                        if (typeof $scope.darkSpells[i].cost[index] !== 'undefined' && typeof $scope.darkSpells[i].amount !== 'undefined'){
+                            aux = $scope.darkSpells[i].cost[index] * $scope.darkSpells[i].amount;
                             costo += aux;
                         }
                     }
                     break;
                 case 'total.light':
-                    costo = $scope.costo('light') + $scope.costo('spells');
+                    costo = $scope.costo('light') + $scope.costo('lightSpells');
+                    break;
+                case 'total.dark':
+                    costo = $scope.costo('dark') + $scope.costo('darkSpells');
                     break;
             }
             return costo;
@@ -181,16 +222,21 @@ angular.module('clashApp.controllers', [])
                         tiempo += ($scope.dark[i].time * $scope.dark[i].amount);
                     }
                     break;
-                case 'spells':
-                    for (var i = $scope.spells.length - 1; i >= 0; i--) {
-                        tiempo += ($scope.spells[i].time * $scope.spells[i].amount);
+                case 'lightSpells':
+                    for (var i = $scope.lightSpells.length - 1; i >= 0; i--) {
+                        tiempo += ($scope.lightSpells[i].time * $scope.lightSpells[i].amount);
+                    }
+                    break;
+                case 'darkSpells':
+                    for (var i = $scope.darkSpells.length - 1; i >= 0; i--) {
+                        tiempo += ($scope.darkSpells[i].time * $scope.darkSpells[i].amount);
                     }
                     break;
             }
             return tiempo;
         }
 
-        //Max amount of troops and spells calculation
+        //Max amount of troops and lightSpells calculation
         $scope.max_amount = function (option) {
             var max = 0;
             switch (option){
@@ -199,22 +245,25 @@ angular.module('clashApp.controllers', [])
                         for (var i = $scope.camps.length - 1; i >= 0; i--) {
                             max += $scope.camps[i].capacity[$scope.camps[i].lvl];
                         };
-                        
+
                     }
                     break;
                 case 'spells':
-                        if (typeof $scope.spell_factory !== 'undefined') {
-                            for (var i = $scope.spell_factory.length - 1; i >= 0; i--) {
-                                max = $scope.spell_factory[i].capacity[$scope.spell_factory[i].lvl];
-                            };    
-                        };                    
+                        if (typeof $scope.lightSpellsFactory !== 'undefined' && typeof $scope.darkSpellsFactory !== 'undefined') {
+                            for (var i = $scope.lightSpellsFactory.length - 1; i >= 0; i--) {
+                                max += $scope.lightSpellsFactory[i].capacity[$scope.lightSpellsFactory[i].lvl];
+                            };
+                            for (var i = $scope.darkSpellsFactory.length - 1; i >= 0; i--) {
+                                max += $scope.darkSpellsFactory[i].capacity[$scope.darkSpellsFactory[i].lvl];
+                            };                            
+                        };
                     break;
             }
             return max;
-            
+
         }
 
-        //Troop and spells max amount exceeded check
+        //Troop and lightSpells max amount exceeded check
         $scope.limit = function (option) {
             var answer = false;
             switch (option){
@@ -224,7 +273,7 @@ angular.module('clashApp.controllers', [])
                     }
                     break;
                 case 'spells':
-                    if ( $scope.max_amount('spells') < $scope.spacing('spells') ){
+                    if ( $scope.max_amount('spells') < $scope.spacing('total.spells') ){
                         answer = true;
                     }
                     break;
@@ -232,7 +281,7 @@ angular.module('clashApp.controllers', [])
             return answer;
         }
 
-        //Calculate the total unite queue in a barrack
+        //Calculate the total unit queue in a barrack
         $scope.barrack_total = function (type, index) {
             var cantidad = 0;
             switch (type) {
@@ -270,7 +319,7 @@ angular.module('clashApp.controllers', [])
 
         //Troops assignment to barracks methods to maximize efficiency in production time
         $scope.troopsAsignment = function (type) {
-            
+
             switch(type){
                 case 'light':
                     for (var i = $scope.light.length - 1; i >= 0; i--) {
@@ -282,7 +331,7 @@ angular.module('clashApp.controllers', [])
                         };
                     };
                     break;
-                
+
                 case 'dark':
                     for (var i = $scope.dark.length - 1; i >= 0; i--) {
                         for (var g = $scope.dark_barracks.length - 1; g >= 0; g--) {
@@ -303,17 +352,17 @@ angular.module('clashApp.controllers', [])
             switch (type){
                 case 'light':
                     for (var i = 0; i < amount; i++) {
-                        
+
                         barrack_index = $scope.select_barrack('light',index);
                         if ($scope.barrack_total('light', barrack_index) + $scope.light[index].space <= $scope.light_barracks[barrack_index].capacity[$scope.light_barracks[barrack_index].lvl]) {
                             $scope.light_barracks[barrack_index].amount[$scope.light[index].id]++;
                         };
                     };
                     break;
-                
+
                 case 'dark':
                     for (var i = 0; i < amount; i++) {
-                            
+
                             barrack_index = $scope.select_barrack('dark',index);
                             if ($scope.barrack_total('dark', barrack_index) + $scope.dark[index].space <= $scope.dark_barracks[barrack_index].capacity[$scope.dark_barracks[barrack_index].lvl]) {
                                 $scope.dark_barracks[barrack_index].amount[$scope.dark[index].id]++;
@@ -327,7 +376,7 @@ angular.module('clashApp.controllers', [])
             var diference = 10000000;
             var lower_barrack = 0;
             var conditionA, conditionB, conditionC;
-            
+
             $scope.available_barracks = [];
 
             switch(type) {
@@ -342,7 +391,7 @@ angular.module('clashApp.controllers', [])
                     };
 
                     for (var i = 0; i < $scope.available_barracks.length; i++) {
-                        
+
                         if ( ($scope.barrack_time('light', i) + $scope.light[index].time) < diference ) {
                             lower_barrack = $scope.available_barracks[i];
                             diference = $scope.barrack_time('light', i) + $scope.light[index].time;
@@ -361,7 +410,7 @@ angular.module('clashApp.controllers', [])
                     };
 
                     for (var i = 0; i < $scope.available_barracks.length; i++) {
-                        
+
                         if ( ($scope.barrack_time('dark', i) + $scope.dark[index].time) < diference ) {
                             lower_barrack = $scope.available_barracks[i];
                             diference = $scope.barrack_time('dark', i) + $scope.dark[index].time;
@@ -369,12 +418,12 @@ angular.module('clashApp.controllers', [])
                     };
                     break;
             }
-            
+
             return lower_barrack;
 
         }
 
-        //Watch light and dark troops totals to trigger troop asignment to barracks 
+        //Watch light and dark troops totals to trigger troop asignment to barracks
         $scope.$watch( "spacing('light')", function(newVal, oldVal){
             if (!newVal) return;
             var check = false;
@@ -387,7 +436,7 @@ angular.module('clashApp.controllers', [])
             if (check) {
                 $scope.troopsAsignment('light');
             }
-            
+
         });
 
         $scope.$watch( "spacing('dark')", function(newVal, oldVal){
@@ -402,7 +451,7 @@ angular.module('clashApp.controllers', [])
             if (check) {
                 $scope.troopsAsignment('dark');
             }
-            
+
         });
 
 
