@@ -7,39 +7,41 @@ angular.module('clashApp.controllers', [])
             var vm = this;
 
             // Init Variables
-            vm.light = [];
+            vm.light_troops = [];
+            vm.dark_troops = [];
             vm.light_barracks = [];
             vm.dark_barracks = [];
-            vm.dark = [];
-            vm.dark.amount = [];
-            vm.lightSpells = [];
+            vm.dark_troops.amount = [];
             vm.max_amount = [];
-            vm.darkSpells = [];
+            vm.light_spells = [];
+            vm.dark_spells = [];
+
+            vm.url = 'http://gillchristian.com/clash/img/';
 
             //Services manipulation
             vm.services = {
-                getLight: function() {
-                    troopFactory.getLight()
+                getLightTroops: function() {
+                    troopFactory.getLightTroops()
                         .success(function(data) {
-                            vm.light = data;
+                            vm.light_troops = data;
                         });
                 },
-                getDark: function() {
-                    troopFactory.getDark()
+                getDarkTroops: function() {
+                    troopFactory.getDarkTroops()
                         .success(function(data) {
-                            vm.dark = data;
+                            vm.dark_troops = data;
                         });
                 },
                 getLightSpells: function() {
                     troopFactory.getLightSpells()
                         .success(function(data) {
-                            vm.lightSpells = data;
+                            vm.light_spells = data;
                         });
                 },
                 getDarkSpells: function() {
                     troopFactory.getDarkSpells()
                         .success(function(data) {
-                            vm.darkSpells = data;
+                            vm.dark_spells = data;
                         });
                 },
                 getBarracks: function() {
@@ -63,13 +65,13 @@ angular.module('clashApp.controllers', [])
                 getLightFactory: function() {
                     buildingFactory.getLightFactory()
                         .success(function(data) {
-                            vm.lightSpellsFactory = data;
+                            vm.light_factory = data;
                         })
                 },
                 getDarkFactory: function() {
                     buildingFactory.getDarkFactory()
                         .success(function(data) {
-                            vm.darkSpellsFactory = data;
+                            vm.dark_factory = data;
                         })
                 }
             }
@@ -77,8 +79,8 @@ angular.module('clashApp.controllers', [])
             //Execute services to get data
             vm.services.getLightSpells();
             vm.services.getDarkSpells();
-            vm.services.getLight();
-            vm.services.getDark();
+            vm.services.getLightTroops();
+            vm.services.getDarkTroops();
             vm.services.getBarracks();
             vm.services.getDarkBarracks();
             vm.services.getCamps();
@@ -92,26 +94,26 @@ angular.module('clashApp.controllers', [])
                 var aux = 0;
                 switch (option) {
                     case 'light':
-                        for (var i = vm.light.length - 1; i >= 0; i--) {
-                            aux = vm.light[i].amount * vm.light[i].space;
+                        for (var i = vm.light_troops.length - 1; i >= 0; i--) {
+                            aux = vm.light_troops[i].amount * vm.light_troops[i].space;
                             spacing += aux;
                         }
                         break;
                     case 'dark':
-                        for (var i = vm.dark.length - 1; i >= 0; i--) {
-                            aux = vm.dark[i].amount * vm.dark[i].space;
+                        for (var i = vm.dark_troops.length - 1; i >= 0; i--) {
+                            aux = vm.dark_troops[i].amount * vm.dark_troops[i].space;
                             spacing += aux;
                         }
                         break;
-                    case 'lightSpells':
-                        for (var i = vm.lightSpells.length - 1; i >= 0; i--) {
-                            aux = vm.lightSpells[i].amount * vm.lightSpells[i].space;
+                    case 'light_spells':
+                        for (var i = vm.light_spells.length - 1; i >= 0; i--) {
+                            aux = vm.light_spells[i].amount * vm.light_spells[i].space;
                             spacing += aux;
                         }
                         break;
-                    case 'darkSpells':
-                        for (var i = vm.darkSpells.length - 1; i >= 0; i--) {
-                            aux = vm.darkSpells[i].amount * vm.darkSpells[i].space;
+                    case 'dark_spells':
+                        for (var i = vm.dark_spells.length - 1; i >= 0; i--) {
+                            aux = vm.dark_spells[i].amount * vm.dark_spells[i].space;
                             spacing += aux;
                         }
                         break;
@@ -119,45 +121,11 @@ angular.module('clashApp.controllers', [])
                         spacing = vm.spacing('light') + vm.spacing('dark');
                         break;
                     case 'total.spells':
-                        spacing = vm.spacing('darkSpells') + vm.spacing('lightSpells');
+                        spacing = vm.spacing('dark_spells') + vm.spacing('light_spells');
                         break;
                 }
                 return spacing;
             }
-
-            //Calculate the amount of troops
-            vm.cantidad = function(option) {
-                var cantidad = 0;
-                var aux = 0;
-                switch (option) {
-                    case 'light':
-                        for (var i = vm.light.length - 1; i >= 0; i--) {
-                            aux = vm.light[i].amount;
-                            cantidad += aux;
-                        }
-                        break;
-                    case 'dark':
-                        for (var i = vm.dark.length - 1; i >= 0; i--) {
-                            aux = vm.dark[i].amount;
-                            cantidad += aux;
-                        }
-                        break;
-                    case 'lightSpells':
-                        for (var i = vm.lightSpells.length - 1; i >= 0; i--) {
-                            aux = vm.lightSpells[i].amount;
-                            cantidad += aux;
-                        }
-                        break;
-                    case 'darkSpells':
-                        for (var i = vm.darkSpells.length - 1; i >= 0; i--) {
-                            aux = vm.darkSpells[i].amount;
-                            cantidad += aux;
-                        }
-                        break;
-                }
-                return cantidad;
-            }
-
 
             //Calculate the total cost
             vm.costo = function(option) {
@@ -166,80 +134,80 @@ angular.module('clashApp.controllers', [])
                 var index = 0;
                 switch (option) {
                     case 'light':
-                        for (var i = vm.light.length - 1; i >= 0; i--) {
-                            index = vm.light[i].lvl - 1;
-                            if (typeof vm.light[i].cost[index] !== 'undefined' && typeof vm.light[i].amount !== 'undefined') {
-                                aux = vm.light[i].cost[index] * vm.light[i].amount;
+                        for (var i = vm.light_troops.length - 1; i >= 0; i--) {
+                            index = vm.light_troops[i].lvl - 1;
+                            if (typeof vm.light_troops[i].cost[index] !== 'undefined' && typeof vm.light_troops[i].amount !== 'undefined') {
+                                aux = vm.light_troops[i].cost[index] * vm.light_troops[i].amount;
                                 costo += aux;
                             }
                         }
                         break;
                     case 'dark':
-                        for (var i = vm.dark.length - 1; i >= 0; i--) {
-                            index = vm.dark[i].lvl - 1;
-                            if (typeof vm.dark[i].cost[index] !== 'undefined' && typeof vm.dark[i].amount !== 'undefined') {
-                                aux = vm.dark[i].cost[index] * vm.dark[i].amount;
+                        for (var i = vm.dark_troops.length - 1; i >= 0; i--) {
+                            index = vm.dark_troops[i].lvl - 1;
+                            if (typeof vm.dark_troops[i].cost[index] !== 'undefined' && typeof vm.dark_troops[i].amount !== 'undefined') {
+                                aux = vm.dark_troops[i].cost[index] * vm.dark_troops[i].amount;
                                 costo += aux;
                             }
                         }
                         break;
-                    case 'lightSpells':
-                        for (var i = vm.lightSpells.length - 1; i >= 0; i--) {
-                            index = vm.lightSpells[i].lvl - 1;
-                            if (typeof vm.lightSpells[i].cost[index] !== 'undefined' && typeof vm.lightSpells[i].amount !== 'undefined') {
-                                aux = vm.lightSpells[i].cost[index] * vm.lightSpells[i].amount;
+                    case 'light_spells':
+                        for (var i = vm.light_spells.length - 1; i >= 0; i--) {
+                            index = vm.light_spells[i].lvl - 1;
+                            if (typeof vm.light_spells[i].cost[index] !== 'undefined' && typeof vm.light_spells[i].amount !== 'undefined') {
+                                aux = vm.light_spells[i].cost[index] * vm.light_spells[i].amount;
                                 costo += aux;
                             }
                         }
                         break;
-                    case 'darkSpells':
-                        for (var i = vm.darkSpells.length - 1; i >= 0; i--) {
-                            index = vm.darkSpells[i].lvl - 1;
-                            if (typeof vm.darkSpells[i].cost[index] !== 'undefined' && typeof vm.darkSpells[i].amount !== 'undefined') {
-                                aux = vm.darkSpells[i].cost[index] * vm.darkSpells[i].amount;
+                    case 'dark_spells':
+                        for (var i = vm.dark_spells.length - 1; i >= 0; i--) {
+                            index = vm.dark_spells[i].lvl - 1;
+                            if (typeof vm.dark_spells[i].cost[index] !== 'undefined' && typeof vm.dark_spells[i].amount !== 'undefined') {
+                                aux = vm.dark_spells[i].cost[index] * vm.dark_spells[i].amount;
                                 costo += aux;
                             }
                         }
                         break;
                     case 'total.light':
-                        costo = vm.costo('light') + vm.costo('lightSpells');
+                        costo = vm.costo('light') + vm.costo('light_spells');
                         break;
                     case 'total.dark':
-                        costo = vm.costo('dark') + vm.costo('darkSpells');
+                        costo = vm.costo('dark') + vm.costo('dark_spells');
                         break;
                 }
                 return costo;
             }
 
             //Calculate the total time
-            vm.tiempo = function(option) {
-                var tiempo = 0;
+            vm.time = function(option) {
+                var time = 0;
                 switch (option) {
                     case 'light':
-                        for (var i = vm.light.length - 1; i >= 0; i--) {
-                            tiempo += (vm.light[i].time * vm.light[i].amount);
+                        for (var i = vm.light_troops.length - 1; i >= 0; i--) {
+                            time += (vm.light_troops[i].time * vm.light_troops[i].amount);
                         }
                         break;
                     case 'dark':
-                        for (var i = vm.dark.length - 1; i >= 0; i--) {
-                            tiempo += (vm.dark[i].time * vm.dark[i].amount);
+                        for (var i = vm.dark_troops.length - 1; i >= 0; i--) {
+                            time += (vm.dark_troops[i].time * vm.dark_troops[i].amount);
                         }
                         break;
-                    case 'lightSpells':
-                        for (var i = vm.lightSpells.length - 1; i >= 0; i--) {
-                            tiempo += (vm.lightSpells[i].time * vm.lightSpells[i].amount);
+                    case 'light_spells':
+                        for (var i = vm.light_spells.length - 1; i >= 0; i--) {
+                            time += (vm.light_spells[i].time * vm.light_spells[i].amount);
                         }
                         break;
-                    case 'darkSpells':
-                        for (var i = vm.darkSpells.length - 1; i >= 0; i--) {
-                            tiempo += (vm.darkSpells[i].time * vm.darkSpells[i].amount);
+                    case 'dark_spells':
+                        for (var i = vm.dark_spells.length - 1; i >= 0; i--) {
+                            time += (vm.dark_spells[i].time * vm.dark_spells[i].amount);
                         }
                         break;
                 }
-                return tiempo;
+                return time;
             }
 
-            //Max amount of troops and lightSpells calculation
+            //Max amount of troops and light_spells calculation
             vm.max_amount = function(option) {
                 var max = 0;
                 switch (option) {
@@ -252,12 +220,12 @@ angular.module('clashApp.controllers', [])
                         }
                         break;
                     case 'spells':
-                        if (typeof vm.lightSpellsFactory !== 'undefined' && typeof vm.darkSpellsFactory !== 'undefined') {
-                            for (var i = vm.lightSpellsFactory.length - 1; i >= 0; i--) {
-                                max += vm.lightSpellsFactory[i].capacity[vm.lightSpellsFactory[i].lvl];
+                        if (typeof vm.light_factory !== 'undefined' && typeof vm.dark_factory !== 'undefined') {
+                            for (var i = vm.light_factory.length - 1; i >= 0; i--) {
+                                max += vm.light_factory[i].capacity[vm.light_factory[i].lvl];
                             };
-                            for (var i = vm.darkSpellsFactory.length - 1; i >= 0; i--) {
-                                max += vm.darkSpellsFactory[i].capacity[vm.darkSpellsFactory[i].lvl];
+                            for (var i = vm.dark_factory.length - 1; i >= 0; i--) {
+                                max += vm.dark_factory[i].capacity[vm.dark_factory[i].lvl];
                             };
                         };
                         break;
@@ -266,7 +234,7 @@ angular.module('clashApp.controllers', [])
 
             }
 
-            //Troop and lightSpells max amount exceeded check
+            //Troop and light_spells max amount exceeded check
             vm.limit = function(option) {
                 var answer = false;
                 switch (option) {
@@ -286,38 +254,38 @@ angular.module('clashApp.controllers', [])
 
             //Calculate the total unit queue in a barrack
             vm.barrack_total = function(type, index) {
-                var cantidad = 0;
+                var total = 0;
                 switch (type) {
                     case 'light':
                         for (var i = 10; i > 0; i--) {
-                            cantidad += vm.light_barracks[index].amount[i];
+                            total += vm.light_barracks[index].amount[i];
                         }
                         break;
                     case 'dark':
                         for (var i = 6; i > 0; i--) {
-                            cantidad += vm.dark_barracks[index].amount[i];
+                            total += vm.dark_barracks[index].amount[i];
                         }
                         break;
                 }
-                return cantidad;
+                return total;
             }
 
             //Calculate the total time per barrack
             vm.barrack_time = function(type, index) {
-                var tiempo = 0;
+                var barrackTime = 0;
                 switch (type) {
                     case 'light':
                         for (var i = 10; i > 0; i--) {
-                            tiempo += (vm.light[i - 1].time * vm.light_barracks[index].amount[i]);
+                            barrackTime += (vm.light_troops[i - 1].time * vm.light_barracks[index].amount[i]);
                         }
                         break;
                     case 'dark':
                         for (var i = 6; i > 0; i--) {
-                            tiempo += (vm.dark[i - 1].time * vm.dark_barracks[index].amount[i]);
+                            barrackTime += (vm.dark_troops[i - 1].time * vm.dark_barracks[index].amount[i]);
                         }
                         break;
                 }
-                return tiempo;
+                return barrackTime;
             }
 
             //Troops assignment to barracks methods to maximize efficiency in production time
@@ -325,23 +293,23 @@ angular.module('clashApp.controllers', [])
 
                 switch (type) {
                     case 'light':
-                        for (var i = vm.light.length - 1; i >= 0; i--) {
+                        for (var i = vm.light_troops.length - 1; i >= 0; i--) {
                             for (var g = vm.light_barracks.length - 1; g >= 0; g--) {
-                                vm.light_barracks[g].amount[vm.light[i].id] = 0;
+                                vm.light_barracks[g].amount[vm.light_troops[i].id] = 0;
                             };
-                            if (vm.light[i].amount > 0) {
-                                vm.asing_unit('light', i, vm.light[i].amount);
+                            if (vm.light_troops[i].amount > 0) {
+                                vm.asing_unit('light', i, vm.light_troops[i].amount);
                             };
                         };
                         break;
 
                     case 'dark':
-                        for (var i = vm.dark.length - 1; i >= 0; i--) {
+                        for (var i = vm.dark_troops.length - 1; i >= 0; i--) {
                             for (var g = vm.dark_barracks.length - 1; g >= 0; g--) {
-                                vm.dark_barracks[g].amount[vm.dark[i].id] = 0;
+                                vm.dark_barracks[g].amount[vm.dark_troops[i].id] = 0;
                             };
-                            if (vm.dark[i].amount > 0) {
-                                vm.asing_unit('dark', i, vm.dark[i].amount);
+                            if (vm.dark_troops[i].amount > 0) {
+                                vm.asing_unit('dark', i, vm.dark_troops[i].amount);
                             };
                         };
 
@@ -357,8 +325,8 @@ angular.module('clashApp.controllers', [])
                         for (var i = 0; i < amount; i++) {
 
                             barrack_index = vm.select_barrack('light', index);
-                            if (vm.barrack_total('light', barrack_index) + vm.light[index].space <= vm.light_barracks[barrack_index].capacity[vm.light_barracks[barrack_index].lvl]) {
-                                vm.light_barracks[barrack_index].amount[vm.light[index].id]++;
+                            if (vm.barrack_total('light', barrack_index) + vm.light_troops[index].space <= vm.light_barracks[barrack_index].capacity[vm.light_barracks[barrack_index].lvl]) {
+                                vm.light_barracks[barrack_index].amount[vm.light_troops[index].id]++;
                             };
                         };
                         break;
@@ -385,9 +353,9 @@ angular.module('clashApp.controllers', [])
                 switch (type) {
                     case 'light':
                         for (var i = 0; i < vm.light_barracks.length; i++) {
-                            conditionA = vm.light[index].id <= vm.light_barracks[i].lvl;
-                            conditionB = (vm.light_barracks[i].capacity[vm.light_barracks[i].lvl] - vm.barrack_total('light', i)) >= vm.light[index].space;
-                            conditionC = vm.light_barracks[i].lvl >= vm.light[index].id;
+                            conditionA = vm.light_troops[index].id <= vm.light_barracks[i].lvl;
+                            conditionB = (vm.light_barracks[i].capacity[vm.light_barracks[i].lvl] - vm.barrack_total('light', i)) >= vm.light_troops[index].space;
+                            conditionC = vm.light_barracks[i].lvl >= vm.light_troops[index].id;
                             if (conditionA && conditionB && conditionC) {
                                 vm.available_barracks.push(i);
                             }
@@ -395,9 +363,9 @@ angular.module('clashApp.controllers', [])
 
                         for (var i = 0; i < vm.available_barracks.length; i++) {
 
-                            if ((vm.barrack_time('light', i) + vm.light[index].time) < diference) {
+                            if ((vm.barrack_time('light', i) + vm.light_troops[index].time) < diference) {
                                 lower_barrack = vm.available_barracks[i];
-                                diference = vm.barrack_time('light', i) + vm.light[index].time;
+                                diference = vm.barrack_time('light', i) + vm.light_troops[index].time;
                             };
                         };
                         break;

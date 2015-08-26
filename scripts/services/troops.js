@@ -5,7 +5,7 @@ angular.module('clashApp.services', [])
       function ($http) {
          var location = window.location.protocol + '//' + 'localhost';
          return {
-            getLight: function () {
+            getLightTroops: function () {
                var response = [];
                return $http.get( location + '/clash/resources/lightTroops.json')
                   .success(function(data) {
@@ -13,7 +13,7 @@ angular.module('clashApp.services', [])
                   });
                return response;
             },
-            getDark: function () {
+            getDarkTroops: function () {
                var response = [];
                return $http.get( location + '/clash/resources/darkTroops.json')
                   .success(function(data) {
