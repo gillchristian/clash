@@ -14,6 +14,7 @@ angular.module('clashApp.controllers', [])
             vm.dark.amount = [];
             vm.lightSpells = [];
             vm.max_amount = [];
+            vm.darkSpells = [];
 
             //Services manipulation
             vm.services = {
