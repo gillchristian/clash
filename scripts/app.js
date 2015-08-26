@@ -26,7 +26,8 @@ angular
         .state('calculator', {
           url: '/',
           templateUrl: 'views/calculator.html',
-          controller: 'CalculatorController'
+          controller: 'CalculatorController',
+          controllerAs: 'vm'
         });
       });
 

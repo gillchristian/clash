@@ -5,53 +5,53 @@
 		<div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-xs-6">
 			<p>
 				<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-				<span>Barracks</span> <span class="elixir" ng-bind="costo('light') | number"></span>
+				<span>Barracks</span> <span class="elixir" ng-bind="vm.costo('light') | number"></span>
 			</p>
 			<p>
 				<span class="dark-elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-				<span>Dark Barracks</span> <span class="dark-elixir" ng-bind="costo('dark') | number"></span>
+				<span>Dark Barracks</span> <span class="dark-elixir" ng-bind="vm.costo('dark') | number"></span>
 			</p>
 		</div>
 		<div class="col-lg-2 col-md-2 col-xs-6">
 			<p>
 				<span class="elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
-				<span>Spells</span> <span class="elixir" ng-bind="costo('lightSpells') | number"></span>
+				<span>Spells</span> <span class="elixir" ng-bind="vm.costo('lightSpells') | number"></span>
 			</p>
 
 			<p>
 				<span class="dark-elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
-				<span>Dark Spells</span> <span class="dark-elixir" ng-bind="costo('darkSpells') | number"></span>
+				<span>Dark Spells</span> <span class="dark-elixir" ng-bind="vm.costo('darkSpells') | number"></span>
 			</p>
 		</div>
 
 		<div class="col-lg-2 col-md-offset-0 col-md-2 col-xs-offset-3 col-xs-6">
 			<p>
 				<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-				<span>Total Elixir</span> <span class="elixir" ng-bind="costo('total.light') | number"></span>
+				<span>Total Elixir</span> <span class="elixir" ng-bind="vm.costo('total.light') | number"></span>
 			</p>
 			<p>
 				<span class="dark-elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-				<span>Total Dark Elixir</span> <span class="dark-elixir" ng-bind="costo('total.dark') | number"> </span>
+				<span>Total Dark Elixir</span> <span class="dark-elixir" ng-bind="vm.costo('total.dark') | number"> </span>
 			</p>
 		</div>
 		<div class="col-lg-2 col-md-2 col-xs-6">
-			<p ng-class="{limit : limit('troops')}">
+			<p ng-class="{limit : vm.limit('troops')}">
 				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-				<span>Amry</span> <span ng-bind="spacing('total.troops')"></span>
+				<span>Amry</span> <span ng-bind="vm.spacing('total.troops')"></span>
 			</p>
-			<p ng-class="{limit : limit('troops')}">
+			<p ng-class="{limit : vm.limit('troops')}">
 				<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-				<span>Max Troops</span> <span ng-bind="max_amount('troops')"></span>
+				<span>Max Troops</span> <span ng-bind="vm.max_amount('troops')"></span>
 			</p>
 		</div>
 		<div class="col-lg-2 col-md-2 col-xs-6">
-			<p ng-class="{limit : limit('spells')}">
+			<p ng-class="{limit : vm.limit('spells')}">
 				<span class="elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
-				<span>Spells</span> <span ng-bind="spacing('total.spells')"></span>
+				<span>Spells</span> <span ng-bind="vm.spacing('total.spells')"></span>
 			</p>
-			<p ng-class="{limit : limit('spells')}">
+			<p ng-class="{limit : vm.limit('spells')}">
 				<span class="elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
-				<span>Max Spells</span> <span ng-bind="max_amount('spells')"></span>
+				<span>Max Spells</span> <span ng-bind="vm.max_amount('spells')"></span>
 			</p>
 		</div>
 	</div>
@@ -63,7 +63,7 @@
 	<div class="col-lg-offset-0 col-lg-2 col-md-offset-2 col-md-4 col-xs-offset-3 col-xs-6">
 		<h4>Army Camps</h4>
 		<ul class="inline ul-select">
-			<li class="inline" ng-repeat="camp in camps">
+			<li class="inline" ng-repeat="camp in vm.camps">
 				<select ng-init = "camp.lvl = camp.lvls[0]" ng-model="camp.lvl" ng-options="lvl for lvl in camp.lvls"></select>
 			</li>
 		</ul>
@@ -73,7 +73,7 @@
 	<div class="col-lg-3 col-md-4 col-xs-7">
 		<h4>Barracks</h4>
 		<ul class="inline ul-select">
-			<li class="inline" ng-repeat="light_barrack in light_barracks">
+			<li class="inline" ng-repeat="light_barrack in vm.light_barracks">
 				<select ng-init = "light_barrack.lvl = light_barrack.lvls[0]" ng-model="light_barrack.lvl" ng-options="lvl for lvl in light_barrack.lvls"></select>
 			</li>
 		</ul>
@@ -82,16 +82,18 @@
 	<div class="col-lg-2 col-lg-offset-0 col-md-offset-2 col-md-2 col-xs-5">
 		<h4>Dark Barracks</h4>
 		<ul class="inline ul-select">
-			<li class="inline" ng-repeat="dark_barrack in dark_barracks">
+			<li class="inline" ng-repeat="dark_barrack in vm.dark_barracks">
 				<select ng-init = "dark_barrack.lvl = dark_barrack.lvls[0]" ng-model="dark_barrack.lvl" ng-options="lvl for lvl in dark_barrack.lvls"></select>
 			</li>
 		</ul>
 	</div>
 
+
+
 	<div class="col-lg-2 col-md-2 col-xs-5">
 		<h4>Spell Factory</h4>
 		<ul class="inline ul-select">
-			<li class="inline" ng-repeat="factory in lightSpellsFactory">
+			<li class="inline" ng-repeat="factory in vm.lightSpellsFactory">
 				<select ng-init = "factory.lvl = factory.lvls[0]" ng-model="factory.lvl" ng-options="lvl for lvl in factory.lvls"></select>
 			</li>
 		</ul>
@@ -100,7 +102,7 @@
 	<div class="col-lg-2 col-md-3 col-xs-6">
 		<h4>Dark Spell Factory</h4>
 		<ul class="inline ul-select">
-			<li class="inline" ng-repeat="factory in darkSpellsFactory">
+			<li class="inline" ng-repeat="factory in vm.darkSpellsFactory">
 				<select ng-init = "factory.lvl = factory.lvls[0]" ng-model="factory.lvl" ng-options="lvl for lvl in factory.lvls"></select>
 			</li>
 		</ul>
@@ -115,7 +117,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 
-				<div class="row troop-row" ng-repeat="unit in light | orderBy:'id' track by unit.id">
+				<div class="row troop-row" ng-repeat="unit in vm.light | orderBy:'id' track by unit.id">
 					<div class="col-md-8 col-xs-12">
 						<div class="col-md-3 col-xs-3">
 							<img ng-src="http://gillchristian.com/clash/img/troops/light/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
@@ -156,7 +158,7 @@
 					<div class="col-md-4 col-xs-12">
 						<div class="visible-xs col-xs-offset-2 col-xs-4"> <p><b>Amount per Barrack</b></p></div>
 						<div class="hidden-xs col-md-12"> <p><b>Amount per Barrack</b></p></div>
-						<div class="col-md-3 col-xs-1" ng-repeat="light_barrack in light_barracks">
+						<div class="col-md-3 col-xs-1" ng-repeat="light_barrack in vm.light_barracks">
 							<p>
 								<span ng-show="light_barrack.amount[unit.id] != '0'" ng-bind="light_barrack.amount[unit.id]"></span>
 							</p>
@@ -171,21 +173,21 @@
 					</div>
 					<div class="col-xs-2">
 						<p><b>Troops</b></p>
-						<p ng-bind="spacing('light')"></p>
+						<p ng-bind="vm.spacing('light')"></p>
 					</div>
 					<div class="col-xs-2">
 						<p><b>Cost</b></p>
-						<p class="elixir" ng-bind="costo('light') | number"></p>
+						<p class="elixir" ng-bind="vm.costo('light') | number"></p>
 					</div>
 					<div class="col-xs-2">
 						<p><b>Time</b></p>
-						<p ng-bind="tiempo('light') | creation_time"></p>
+						<p ng-bind="vm.tiempo('light') | creation_time"></p>
 					</div>
 					<div class="col-xs-4">
 						<div class="col-md-10 col-md-offset-1">
 							<p><b>Time per Barrack</b></p>
 						</div>
-						<div class="col-md-3" ng-repeat="light_barrack in light_barracks">
+						<div class="col-md-3" ng-repeat="light_barrack in vm.light_barracks">
 							<p>
 								<span ng-bind="barrack_time('light',$index) | creation_time"></span>
 							</p>
@@ -202,7 +204,7 @@
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 
-				<div class="row troop-row" ng-repeat="unit in dark | orderBy:'id' track by unit.id">
+				<div class="row troop-row" ng-repeat="unit in vm.dark | orderBy:'id' track by unit.id">
 					<div class="col-md-8 col-xs-12">
 						<div class="col-md-3 col-xs-3">
 							<img ng-src="http://gillchristian.com/clash/img/troops/dark/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
@@ -243,7 +245,7 @@
 					<div class="col-md-4 col-xs-12">
 						<div class="visible-xs col-xs-offset-2 col-xs-4"> <p><b>Amount per Barrack</b></p></div>
 						<div class="hidden-xs col-md-12"> <p><b>Amount per Barrack</b></p></div>
-						<div class="col-md-3 col-xs-1" ng-repeat="dark_barrack in dark_barracks">
+						<div class="col-md-3 col-xs-1" ng-repeat="dark_barrack in vm.dark_barracks">
 							<p>
 								<span ng-show="dark_barrack.amount[unit.id] != '0'" ng-bind="dark_barrack.amount[unit.id]"></span>
 							</p>
@@ -258,21 +260,21 @@
 					</div>
 					<div class="col-xs-2">
 						<p><b>Troops</b></p>
-						<p ng-bind="spacing('dark')"></p>
+						<p ng-bind="vm.spacing('dark')"></p>
 					</div>
 					<div class="col-xs-2">
 						<p><b>Cost</b></p>
-						<p ng-bind="costo('dark') | number"></p>
+						<p ng-bind="vm.costo('dark') | number"></p>
 					</div>
 					<div class="col-xs-2">
 						<p><b>Tiempo</b></p>
-						<p ng-bind="costo('dark') | number"></p>
+						<p ng-bind="vm.costo('dark') | number"></p>
 					</div>
 					<div class="col-xs-4">
 						<div class="col-md-10 col-md-offset-1">
 							<p><b>Time per Barrack</b></p>
 						</div>
-						<div class="col-md-3" ng-repeat="dark_barrack in dark_barracks">
+						<div class="col-md-3" ng-repeat="dark_barrack in vm.dark_barracks">
 							<p>
 								<span ng-bind="barrack_time('dark',$index) | creation_time"></span>
 							</p>
@@ -289,7 +291,7 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 
-				<div class="row troop-row" ng-repeat="unit in lightSpells | orderBy:'id' track by unit.id">
+				<div class="row troop-row" ng-repeat="unit in vm.lightSpells | orderBy:'id' track by unit.id">
 					<div class="col-md-3 col-xs-3">
 						<img ng-src="http://gillchristian.com/clash/img/troops/lightSpells/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
 					</div>
@@ -334,15 +336,15 @@
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Amount</b></p>
-						<p ng-bind="spacing('lightSpells')"></p>
+						<p ng-bind="vm.spacing('lightSpells')"></p>
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Cost</b></p>
-						<p ng-bind="costo('lightSpells') | number"></p>
+						<p ng-bind="vm.costo('lightSpells') | number"></p>
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Time</b></p>
-						<p ng-bind="tiempo('lightSpells') | creation_time"></p>
+						<p ng-bind="vm.tiempo('lightSpells') | creation_time"></p>
 					</div>
 				</div>
 			</div>
@@ -355,7 +357,7 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 
-				<div class="row troop-row" ng-repeat="unit in darkSpells | orderBy:'id' track by unit.id">
+				<div class="row troop-row" ng-repeat="unit in vm.darkSpells | orderBy:'id' track by unit.id">
 					<div class="col-md-3 col-xs-3">
 						<img ng-src="http://gillchristian.com/clash/img/troops/darkSpells/{{unit.unit}}.png" class="img-responsive img-circle" title="{{unit.name}}" alt="{{unit.name}}">
 					</div>
@@ -400,15 +402,15 @@
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Amount</b></p>
-						<p ng-bind="spacing('darkSpells')"></p>
+						<p ng-bind="vm.spacing('darkSpells')"></p>
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Cost</b></p>
-						<p ng-bind="costo('darkSpells') | number"></p>
+						<p ng-bind="vm.costo('darkSpells') | number"></p>
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Time</b></p>
-						<p ng-bind="tiempo('darkSpells') | creation_time"></p>
+						<p ng-bind="vm.tiempo('darkSpells') | creation_time"></p>
 					</div>
 				</div>
 			</div>

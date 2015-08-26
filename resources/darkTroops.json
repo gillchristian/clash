@@ -13,7 +13,7 @@
 	{
 		"id": 2,
 		"unit": "pig",
-		"name": "hog Rider",
+		"name": "Hog Rider",
 		"cost": [40,45,52,58,65],
 		"lvls": [1,2,3,4,5],
 		"lvl": "",
