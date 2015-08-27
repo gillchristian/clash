@@ -346,17 +346,18 @@ angular.module('clashApp.controllers', [])
             vm.select_barrack = function(type, index) {
                 var diference = 10000000;
                 var lower_barrack = 0;
-                var conditionA, conditionB, conditionC;
+                var condition = { };
 
                 vm.available_barracks = [];
 
                 switch (type) {
                     case 'light':
                         for (var i = 0; i < vm.light_barracks.length; i++) {
-                            conditionA = vm.light_troops[index].id <= vm.light_barracks[i].lvl;
-                            conditionB = (vm.light_barracks[i].capacity[vm.light_barracks[i].lvl] - vm.barrack_total('light', i)) >= vm.light_troops[index].space;
-                            conditionC = vm.light_barracks[i].lvl >= vm.light_troops[index].id;
-                            if (conditionA && conditionB && conditionC) {
+
+                            condition.conditionA = vm.light_troops[index].id <= vm.light_barracks[i].lvl;
+                            condition.conditionB = (vm.light_barracks[i].capacity[vm.light_barracks[i].lvl] - vm.barrack_total('light', i)) >= vm.light_troops[index].space;
+                            
+                            if (condition.conditionA && condition.conditionB) {
                                 vm.available_barracks.push(i);
                             }
                         };
@@ -372,10 +373,11 @@ angular.module('clashApp.controllers', [])
 
                     case 'dark':
                         for (var i = 0; i < vm.dark_barracks.length; i++) {
-                            conditionA = vm.dark[index].id <= vm.dark_barracks[i].lvl;
-                            conditionB = (vm.dark_barracks[i].capacity[vm.dark_barracks[i].lvl] - vm.barrack_total('dark', i)) >= vm.dark[index].space;
-                            conditionC = vm.dark_barracks[i].lvl >= vm.dark[index].id;
-                            if (conditionA && conditionB && conditionC) {
+                            
+                            condition.conditionA = vm.dark[index].id <= vm.dark_barracks[i].lvl;
+                            condition.conditionB = (vm.dark_barracks[i].capacity[vm.dark_barracks[i].lvl] - vm.barrack_total('dark', i)) >= vm.dark[index].space;
+                            
+                            if (condition.conditionA && condition.conditionB) {
                                 vm.available_barracks.push(i);
                             }
                         };
@@ -395,7 +397,7 @@ angular.module('clashApp.controllers', [])
             }
 
             //Watch light and dark troops totals to trigger troop asignment to barracks
-            $scope.$watch("spacing('light')", function(newVal, oldVal) {
+            $scope.$watch("vm.spacing('light')", function(newVal, oldVal) {
                 if (!newVal) return;
                 var check = false;
 
@@ -410,7 +412,7 @@ angular.module('clashApp.controllers', [])
 
             });
 
-            $scope.$watch("spacing('dark')", function(newVal, oldVal) {
+            $scope.$watch("vm.spacing('dark')", function(newVal, oldVal) {
                 if (!newVal) return;
                 var check = false;
 
@@ -425,6 +427,5 @@ angular.module('clashApp.controllers', [])
 
             });
 
-
-        }
-    ]);
+        
+    }]);
