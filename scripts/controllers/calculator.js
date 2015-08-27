@@ -128,8 +128,8 @@ angular.module('clashApp.controllers', [])
             }
 
             //Calculate the total cost
-            vm.costo = function(option) {
-                var costo = 0;
+            vm.total_cost = function(option) {
+                var total_cost = 0;
                 var aux = 0;
                 var index = 0;
                 switch (option) {
@@ -138,7 +138,7 @@ angular.module('clashApp.controllers', [])
                             index = vm.light_troops[i].lvl - 1;
                             if (typeof vm.light_troops[i].cost[index] !== 'undefined' && typeof vm.light_troops[i].amount !== 'undefined') {
                                 aux = vm.light_troops[i].cost[index] * vm.light_troops[i].amount;
-                                costo += aux;
+                                total_cost += aux;
                             }
                         }
                         break;
@@ -147,7 +147,7 @@ angular.module('clashApp.controllers', [])
                             index = vm.dark_troops[i].lvl - 1;
                             if (typeof vm.dark_troops[i].cost[index] !== 'undefined' && typeof vm.dark_troops[i].amount !== 'undefined') {
                                 aux = vm.dark_troops[i].cost[index] * vm.dark_troops[i].amount;
-                                costo += aux;
+                                total_cost += aux;
                             }
                         }
                         break;
@@ -156,7 +156,7 @@ angular.module('clashApp.controllers', [])
                             index = vm.light_spells[i].lvl - 1;
                             if (typeof vm.light_spells[i].cost[index] !== 'undefined' && typeof vm.light_spells[i].amount !== 'undefined') {
                                 aux = vm.light_spells[i].cost[index] * vm.light_spells[i].amount;
-                                costo += aux;
+                                total_cost += aux;
                             }
                         }
                         break;
@@ -165,18 +165,18 @@ angular.module('clashApp.controllers', [])
                             index = vm.dark_spells[i].lvl - 1;
                             if (typeof vm.dark_spells[i].cost[index] !== 'undefined' && typeof vm.dark_spells[i].amount !== 'undefined') {
                                 aux = vm.dark_spells[i].cost[index] * vm.dark_spells[i].amount;
-                                costo += aux;
+                                total_cost += aux;
                             }
                         }
                         break;
                     case 'total.light':
-                        costo = vm.costo('light') + vm.costo('light_spells');
+                        total_cost = vm.total_cost('light') + vm.total_cost('light_spells');
                         break;
                     case 'total.dark':
-                        costo = vm.costo('dark') + vm.costo('dark_spells');
+                        total_cost = vm.total_cost('dark') + vm.total_cost('dark_spells');
                         break;
                 }
-                return costo;
+                return total_cost;
             }
 
             //Calculate the total time

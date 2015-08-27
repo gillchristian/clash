@@ -5,33 +5,33 @@
 		<div class="col-lg-offset-1 col-lg-2 col-md-offset-1 col-md-2 col-xs-6">
 			<p>
 				<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-				<span>Barracks</span> <span class="elixir" ng-bind="vm.costo('light') | number"></span>
+				<span>Barracks</span> <span class="elixir" ng-bind="vm.total_cost('light') | number"></span>
 			</p>
 			<p>
 				<span class="dark-elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-				<span>Dark Barracks</span> <span class="dark-elixir" ng-bind="vm.costo('dark') | number"></span>
+				<span>Dark Barracks</span> <span class="dark-elixir" ng-bind="vm.total_cost('dark') | number"></span>
 			</p>
 		</div>
 		<div class="col-lg-2 col-md-2 col-xs-6">
 			<p>
 				<span class="elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
-				<span>Spells</span> <span class="elixir" ng-bind="vm.costo('light_spells') | number"></span>
+				<span>Spells</span> <span class="elixir" ng-bind="vm.total_cost('light_spells') | number"></span>
 			</p>
 
 			<p>
 				<span class="dark-elixir"><span class="glyphicon glyphicon-fire" aria-hidden="true"></span></span>
-				<span>Dark Spells</span> <span class="dark-elixir" ng-bind="vm.costo('dark_spells') | number"></span>
+				<span>Dark Spells</span> <span class="dark-elixir" ng-bind="vm.total_cost('dark_spells') | number"></span>
 			</p>
 		</div>
 
 		<div class="col-lg-2 col-md-offset-0 col-md-2 col-xs-offset-3 col-xs-6">
 			<p>
 				<span class="elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-				<span>Total Elixir</span> <span class="elixir" ng-bind="vm.costo('total.light') | number"></span>
+				<span>Total Elixir</span> <span class="elixir" ng-bind="vm.total_cost('total.light') | number"></span>
 			</p>
 			<p>
 				<span class="dark-elixir"><span class="glyphicon glyphicon-tint" aria-hidden="true"></span></span>
-				<span>Total Dark Elixir</span> <span class="dark-elixir" ng-bind="vm.costo('total.dark') | number"> </span>
+				<span>Total Dark Elixir</span> <span class="dark-elixir" ng-bind="vm.total_cost('total.dark') | number"> </span>
 			</p>
 		</div>
 		<div class="col-lg-2 col-md-2 col-xs-6">
@@ -177,7 +177,7 @@
 					</div>
 					<div class="col-xs-2">
 						<p><b>Cost</b></p>
-						<p class="elixir" ng-bind="vm.costo('light') | number"></p>
+						<p class="elixir" ng-bind="vm.total_cost('light') | number"></p>
 					</div>
 					<div class="col-xs-2">
 						<p><b>Time</b></p>
@@ -264,11 +264,11 @@
 					</div>
 					<div class="col-xs-2">
 						<p><b>Cost</b></p>
-						<p ng-bind="vm.costo('dark') | number"></p>
+						<p ng-bind="vm.total_cost('dark') | number"></p>
 					</div>
 					<div class="col-xs-2">
 						<p><b>Tiempo</b></p>
-						<p ng-bind="vm.costo('dark') | number"></p>
+						<p ng-bind="vm.total_cost('dark') | number"></p>
 					</div>
 					<div class="col-xs-4">
 						<div class="col-md-10 col-md-offset-1">
@@ -340,7 +340,7 @@
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Cost</b></p>
-						<p ng-bind="vm.costo('light_spells') | number"></p>
+						<p ng-bind="vm.total_cost('light_spells') | number"></p>
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Time</b></p>
@@ -406,7 +406,7 @@
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Cost</b></p>
-						<p ng-bind="vm.costo('dark_spells') | number"></p>
+						<p ng-bind="vm.total_cost('dark_spells') | number"></p>
 					</div>
 					<div class="col-md-3 col-xs-3">
 						<p><b>Time</b></p>

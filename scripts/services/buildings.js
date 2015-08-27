@@ -3,11 +3,11 @@
 angular.module('clashApp.services')
    .factory('buildingFactory', ['$http',
       function ($http) {
-         var location = window.location.protocol + '//' + 'localhost';
+         var location = window.location.href;
          return {
             getBarracks: function () {
                var response = [];
-               return $http.get( location + '/clash/resources/barracks.json')
+               return $http.get( location + 'resources/barracks.json')
                   .success(function(data) {
                      response = data;
                   });
@@ -15,7 +15,7 @@ angular.module('clashApp.services')
             },
             getDarkBarracks: function () {
                var response = [];
-               return $http.get( location + '/clash/resources/darkBarracks.json')
+               return $http.get( location + 'resources/darkBarracks.json')
                   .success(function(data) {
                      response = data;
                   });
@@ -23,7 +23,7 @@ angular.module('clashApp.services')
             },
             getCamps: function () {
                var response = [];
-               return $http.get( location + '/clash/resources/camps.json')
+               return $http.get( location + 'resources/camps.json')
                   .success(function(data) {
                      response = data;
                   });
@@ -31,7 +31,7 @@ angular.module('clashApp.services')
             },
             getLightFactory: function () {
                var response = [];
-               return $http.get( location + '/clash/resources/lightSpellsFactory.json')
+               return $http.get( location + 'resources/lightSpellsFactory.json')
                   .success(function(data) {
                      response = data;
                   });
@@ -39,7 +39,7 @@ angular.module('clashApp.services')
             },
             getDarkFactory: function () {
                var response = [];
-               return $http.get( location + '/clash/resources/darkSpellsFactory.json')
+               return $http.get( location + 'resources/darkSpellsFactory.json')
                   .success(function(data) {
                      response = data;
                   });
