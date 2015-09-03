@@ -1,9 +1,12 @@
+(function(){
+
+'use strict';
+
 //Factory for troops and buildings data.
 
 angular.module('clashApp.services')
-   .factory('buildingFactory', ['$http',
+   .factory('calculator', ['$http',
       function ($http) {
-         var location = window.location.href;
          return {
             getBarracks: function () {
                var response = [];
@@ -49,3 +52,5 @@ angular.module('clashApp.services')
          }
       }
    ]);
+
+})();

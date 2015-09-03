@@ -1,0 +1,38 @@
+/* ----- colors ----- */
+
+$clashGold: #FFD700;
+$darkContent: #464342;
+$gray: #F5F5F0;
+$lightGray: #E0E0E0;
+$alert: #a94442;
+$lightBrown: #464342;
+$lightBlue: #006064;
+
+
+$elixir: #CC0066;
+
+$dark-elixir: #111;
+
+
+
+$primary-color: #9E9E9E;
+
+$secondary-color: #8a6d3b;
+
+$success-color: #3c763d;
+
+$alert: #a94442;
+
+
+$font-primary: #212121;
+
+$font-secondary: #333333;
+
+$font-light: #727272;
+
+@alias {
+	fs: font-size;
+
+	bg: background;
+	bgc: background-color;
+}

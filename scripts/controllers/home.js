@@ -1,3 +1,5 @@
+(function(){
+
 'use strict';
 
 /**
@@ -13,3 +15,5 @@ angular.module('clashApp.controllers', [])
 
 }
 ]);
+
+})();

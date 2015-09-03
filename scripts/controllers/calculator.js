@@ -1,8 +1,10 @@
+(function(){
+
 'use strict';
 
 angular.module('clashApp.controllers', [])
-    .controller('CalculatorController', ['$scope', '$http', 'troopFactory', 'buildingFactory',
-        function ($scope, $http, troopFactory, buildingFactory) {
+    .controller('CalculatorController', ['$scope', '$http', 'troopFactory', 'buildingFactory', 'calculator',
+        function ($scope, $http, troopFactory, buildingFactory, calculator) {
 
             var vm = this;
 
@@ -354,10 +356,12 @@ angular.module('clashApp.controllers', [])
                     case 'light':
                         for (var i = 0; i < vm.light_barracks.length; i++) {
 
-                            condition.conditionA = vm.light_troops[index].id <= vm.light_barracks[i].lvl;
-                            condition.conditionB = (vm.light_barracks[i].capacity[vm.light_barracks[i].lvl] - vm.barrack_total('light', i)) >= vm.light_troops[index].space;
+                            // check if the unit is troopAvailable according to the barracks lvl
+                            condition.troopAvailable = vm.light_troops[index].id <= vm.light_barracks[i].lvl;
+                            // check if barracks are not full
+                            condition.barrackSpace = (vm.light_barracks[i].capacity[vm.light_barracks[i].lvl] - vm.barrack_total('light', i)) >= vm.light_troops[index].space;
                             
-                            if (condition.conditionA && condition.conditionB) {
+                            if (condition.troopAvailable && condition.barrackSpace) {
                                 vm.available_barracks.push(i);
                             }
                         };
@@ -374,10 +378,12 @@ angular.module('clashApp.controllers', [])
                     case 'dark':
                         for (var i = 0; i < vm.dark_barracks.length; i++) {
                             
-                            condition.conditionA = vm.dark[index].id <= vm.dark_barracks[i].lvl;
-                            condition.conditionB = (vm.dark_barracks[i].capacity[vm.dark_barracks[i].lvl] - vm.barrack_total('dark', i)) >= vm.dark[index].space;
+                            // check if the unit is troopAvailable according to the barracks lvl
+                            condition.troopAvailable = vm.dark[index].id <= vm.dark_barracks[i].lvl;
+                            // check if barracks are not full
+                            condition.barrackSpace = (vm.dark_barracks[i].capacity[vm.dark_barracks[i].lvl] - vm.barrack_total('dark', i)) >= vm.dark[index].space;
                             
-                            if (condition.conditionA && condition.conditionB) {
+                            if (condition.troopAvailable && condition.barrackSpace) {
                                 vm.available_barracks.push(i);
                             }
                         };
@@ -429,3 +435,5 @@ angular.module('clashApp.controllers', [])
 
         
     }]);
+
+})();

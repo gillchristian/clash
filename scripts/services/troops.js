@@ -1,3 +1,7 @@
+(function(){
+
+'use strict';
+
 //Factory for troops and buildings data.
 
 angular.module('clashApp.services', [])
@@ -40,3 +44,5 @@ angular.module('clashApp.services', [])
          }
       }
    ]);
+
+})();

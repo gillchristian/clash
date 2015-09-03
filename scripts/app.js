@@ -1,4 +1,7 @@
+(function(){
+
 'use strict';
+
 
 /**
 * @ngdoc overview
@@ -9,7 +12,7 @@
 * Main module of the application.
 */
 angular
-    .module('clashApp', ['ui.router', 'ui.bootstrap', 'clashApp.controllers', 'clashApp.filters', 'clashApp.services']);
+    .module('clashApp', ['ui.router', 'clashApp.controllers', 'clashApp.filters', 'clashApp.services']);
 
 angular.module('clashApp')
     .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -40,3 +43,6 @@ angular.module('clashApp')
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }]);
+
+
+})();

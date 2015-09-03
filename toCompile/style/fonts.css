@@ -1,0 +1,10 @@
+/*Fonts */
+@font-face {
+    font-family: ClashFont;
+    src: url(fonts/supercell-magic-webfont.ttf);
+}
+
+.clash-font {
+    font-family: ClashFont, Courier !important;
+    color: $clashGold !important;
+}
