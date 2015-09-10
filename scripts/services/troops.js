@@ -10,36 +10,16 @@ angular.module('clashApp.services', [])
          var location = window.location.href;
          return {
             getLightTroops: function () {
-               var response = [];
-               return $http.get( location + 'resources/lightTroops.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/lightTroops.json');
             },
             getDarkTroops: function () {
-               var response = [];
-               return $http.get( location + 'resources/darkTroops.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/darkTroops.json');
             },
             getLightSpells: function () {
-               var response = [];
-               return $http.get( location + 'resources/lightSpells.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/lightSpells.json');
             },
             getDarkSpells: function () {
-               var response = [];
-               return $http.get( location + 'resources/darkSpells.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/darkSpells.json');
             }
          }
       }

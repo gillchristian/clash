@@ -5,48 +5,27 @@
 //Factory for troops and buildings data.
 
 angular.module('clashApp.services')
-   .factory('calculator', ['$http',
+   .factory('buildingFactory', ['$http',
       function ($http) {
+         var location = window.location.href;
          return {
             getBarracks: function () {
-               var response = [];
-               return $http.get( location + 'resources/barracks.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/barracks.json');
             },
             getDarkBarracks: function () {
-               var response = [];
-               return $http.get( location + 'resources/darkBarracks.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/darkBarracks.json');
             },
             getCamps: function () {
-               var response = [];
-               return $http.get( location + 'resources/camps.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/camps.json');
             },
             getLightFactory: function () {
-               var response = [];
-               return $http.get( location + 'resources/lightSpellsFactory.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/lightSpellsFactory.json');
             },
             getDarkFactory: function () {
-               var response = [];
-               return $http.get( location + 'resources/darkSpellsFactory.json')
-                  .success(function(data) {
-                     response = data;
-                  });
-               return response;
+               return $http.get( location + 'resources/darkSpellsFactory.json');
+            },
+            getSpellsStaging: function () {
+               return $htttp.get( location + 'resources/spellsCamp.json');
             }
 
          }

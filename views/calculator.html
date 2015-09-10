@@ -67,7 +67,7 @@
   </div>
 </div>
 <hr/>
-<tabset type="tabs" justified="justified">
+<tabset type="tabs" justified="true">
   <!-- TAB-->
   <tab heading="Barracks"><br/>
     <div class="row">
@@ -136,7 +136,7 @@
     </div><br/>
   </tab>
   <!-- TAB-->
-  <tab heading="Dark Barracks">
+  <tab heading="Dark Barracks"><br/>
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div ng-repeat="unit in vm.dark_troops | orderBy:'id' track by unit.id" class="row troop-row">

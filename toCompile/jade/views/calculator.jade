@@ -83,7 +83,7 @@ h3 Choose the level of your buildings:
         select(ng-init='factory.lvl = factory.lvls[0]', ng-model='factory.lvl', ng-options='lvl for lvl in factory.lvls')
 hr
 
-tabset(type='tabs', justified)
+tabset(type='tabs', justified='true')
   // TAB
   tab(heading='Barracks')
     br
@@ -155,6 +155,7 @@ tabset(type='tabs', justified)
     br
   // TAB
   tab(heading='Dark Barracks')
+    br
     .row
       .col-md-8.col-md-offset-2
         .row.troop-row(ng-repeat="unit in vm.dark_troops | orderBy:'id' track by unit.id")

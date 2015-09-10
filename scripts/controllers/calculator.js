@@ -3,8 +3,8 @@
 'use strict';
 
 angular.module('clashApp.controllers', [])
-    .controller('CalculatorController', ['$scope', '$http', 'troopFactory', 'buildingFactory', 'calculator',
-        function ($scope, $http, troopFactory, buildingFactory, calculator) {
+    .controller('CalculatorController', ['$scope', '$http', 'troopFactory', 'buildingFactory', 'calculatorFactory',
+        function ($scope, $http, troopFactory, buildingFactory, calculatorFactory) {
 
             var vm = this;
 
@@ -88,7 +88,6 @@ angular.module('clashApp.controllers', [])
             vm.services.getCamps();
             vm.services.getLightFactory();
             vm.services.getDarkFactory();
-
 
             //Calculate the space ocupated by troops
             vm.spacing = function(option) {
@@ -254,7 +253,7 @@ angular.module('clashApp.controllers', [])
                 return answer;
             }
 
-            //Calculate the total unit queue in a barrack
+            //Calculate the total unit queued in a barrack
             vm.barrack_total = function(type, index) {
                 var total = 0;
                 switch (type) {

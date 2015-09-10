@@ -12,9 +12,9 @@
 * Main module of the application.
 */
 angular
-    .module('clashApp', ['ui.router', 'clashApp.controllers', 'clashApp.filters', 'clashApp.services']);
+    .module('clashApp', ['ui.router', 'ui.bootstrap', 'clashApp.controllers', 'clashApp.filters', 'clashApp.services'])
 
-angular.module('clashApp')
+    //  config routes
     .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     // For any unmatched url, redirect to /
@@ -37,8 +37,7 @@ angular.module('clashApp')
     $locationProvider.html5Mode(true);
 });
 
-
-angular.module('clashApp')
+    // config http provider
     .config(['$httpProvider', function($httpProvider) {
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
