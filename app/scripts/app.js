@@ -28,13 +28,13 @@ angular
         controller: 'HomeController'
         })*/
         .state('calculator', {
-            url: '/',
+            url: '/clash/',
             templateUrl: 'views/calculator.html',
             controller: 'CalculatorController',
             controllerAs: 'vm'
         })
         .state('test', {
-            url: '/test',
+            url: '/clash/test',
             templateUrl: 'views/test.html',
             controller: 'CalculatorController',
             controllerAs: 'vm'
