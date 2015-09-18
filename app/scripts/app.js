@@ -29,13 +29,13 @@ angular
         })*/
         .state('calculator', {
             url: '/',
-            templateUrl: 'views/calculator.html',
+            templateUrl: 'app/views/calculator.html',
             controller: 'CalculatorController',
             controllerAs: 'vm'
         })
         .state('test', {
             url: '/test',
-            templateUrl: 'views/test.html',
+            templateUrl: 'app/views/test.html',
             controller: 'CalculatorController',
             controllerAs: 'vm'
         });
