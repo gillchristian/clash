@@ -1,0 +1,33 @@
+@import 'fixes';
+@import 'variables';
+@import 'mixins';
+@import 'footer';
+@import 'army-view';
+@import 'fonts';
+@import 'layout';
+@import 'troop-card';
+@import 'building-card';
+@import 'flexbox-grid';
+
+
+/* --- General --- */
+.content {
+    color: $font-primary;
+}
+
+.ul-select {
+    padding-left: 0px;
+}
+
+/* --- text helpers --- */
+
+.center-text {
+	text-align: center;
+}
+
+/* --- others --- */
+
+.test-frame{
+	border: 1px solid rgba($black, 0.05);
+	br: 3px;
+}

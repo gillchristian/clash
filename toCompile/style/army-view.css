@@ -1,0 +1,36 @@
+/* Select */
+.inline{
+    display:inline;
+}
+
+/* Tables */
+th {
+    fs: responsive;
+}
+
+/* Rows */
+.troop-row{
+    border: 2px solid $lightGray;
+    border-bottom: 0px;
+    padding: 4px 2px 2px;
+}
+
+.troop-row:hover{
+    background-color: $gray;
+}
+
+.troop-row:last-child{
+    border-bottom: 2px solid $font-light;
+}
+
+/* Costs classes*/
+.elixir {
+    color: $elixir;
+}
+.dark-elixir {
+    color: $dark-elixir;
+}
+
+.limit{
+    color: $alert !important;
+}

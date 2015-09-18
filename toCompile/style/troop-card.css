@@ -1,0 +1,22 @@
+/* --- this is the troop card stylesheet --- */
+
+.troop-img {
+	display: block;
+	padding: 10px 5px 5px 15px;
+	/*margin: 0 auto;*/	
+
+}
+
+.troop-card {
+	@mixin wh 300px, 250px;
+    margin: 20px;
+    background-color: #f8f8f8;
+	br: 3px;
+    box-shadow: 0 2px 5px 0 rgba($black, 0.16), 0 2px 10px 0 rgba($black, 0.12);
+    overflow: hidden;
+}
+
+.troop-lvl,
+.troop-amount {
+	margin: 5px 5px 5px 15px;
+}

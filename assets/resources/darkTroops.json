@@ -1,0 +1,68 @@
+[	
+	{
+		"id": 1,
+		"unit": "minion",
+		"name": "Minion",
+		"cost": [6,7,8,9,10,11],
+		"lvls": [1,2,3,4,5,6],
+		"lvl": 0,
+		"time": 45,
+		"space": 2,
+		"amount": 0
+	},
+	{
+		"id": 2,
+		"unit": "pig",
+		"name": "Hog Rider",
+		"cost": [40,45,52,58,65],
+		"lvls": [1,2,3,4,5],
+		"lvl": 0,
+		"time": 120,
+		"space": 5,
+		"amount": 0
+	},
+	{
+		"id": 3,
+		"unit": "valkirye",
+		"name": "Valkirye",
+		"cost": [70,100,130,160],
+		"lvls": [1,2,3,4],
+		"lvl": 0,
+		"time": 480,
+		"space": 8,
+		"amount": 0
+	},
+	{
+		"id": 4,
+		"unit": "golem",
+		"name": "Golem",
+		"cost": [450,525,600,675,750],
+		"lvls": [1,2,3,4,5],
+		"lvl": 0,
+		"time": 2700,
+		"space": 30,
+		"amount": 0
+	},
+	{
+		"id": 5,
+		"unit": "witch",
+		"name": "Witch",
+		"cost": [250,350],
+		"lvls": [1,2],
+		"lvl": 0,
+		"time": 1200,
+		"space": 12,
+		"amount": 0
+	},
+	{
+		"id": 6,
+		"unit": "lavahound",
+		"name": "Lava Hound",
+		"cost": [390,450,510],
+		"lvls": [1,2,3],
+		"lvl": 0,
+		"time": 2700,
+		"space": 30,
+		"amount": 0
+	}
+]

@@ -1,0 +1,57 @@
+[
+        {
+            "id": 1,
+            "unit": "lightning",
+            "name": "Lightning",
+            "cost": [15000,16500,18000,20000,22000,24000],
+            "lvls": [1,2,3,4,5,6],
+            "lvl": 0,
+            "time": 1800,
+            "space": 2,
+            "amount": 0
+        },
+        {
+            "id": 2,
+            "unit": "healing",
+            "name": "Healing",
+            "cost": [15000,16500,18000,20000,22000,24000],
+            "lvls": [1,2,3,4,5,6],
+            "lvl": 0,
+            "time": 1800,
+            "space": 2,
+            "amount": 0
+        },
+        {
+            "id": 3,
+            "unit": "rage",
+            "name": "Rage",
+            "cost": [23000,25000,27000,30000,33000],
+            "lvls": [1,2,3,4,5],
+            "lvl": 0,
+            "time": 2700,
+            "space": 2,
+            "amount": 0
+        },
+        {
+            "id": 4,
+            "unit": "jump",
+            "name": "Jump",
+            "cost": [23000,27000,31000],
+            "lvls": [1,2,3],
+            "lvl": 0,
+            "time": 2700,
+            "space": 2,
+            "amount": 0
+        },
+        {
+            "id": 5,
+            "unit": "freeze",
+            "name": "Freeze",
+            "cost": [26000,29000,31000,33000,35000],
+            "lvls": [1,2,3,4,5],
+            "lvl": 0,
+            "time": 2700,
+            "space": 2,
+            "amount": 0
+        }
+]

@@ -1,0 +1,50 @@
+//- army tab set
+
+tab(ng-repeat='unitType in vm.unitTypes track by $index', heading='{{unitType.name}}')
+  .army.box-wrap-around
+    .troop-card.box(ng-repeat='unit in unitType.units track by $index')
+      //- pre {{unit.lvls}}
+      //- pre {{unit.cost}}
+      .left-col.col-35
+        .troop-img.test-frame
+          img.img-responsive.img-circle(ng-src="http://gillchristian.com/clash/img/troops/{{unit.unit}}.png")
+        .troop-lvl.test-frame.form-group
+          label(for='amount') amount
+          input.form-control(type='text', name='amount', , ng-model='unit.amount')
+        .troop-amount.test-frame.form-group
+          label(for='select') lvl
+          select.form-control(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls', name='select')
+          //- input.form-control(type='text')
+      .right-col.center-text.box-wrap-center-around.col-65
+        .item-full.test-frame
+          span {{unit.name}}
+        .col-40.test-frame
+          span cost <br>
+          span {{unit.getActualCost() | number}}
+        .col-40.test-frame
+          span total cost <br>
+          span {{unit.getCost() | number}}
+        .col-40.test-frame
+          span time <br>
+          span {{unit.time | creation_time}}
+        .col-40.test-frame
+          span total time <br>
+          span {{unit.getTime() | creation_time}}
+        .item-full.test-frame.box-wrap-center-around
+          .item-full.test-frame
+            span housing space: 
+            span {{unit.space}}
+          .item-full.test-frame
+            span units per building
+          .col-40.test-frame
+            span {{unit.amount}} <br>
+            span {{unit.getTime() | creation_time}}
+          .col-40.test-frame
+            span {{unit.amount}} <br>
+            span {{unit.getTime() | creation_time}}
+          .col-40.test-frame
+            span {{unit.amount}} <br>
+            span {{unit.getTime() | creation_time}}
+          .col-40.test-frame
+            span {{unit.amount}} <br>
+            span {{unit.getTime() | creation_time}}

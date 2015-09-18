@@ -1,0 +1,59 @@
+.calculator-title
+  h1.h2.center-text I'm just testing the army calculator!
+.army-view
+  tabset(justified="true")
+    tab(heading='Town Hall (config)')
+      p
+      pre {{unit.lvls}}
+      pre {{unit.cost}}
+      .building-card
+        .building-img
+            img.img-responsive.img-circle(src="http://gillchristian.com/clash/img/troops/earthquake.png")
+        .building-info
+          span here goes <br>
+          span some <br>
+          span info
+        .left-col
+          .building-img
+            img.img-responsive.img-circle(src="http://gillchristian.com/clash/img/troops/earthquake.png")
+          .building-lvl.form-group
+            label(for='amount') amount
+            input.form-control(type='text', name='amount', , ng-model='unit.amount')
+          .building-amount.form-group
+            label(for='select') lvl
+            select.form-control(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls', name='select')
+            //- input.form-control(type='text')
+        .right-col.box-col-around.center-text
+          .building-name
+            span {{unit.name}}
+          .building-time
+            span cost <br>
+            span {{unit.getActualCost() | number}}
+          .building-time
+            span total cost <br>
+            span {{unit.getCost() | number}}
+          .building-time
+            span time <br>
+            span {{unit.time | creation_time}}
+          .building-time
+            span total time <br>
+            span {{unit.getTime() | creation_time}}
+          .building-name.building-distribution
+            .building-name
+              span housing space: 
+              span {{unit.space}}
+            .building-name
+              span units per building
+            .building-time
+              span {{unit.amount}} <br>
+              span {{unit.getTime() | creation_time}}
+            .building-time
+              span {{unit.amount}} <br>
+              span {{unit.getTime() | creation_time}}
+            .building-time
+              span {{unit.amount}} <br>
+              span {{unit.getTime() | creation_time}}
+            .building-time
+              span {{unit.amount}} <br>
+              span {{unit.getTime() | creation_time}}
+    include ../includes/army

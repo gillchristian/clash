@@ -1,0 +1,19 @@
+/* --- general layout --- */
+.site{
+	min-height: 100vh;
+}
+
+.site-content {
+  flex: 1;
+}
+
+/* --- calculator layout --- */
+.calculator-title {
+	@mixin wh 100%, 100px;
+	bgc: $jumbotron;
+	margin-top: 35px;
+	padding-top: 15px;
+}
+.army-view {
+	margin: 10px;
+}
