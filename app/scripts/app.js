@@ -28,14 +28,14 @@ angular
         controller: 'HomeController'
         })*/
         .state('calculator', {
-            url: '/clash/',
-            templateUrl: 'views/calculator.html',
+            url: '/',
+            templateUrl: 'app/views/calculator.html',
             controller: 'CalculatorController',
             controllerAs: 'vm'
         })
         .state('test', {
-            url: '/clash/test',
-            templateUrl: 'views/test.html',
+            url: '/test',
+            templateUrl: 'app/views/test.html',
             controller: 'CalculatorController',
             controllerAs: 'vm'
         });
