@@ -1,0 +1,47 @@
+/* --- boxes --- */
+.box-col {
+	display: flex;
+	flex-direction: column;
+}
+
+.box {
+	display: flex;
+}
+
+.box-start {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.box-wrap-center-around {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.box-wrap-around {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.box-col-around {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+/* --- tiems --- */
+
+.item-full {
+	width: 100%;
+}
+
+
+/* --- items width --- */
+@for $index from 5 to 100 by 5 {
+    .col-$index {
+        width: $(index)%;
+    }
+}

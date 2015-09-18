@@ -12,13 +12,13 @@
     <!-- bootstrap-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <!-- custom css-->
-    <link rel="stylesheet" href="assets/style/style.css">
+    <link rel="stylesheet" href="app/style/style.css">
   </head>
-  <body ng-app="clashApp" class="site">
+  <body ng-app="clashApp" class="site box-col">
     <header>
       <nav role="navigation" class="navbar navbar-fixed-top navbar-inverse">
         <div class="container">
-          <div class="navbar-header"><a href="/" class="clash-font navbar-brand">Army Calculator</a></div>
+          <div class="navbar-header"><a ui-sref="test" class="clash-font navbar-brand">Army Calculator</a></div>
         </div>
       </nav>
     </header>
@@ -46,14 +46,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.3/ui-bootstrap-tpls.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-    <!-- app scripts -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/home.js"></script>
-    <script src="scripts/controllers/calculator.js"></script>
-    <script src="scripts/filters/time.js"></script>
-    <script src="scripts/services/troops.js"></script>
-    <script src="scripts/services/buildings.js"></script>
-    <script src="scripts/services/calculator.js"></script>
+    <!-- app scripts-->
+    <script src="app/scripts/app.js"></script>
+    <script src="app/scripts/controllers/home.js"></script>
+    <script src="app/scripts/controllers/calculatorCtrl.js"></script>
+    <script src="app/scripts/filters/time.js"></script>
+    <script src="app/scripts/services/troops.js"></script>
+    <script src="app/scripts/services/buildings.js"></script>
+    <script src="app/scripts/classes/unitClass.js"></script>
+    <script src="app/scripts/classes/unitTypeClass.js"></script>
+    <script src="app/scripts/classes/productionBuildingClass.js"></script>
+    <script src="app/scripts/classes/trainerClass.js"></script>
+    <script src="app/scripts/classes/stagingBuildingClass.js"></script>
     <!-- twitter script -->
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   </body>

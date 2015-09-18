@@ -15,13 +15,13 @@ html.no-js
     // bootstrap
     link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     // custom css
-    link(rel='stylesheet', href='assets/style/style.css')
-  body.site(ng-app='clashApp')
+    link(rel='stylesheet', href='app/style/style.css')
+  body.site.box-col(ng-app='clashApp')
     header
       nav(class='navbar navbar-fixed-top navbar-inverse', role='navigation')
         .container
           .navbar-header
-            a(href='/', class='clash-font navbar-brand') Army Calculator
+            a(ui-sref='test', class='clash-font navbar-brand') Army Calculator
     main.site-content
       .container
         br
@@ -50,13 +50,23 @@ html.no-js
     //- ui router
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js')
 
-    // app scripts 
-    script(src='scripts/app.js')
-    script(src='scripts/controllers/home.js')
-    script(src='scripts/controllers/calculator.js')
-    script(src='scripts/filters/time.js')
-    script(src='scripts/services/troops.js')
-    script(src='scripts/services/buildings.js')
-    script(src='scripts/services/calculator.js')
+    // app scripts
+    script(src='app/scripts/app.js')
+    //- controllers
+    script(src='app/scripts/controllers/home.js')
+    script(src='app/scripts/controllers/calculatorCtrl.js')
+    //- filters
+    script(src='app/scripts/filters/time.js')
+    //- services
+    script(src='app/scripts/services/troops.js')
+    script(src='app/scripts/services/buildings.js')
+    //- script(src='app/scripts/services/calculator.js')
+    //- classes
+    script(src='app/scripts/classes/unitClass.js')
+    script(src='app/scripts/classes/unitTypeClass.js')
+    script(src='app/scripts/classes/productionBuildingClass.js')
+    script(src='app/scripts/classes/trainerClass.js')
+    script(src='app/scripts/classes/stagingBuildingClass.js')
+    //- directives
     // twitter script 
     script !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');

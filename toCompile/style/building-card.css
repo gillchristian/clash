@@ -1,0 +1,75 @@
+/* --- this is the building card stylesheet --- */
+
+.army{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.building-card {
+	@mixin wh 300px, 250px;
+    margin: 20px;
+    background-color: #f8f8f8;
+	br: 3px;
+    box-shadow: 0 2px 5px 0 rgba($black, 0.16), 0 2px 10px 0 rgba($black, 0.12);
+    display: flex;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+
+.building-img {
+	display: block;
+	padding: 10px 5px 5px 15px;
+	/*margin: 0 auto;*/	
+	border: 1px solid rgba($black, 0.05);
+	br: 3px;
+	width: 40%;
+}
+
+.building-info{
+	width: 60%;
+}
+
+.left-col {
+	width: 35%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.building-lvl,
+.building-amount {
+	margin: 5px 5px 5px 15px;
+	border: 1px solid rgba($black, 0.05);
+	br: 3px;
+}
+
+.right-col {
+	width: 65%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.building-name {
+	width: 100%;
+	border: 1px solid rgba($black, 0.05);
+	br: 3px;
+}
+
+.building-time {
+	width: 40%;
+	border: 1px solid rgba($black, 0.05);
+	br: 3px;
+}
+
+.building-distribution {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;	
+}

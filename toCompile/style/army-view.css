@@ -8,11 +8,6 @@ th {
     fs: responsive;
 }
 
-.troop-img {
-    max-width: 30px;
-    max-height: 30px;
-}
-
 /* Rows */
 .troop-row{
     border: 2px solid $lightGray;

@@ -1,78 +1,33 @@
 'use strict';
-   // this function is strict...
 
 var gulp            = require('gulp'),
     rename          = require('gulp-rename'),
     sourcemaps      = require('gulp-sourcemaps'),
-    // jade plugins
+    // --- jade plugins
     plumber         = require('gulp-plumber'),
     jade            = require('gulp-jade'),
     merge           = require('merge-stream'),
-    // PostCSS plugins
+    // --- postCSS plugins
     postcss         = require('gulp-postcss'),
-    csswring        = require('csswring'),
     rucksack        = require('gulp-rucksack'),
-    importer        = require('postcss-import'),
-    mixins          = require('postcss-mixins'),
-    variables       = require('postcss-advanced-variables');
+    // --- require the config variables
+    TASKS           = require('./gulp-config/tasks'),
+    FILES           = require('./gulp-config/files'),
+    postcss         = require('./gulp-config/postcss');
 
-// tasks names
-
-var TASKS = {
-    dev: {
-        style: 'css',
-        jade: 'jade'
-    },
-    watch: {
-        all: 'watch',
-        style: 'css:watch',
-        jade: 'jade:watch'
-    },
-    production: {
-        ready: 'build',  
-        style: 'build:style',
-    },
-    default: 'default'
-};
-    
-var FILES = {
-    css: {
-        source: 'toCompile/style/style.css',
-        all: 'toCompile/style/**/*.css',
-        dest: 'assets/style/'
-    },
-    jade: {
-        index: 'toCompile/jade/index.jade',
-        others: ['toCompile/jade/**/*.jade', '!toCompile/jade/index.jade', '!toCompile/jade/{includes,includes/**}', '!toCompile/jade/{views,views/**}' ],
-        angularViews: 'toCompile/jade/views/**/*.jade',
-        all: 'toCompile/jade/**/*.jade',
-        dest: {
-            index: '',
-            angularViews: 'views/',
-            others: 'html/'
-        }
-    }
-};
-
-var preRucksack = [
-    importer,
-    mixins,
-    variables
-];
-
-var postRucksack = [
-    csswring
-];
+// require the postCSS plgins, files and tasks paths
 
 // deveolpment style tasks
 // --------------------------------------------------------
 gulp.task(TASKS.dev.style, function () {
 
     return gulp.src(FILES.css.source)
+        .pipe( plumber() )
         .pipe( sourcemaps.init() )
-        .pipe( postcss(preRucksack) )
+        .pipe( postcss(postcss.preRucksack) )
         .pipe( rucksack({autoprefixer: true, fallbacks: false }) )
         .pipe( sourcemaps.write('.') )
+        .pipe( plumber.stop() )
         .pipe( gulp.dest(FILES.css.dest) );
 });
 
@@ -135,11 +90,11 @@ gulp.task(TASKS.production.style, function (){
     
     return gulp.src(FILES.css.source)
         .pipe( plumber() )
-        .pipe( postcss(preRucksack) )
+        .pipe( postcss(postcss.preRucksack) )
         .pipe( rucksack({autoprefixer: true, fallbacks: false}) )
         .pipe( gulp.dest(FILES.css.dest) )
         .pipe( rename({suffix: '.min'}))
-        .pipe( postcss(postRucksack) )
+        .pipe( postcss(postcss.postRucksack) )
         .pipe( plumber.stop() )
         .pipe( gulp.dest(FILES.css.dest) );     
 

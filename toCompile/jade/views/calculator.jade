@@ -1,330 +1,59 @@
-h3.page-header Calculate your army
-.row
-  .col-lg-offset-1.col-lg-2.col-md-offset-1.col-md-2.col-xs-6
-    p
-      span.elixir
-        span.glyphicon.glyphicon-tint(aria-hidden='true') 
-      span Barracks 
-      span.elixir(ng-bind=" vm.total_cost('light') | number") 
-    p
-      span.dark-elixir
-        span.glyphicon.glyphicon-tint(aria-hidden='true') 
-      span Dark Barracks 
-      span.dark-elixir(ng-bind=" vm.total_cost('dark') | number")
-  .col-lg-2.col-md-2.col-xs-6
-    p
-      span.elixir
-        span.glyphicon.glyphicon-fire(aria-hidden='true') 
-      span Spells 
-      span.elixir(ng-bind=" vm.total_cost('light_spells') | number")
-    p
-      span.dark-elixir
-        span.glyphicon.glyphicon-fire(aria-hidden='true') 
-      span Dark Spells 
-      span.dark-elixir(ng-bind=" vm.total_cost('dark_spells') | number")
-  .col-lg-2.col-md-offset-0.col-md-2.col-xs-offset-3.col-xs-6
-    p
-      span.elixir
-        span.glyphicon.glyphicon-tint(aria-hidden='true') 
-      span Total Elixir 
-      span.elixir(ng-bind=" vm.total_cost('total.light') | number")
-    p
-      span.dark-elixir
-        span.glyphicon.glyphicon-tint(aria-hidden='true') 
-      span Total Dark Elixir 
-      span.dark-elixir(ng-bind=" vm.total_cost('total.dark') | number")  
-  .col-lg-2.col-md-2.col-xs-6
-    p(ng-class="{limit : vm.limit('troops')}")
-      span.glyphicon.glyphicon-user(aria-hidden='true') 
-      span Amry 
-      span(ng-bind=" vm.spacing('total.troops')")
-    p(ng-class="{limit : vm.limit('troops')}")
-      span.glyphicon.glyphicon-user(aria-hidden='true') 
-      span Max Troops 
-      span(ng-bind=" vm.max_amount('troops')")
-  .col-lg-2.col-md-2.col-xs-6
-    p(ng-class="{limit : vm.limit('spells')}")
-      span.elixir
-        span.glyphicon.glyphicon-fire(aria-hidden='true') 
-      span Spells 
-      span(ng-bind=" vm.spacing('total.spells')")
-    p(ng-class="{limit : vm.limit('spells')}")
-      span.elixir
-        span.glyphicon.glyphicon-fire(aria-hidden='true') 
-      span Max Spells 
-      span(ng-bind=" vm.max_amount('spells')")
-hr
-h3 Choose the level of your buildings:
-.row
-  .col-lg-offset-0.col-lg-2.col-md-offset-2.col-md-4.col-xs-offset-3.col-xs-6
-    h4 Army Camps
-    ul.inline.ul-select
-      li.inline(ng-repeat='camp in vm.camps')
-        select(ng-init='camp.lvl = camp.lvls[0]', ng-model='camp.lvl', ng-options='lvl for lvl in camp.lvls')
-  .col-lg-3.col-md-4.col-xs-7
-    h4 Barracks
-    ul.inline.ul-select
-      li.inline(ng-repeat='light_barrack in vm.light_barracks')
-        select(ng-init='light_barrack.lvl = light_barrack.lvls[0]', ng-model='light_barrack.lvl', ng-options='lvl for lvl in light_barrack.lvls')
-  .col-lg-2.col-lg-offset-0.col-md-offset-2.col-md-2.col-xs-5
-    h4 Dark Barracks
-    ul.inline.ul-select
-      li.inline(ng-repeat='dark_barrack in vm.dark_barracks')
-        select(ng-init='dark_barrack.lvl = dark_barrack.lvls[0]', ng-model='dark_barrack.lvl', ng-options='lvl for lvl in dark_barrack.lvls')
-  .col-lg-2.col-md-2.col-xs-5
-    h4 Spell Factory
-    ul.inline.ul-select
-      li.inline(ng-repeat='factory in vm.light_factory')
-        select(ng-init='factory.lvl = factory.lvls[0]', ng-model='factory.lvl', ng-options='lvl for lvl in factory.lvls')
-  .col-lg-2.col-md-3.col-xs-6
-    h4 Dark Spell Factory
-    ul.inline.ul-select
-      li.inline(ng-repeat='factory in vm.dark_factory')
-        select(ng-init='factory.lvl = factory.lvls[0]', ng-model='factory.lvl', ng-options='lvl for lvl in factory.lvls')
-hr
-
-tabset(type='tabs', justified='true')
-  // TAB
-  tab(heading='Barracks')
-    br
-    .row
-      .col-md-8.col-md-offset-2
-        .row.troop-row(ng-repeat="unit in vm.light_troops | orderBy:'id' track by unit.id")
-          .col-md-8.col-xs-12
-            .col-md-3.col-xs-3
-              img.img-responsive.img-circle(ng-src='{{vm.url}}troops/light/{{unit.unit}}.png', title='{{unit.name}}', alt='{{unit.name}}')
-            .col-md-2.col-xs-3.hidden-xs
-              b
-                p
-                  span Unit: 
-                p
-                  span Total: 
-            .col-md-3.col-xs-3
-              p
-                select(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls')
-              p
-                input(size='3', type='text', ng-model='unit.amount')
-            .col-md-2.col-xs-3
-              p
-                | 1 x 
-                b
-                  span.elixir(ng-bind='unit.cost[unit.lvl-1] | number')
-              p
-                span.elixir(ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'", ng-bind='unit.cost[unit.lvl-1] * unit.amount | number')
-            .col-md-2.col-xs-3
-              p
-                | 1 x 
-                b
-                  span(ng-bind='unit.time | creation_time')
-              p
-                span(ng-show="(unit.time*unit.amount) != ''", ng-bind='unit.time * unit.amount | creation_time')
-          .col-md-4.col-xs-12
-            .visible-xs.col-xs-offset-2.col-xs-4
-              p
-                b Amount per Barrack
-            .hidden-xs.col-md-12
-              p
-                b Amount per Barrack
-            .col-md-3.col-xs-1(ng-repeat='light_barrack in vm.light_barracks')
-              p
-                span(ng-show="light_barrack.amount[unit.id] != '0'", ng-bind='light_barrack.amount[unit.id]')
-        .row.troop-row
-          .col-xs-2
-            p
-              br
-              b Totals
-          .col-xs-2
-            p
-              b Troops
-            p(ng-bind="vm.spacing('light')")
-          .col-xs-2
-            p
-              b Cost
-            p.elixir(ng-bind="vm.total_cost('light') | number")
-          .col-xs-2
-            p
-              b Time
-            p(ng-bind="vm.time('light') | creation_time")
-          .col-xs-4
-            .col-md-10.col-md-offset-1
-              p
-                b Time per Barrack
-            .col-md-3(ng-repeat='light_barrack in vm.light_barracks')
-              p
-                span(ng-bind="barrack_time('light',$index) | creation_time")
-    br
-  // TAB
-  tab(heading='Dark Barracks')
-    br
-    .row
-      .col-md-8.col-md-offset-2
-        .row.troop-row(ng-repeat="unit in vm.dark_troops | orderBy:'id' track by unit.id")
-          .col-md-8.col-xs-12
-            .col-md-3.col-xs-3
-              img.img-responsive.img-circle(ng-src='{{vm.url}}troops/dark/{{unit.unit}}.png', title='{{unit.name}}', alt='{{unit.name}}')
-            .col-md-2.col-xs-3.hidden-xs
-              b
-                p
-                  span Unit: 
-                p
-                  span Total: 
-            .col-md-3.col-xs-3
-              p
-                select(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls')
-              p
-                input(size='3', type='text', ng-model='unit.amount')
-            .col-md-2.col-xs-3
-              p
-                | 1 x 
-                b
-                  span.dark-elixir(ng-bind='unit.cost[unit.lvl-1] | number')
-              p
-                span.dark-elixir(ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'", ng-bind='unit.cost[unit.lvl-1] * unit.amount | number')
-            .col-md-2.col-xs-3
-              p
-                | 1 x 
-                b
-                  span(ng-bind='unit.time | creation_time')
-              p
-                span(ng-show="(unit.time*unit.amount) != ''", ng-bind='unit.time * unit.amount | creation_time')
-          .col-md-4.col-xs-12
-            .visible-xs.col-xs-offset-2.col-xs-4
-              p
-                b Amount per Barrack
-            .hidden-xs.col-md-12
-              p
-                b Amount per Barrack
-            .col-md-3.col-xs-1(ng-repeat='dark_barrack in vm.dark_barracks')
-              p
-                span(ng-show="dark_barrack.amount[unit.id] != '0'", ng-bind='dark_barrack.amount[unit.id]')
-        .row.troop-row
-          .col-xs-2
-            p
-              br
-              b Totals
-          .col-xs-2
-            p
-              b Troops
-            p(ng-bind="vm.spacing('dark')")
-          .col-xs-2
-            p
-              b Cost
-            p(ng-bind="vm.total_cost('dark') | number")
-          .col-xs-2
-            p
-              b Tiempo
-            p(ng-bind="vm.total_cost('dark') | number")
-          .col-xs-4
-            .col-md-10.col-md-offset-1
-              p
-                b Time per Barrack
-            .col-md-3(ng-repeat='dark_barrack in vm.dark_barracks')
-              p
-                span(ng-bind="barrack_time('dark',$index) | creation_time")
-    br
-
-  // TAB
-  tab(heading='Spells')
-    br
-    .row
-      .col-md-6.col-md-offset-3
-        .row.troop-row(ng-repeat="unit in vm.light_spells | orderBy:'id' track by unit.id")
-          .col-md-3.col-xs-3
-            img.img-responsive.img-circle(ng-src='{{vm.url}}troops/lightSpells/{{unit.unit}}.png', title='{{unit.name}}', alt='{{unit.name}}')
-          .col-md-2.col-xs-2.hidden-xs
-            b
-              p
-                span Unit: 
-              p
-                span Total: 
-          .col-md-3.col-xs-3
-            p
-              select(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls')
-            p
-              input(size='3', type='text', ng-model='unit.amount')
-          .col-md-2.col-xs-3
-            p
-              | 1 x 
-              b
-                span.elixir(ng-bind='unit.cost[unit.lvl-1] | number')
-            p
-              span.elixir(ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'", ng-bind='unit.cost[unit.lvl-1] * unit.amount | number')
-          .col-md-2.col-xs-3
-            p
-              | 1 x 
-              b
-                span(ng-bind='unit.time | creation_time')
-            p
-              span(ng-show="(unit.time*unit.amount) != ''", ng-bind='unit.time * unit.amount | creation_time')
-        .row.troop-row
-          .col-md-3.col-xs-3
-            p
-              br
-              b Totals
-          .col-md-3.col-xs-3
-            p
-              b Amount
-            p(ng-bind="vm.spacing('light_spells')")
-          .col-md-3.col-xs-3
-            p
-              b Cost
-            p(ng-bind="vm.total_cost('light_spells') | number")
-          .col-md-3.col-xs-3
-            p
-              b Time
-            p(ng-bind="vm.time('light_spells') | creation_time")
-    br
-
-  tab(heading='Dark Spells')
-    // TAB
-    br
-    .row
-      .col-md-6.col-md-offset-3
-        .row.troop-row(ng-repeat="unit in vm.dark_spells | orderBy:'id' track by unit.id")
-          .col-md-3.col-xs-3
-            img.img-responsive.img-circle(ng-src='{{vm.url}}troops/darkSpells/{{unit.unit}}.png', title='{{unit.name}}', alt='{{unit.name}}')
-          .col-md-2.col-xs-2.hidden-xs
-            b
-              p
-                span Unit: 
-              p
-                span Total: 
-          .col-md-3.col-xs-3
-            p
-              select(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls')
-            p
-              input(size='3', type='text', ng-model='unit.amount')
-          .col-md-2.col-xs-3
-            p
-              | 1 x 
-              b
-                span.elixir(ng-bind='unit.cost[unit.lvl-1] | number')
-            p
-              span.elixir(ng-show="(unit.cost[unit.lvl]*unit.amount) != '' && '0'", ng-bind='unit.cost[unit.lvl-1] * unit.amount | number')
-          .col-md-2.col-xs-3
-            p
-              | 1 x 
-              b
-                span(ng-bind='unit.time | creation_time')
-            p
-              span(ng-show="(unit.time*unit.amount) != ''", ng-bind='unit.time * unit.amount | creation_time')
-        .row.troop-row
-          .col-md-3.col-xs-3
-            p
-              br
-              b Totals
-          .col-md-3.col-xs-3
-            p
-              b Amount
-            p(ng-bind="vm.spacing('dark_spells')")
-          .col-md-3.col-xs-3
-            p
-              b Cost
-            p(ng-bind="vm.total_cost('dark_spells') | number")
-          .col-md-3.col-xs-3
-            p
-              b Time
-            p(ng-bind="vm.time('dark_spells') | creation_time")
-    br
-br
-
+.calculator-title
+  h1.h2.center-text I'm just testing the army calculator!
+.army-view
+  tabset(justified="true")
+    tab(heading='Town Hall (config)')
+      p
+      pre {{unit.lvls}}
+      pre {{unit.cost}}
+      .building-card
+        .building-img
+            img.img-responsive.img-circle(src="http://gillchristian.com/clash/img/troops/earthquake.png")
+        .building-info
+          span here goes <br>
+          span some <br>
+          span info
+        .left-col
+          .building-img
+            img.img-responsive.img-circle(src="http://gillchristian.com/clash/img/troops/earthquake.png")
+          .building-lvl.form-group
+            label(for='amount') amount
+            input.form-control(type='text', name='amount', , ng-model='unit.amount')
+          .building-amount.form-group
+            label(for='select') lvl
+            select.form-control(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls', name='select')
+            //- input.form-control(type='text')
+        .right-col.box-col-around.center-text
+          .building-name
+            span {{unit.name}}
+          .building-time
+            span cost <br>
+            span {{unit.getActualCost() | number}}
+          .building-time
+            span total cost <br>
+            span {{unit.getCost() | number}}
+          .building-time
+            span time <br>
+            span {{unit.time | creation_time}}
+          .building-time
+            span total time <br>
+            span {{unit.getTime() | creation_time}}
+          .building-name.building-distribution
+            .building-name
+              span housing space: 
+              span {{unit.space}}
+            .building-name
+              span units per building
+            .building-time
+              span {{unit.amount}} <br>
+              span {{unit.getTime() | creation_time}}
+            .building-time
+              span {{unit.amount}} <br>
+              span {{unit.getTime() | creation_time}}
+            .building-time
+              span {{unit.amount}} <br>
+              span {{unit.getTime() | creation_time}}
+            .building-time
+              span {{unit.amount}} <br>
+              span {{unit.getTime() | creation_time}}
+    include ../includes/army

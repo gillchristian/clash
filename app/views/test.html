@@ -1,0 +1,13 @@
+<br/><br/><br/>
+<ul>
+  <li ng-repeat="unitType in vm.unitTypes track by $index"> 
+    <hr/>
+    <ul>
+      <li ng-repeat="unit in unitType.units track by unit.id">
+        <pre>{{unit}} {{unit.setLvl(1)}}</pre>
+        <p>{{unit.getActualCost()}}</p>
+        <p>{{unit.name}}</p>
+      </li>
+    </ul>
+  </li>
+</ul>

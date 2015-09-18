@@ -1,12 +1,16 @@
 @import 'fixes';
-@import 'variables-alias';
+@import 'variables';
 @import 'mixins';
 @import 'footer';
 @import 'army-view';
 @import 'fonts';
+@import 'layout';
+@import 'troop-card';
+@import 'building-card';
+@import 'flexbox-grid';
 
 
-/* General */
+/* --- General --- */
 .content {
     color: $font-primary;
 }
@@ -15,18 +19,15 @@
     padding-left: 0px;
 }
 
-.site{
-	display: flex;
-  	flex-direction: column;
-	min-height: 100vh;
+/* --- text helpers --- */
+
+.center-text {
+	text-align: center;
 }
 
-.site-content {
-  flex: 1;
-}
+/* --- others --- */
 
-.row-box {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
+.test-frame{
+	border: 1px solid rgba($black, 0.05);
+	br: 3px;
 }
