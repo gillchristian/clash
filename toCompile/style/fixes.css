@@ -1,5 +1,0 @@
-/* Fix UI Bootstrap problem */
-
-.nav, .pagination, .carousel, .panel-title a { 
-    cursor: pointer;
-}

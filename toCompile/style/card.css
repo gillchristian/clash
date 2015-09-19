@@ -1,13 +1,4 @@
-/* --- this is the troop card stylesheet --- */
-
-.troop-img {
-	display: block;
-	padding: 10px 5px 5px 15px;
-	/*margin: 0 auto;*/	
-
-}
-
-.troop-card {
+.card {
 	@mixin wh 300px, 250px;
     margin: 20px;
     background-color: #f8f8f8;
@@ -15,6 +6,21 @@
     box-shadow: 0 2px 5px 0 rgba($black, 0.16), 0 2px 10px 0 rgba($black, 0.12);
     overflow: hidden;
 }
+
+.card-img {
+	display: block;
+	padding: 10px 5px 5px 15px;
+	/*margin: 0 auto;*/	
+}
+
+/* --- this is the building card stylesheet --- */
+
+.img-small {
+	@mixin wh 35px, 35px;
+}
+
+/* --- this is the troop card stylesheet --- */
+
 
 .troop-lvl,
 .troop-amount {

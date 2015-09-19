@@ -8,6 +8,11 @@
 	display: flex;
 }
 
+.box-around {
+	display: flex;
+	justify-content: space-around;
+}
+
 .box-start {
 	display: flex;
 	flex-direction: row;
@@ -40,6 +45,8 @@
 
 
 /* --- items width --- */
+/* --- 5 by 5 percentage based cols --- */
+/* --- need to be inside a flexbox --- */
 @for $index from 5 to 100 by 5 {
     .col-$index {
         width: $(index)%;

@@ -13,7 +13,7 @@ var gulp            = require('gulp'),
     // --- require the config variables
     TASKS           = require('./gulp-config/tasks'),
     FILES           = require('./gulp-config/files'),
-    postcss         = require('./gulp-config/postcss');
+    CSSPLUGINS      = require('./gulp-config/postcss');
 
 // require the postCSS plgins, files and tasks paths
 
@@ -24,7 +24,7 @@ gulp.task(TASKS.dev.style, function () {
     return gulp.src(FILES.css.source)
         .pipe( plumber() )
         .pipe( sourcemaps.init() )
-        .pipe( postcss(postcss.preRucksack) )
+        .pipe( postcss(CSSPLUGINS.preRucksack) )
         .pipe( rucksack({autoprefixer: true, fallbacks: false }) )
         .pipe( sourcemaps.write('.') )
         .pipe( plumber.stop() )
@@ -90,11 +90,11 @@ gulp.task(TASKS.production.style, function (){
     
     return gulp.src(FILES.css.source)
         .pipe( plumber() )
-        .pipe( postcss(postcss.preRucksack) )
+        .pipe( postcss(CSSPLUGINS.preRucksack) )
         .pipe( rucksack({autoprefixer: true, fallbacks: false}) )
         .pipe( gulp.dest(FILES.css.dest) )
         .pipe( rename({suffix: '.min'}))
-        .pipe( postcss(postcss.postRucksack) )
+        .pipe( postcss(CSSPLUGINS.postRucksack) )
         .pipe( plumber.stop() )
         .pipe( gulp.dest(FILES.css.dest) );     
 
