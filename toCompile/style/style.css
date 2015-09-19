@@ -1,12 +1,8 @@
-@import 'fixes';
 @import 'variables';
 @import 'mixins';
-@import 'footer';
-@import 'army-view';
-@import 'fonts';
+@import 'old';
 @import 'layout';
-@import 'troop-card';
-@import 'building-card';
+@import 'card';
 @import 'flexbox-grid';
 
 
@@ -30,4 +26,17 @@
 .test-frame{
 	border: 1px solid rgba($black, 0.05);
 	br: 3px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  appearance: none; 
+  margin: 0; 
+}
+
+
+/* Fix UI Bootstrap problem */
+
+.nav, .pagination, .carousel, .panel-title a { 
+    cursor: pointer;
 }
