@@ -14,6 +14,11 @@
 	margin-top: 35px;
 	padding-top: 15px;
 }
-.army-view {
-	margin: 10px;
+
+
+/* --- divs margin --- */
+@for $index from 5 to 25 by 5 {
+    .margin-$index {
+        margin: $(index)px;
+    }
 }

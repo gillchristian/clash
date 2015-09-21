@@ -1,76 +1,17 @@
 
-<div class="calculator-title">
-  <h1 class="h2 center-text">I'm just testing the army calculator!</h1>
+<div class="calculator-title center-text">
+  <h1 class="h2">I'm just testing the army calculator!</h1>
 </div>
-<div class="army-view">
+<div class="margin-10 center-text">
   <tabset justified="true">
     <tab heading="Town Hall (config)">
-      <p></p>
-      <pre>{{unit.lvls}}</pre>
-      <pre>{{unit.cost}}</pre>
-      <div class="card center-text box-wrap-center-around">
-        <div class="card-img test-frame"><img src="http://gillchristian.com/clash/img/troops/earthquake.png" class="img-responsive img-rounded"/></div>
-        <div class="building-info col-60 box-wrap-center-around">
-          <h1 class="h4 col-100">trainer building</h1>
-          <p class="col-50">spaces</p>
-          <p class="col-50">time</p>
-          <p class="col-50">cost</p>
-          <p class="col-50">other</p>
-        </div>
-        <div class="right-col box-wrap-center-around col-100">
-          <div class="box-around col-100"><img src="http://gillchristian.com/clash/img/troops/witch.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/pig.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/valkirye.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/golem.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/lavahound.png" class="img-responsive img-circle img-small"/></div>
-        </div>
-        <div class="col-100 test-frame box-wrap-center-around">
-          <div class="col-100 test-frame">
-            <p>chose lvl of building</p>
-          </div>
-          <div class="col45 test-frame">
-            <select class="form-control"></select>
-          </div>
-          <div class="col45 test-frame">
-            <select class="form-control"></select>
-          </div>
-          <div class="col45 test-frame">
-            <select class="form-control"></select>
-          </div>
-          <div class="col45 test-frame">
-            <select class="form-control"></select>
-          </div>
-        </div>
+      <div class="box-wrap-around">
+        <building-card ng-repeat="building in vm.buildings track by $index" building="building"></building-card>
       </div>
     </tab>
     <tab ng-repeat="unitType in vm.unitTypes track by $index" heading="{{unitType.name}}">
-      <div class="army box-wrap-around">
-        <div ng-repeat="unit in unitType.units track by $index" class="card box">
-          <div class="left-col col-35">
-            <div class="card-img test-frame"><img ng-src="http://gillchristian.com/clash/img/troops/{{unit.unit}}.png" class="img-responsive img-circle"/></div>
-            <div class="troop-lvl test-frame form-group">
-              <label for="amount">amount</label>
-              <input type="text" name="amount" ,="," ng-model="unit.amount" class="form-control"/>
-            </div>
-            <div class="troop-amount test-frame form-group">
-              <label for="select">lvl</label>
-              <select ng-init="unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls" name="select" class="form-control"></select>
-            </div>
-          </div>
-          <div class="right-col center-text box-wrap-center-around col-65">
-            <div class="col-100 test-frame">
-              <h1 class="h4">{{unit.name}}</h1>
-            </div>
-            <div class="col-40 test-frame"><span>cost <br></span><span>{{unit.getActualCost() | number}}</span></div>
-            <div class="col-40 test-frame"><span>total cost <br></span><span>{{unit.getCost() | number}}</span></div>
-            <div class="col-40 test-frame"><span>time <br></span><span>{{unit.time | creation_time}}</span></div>
-            <div class="col-40 test-frame"><span>total time <br></span><span>{{unit.getTime() | creation_time}}</span></div>
-            <div class="col-100 test-frame box-wrap-center-around">
-              <div class="col-100 test-frame"><span>housing space: </span><span>{{unit.space}}</span></div>
-              <div class="col-100 test-frame"><span>units / time per building</span></div>
-              <div class="col-50 test-frame"><span>{{unit.amount}} / {{unit.getTime() | creation_time}}</span></div>
-              <div class="col-50 test-frame"><span>{{unit.amount}} / {{unit.getTime() | creation_time}}</span></div>
-              <div class="col-50 test-frame"><span>{{unit.amount}} / {{unit.getTime() | creation_time}}</span></div>
-              <div class="col-50 test-frame"><span>{{unit.amount}} / {{unit.getTime() | creation_time}}</span></div>
-            </div>
-          </div>
-        </div>
+      <div class="card-set box-wrap-around">
+        <army-card ng-repeat="unit in unitType.units track by $index" unit="unit"></army-card>
       </div>
     </tab>
   </tabset>

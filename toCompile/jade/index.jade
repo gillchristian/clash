@@ -16,7 +16,9 @@ html.no-js
     link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
     // custom css
     link(rel='stylesheet', href='app/style/style.css')
-  body.site.box-col(ng-app='clashApp')
+    // fonts
+    link(href='https://fonts.googleapis.com/css?family=Roboto:400,700italic,700,400italic,300italic,300', rel='stylesheet', type='text/css')
+  body.site.box-col.roboto(ng-app='clashApp')
     header
       nav(class='navbar navbar-fixed-top navbar-inverse', role='navigation')
         .container
@@ -57,6 +59,9 @@ html.no-js
     script(src='app/scripts/controllers/calculatorCtrl.js')
     //- filters
     script(src='app/scripts/filters/time.js')
+    //- directives
+    script(src='app/scripts/directives/armyCard.js')
+    script(src='app/scripts/directives/buildingCard.js')
     //- services
     script(src='app/scripts/services/troops.js')
     script(src='app/scripts/services/buildings.js')

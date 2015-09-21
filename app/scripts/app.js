@@ -13,7 +13,7 @@
 */
 angular
     // .module('clashApp', ['ui.router', 'ui.bootstrap', 'clashApp.controllers', 'clashApp.filters', 'clashApp.services'])
-    .module('clashApp', ['ui.router', 'ui.bootstrap', 'clashApp.controllers', 'clashApp.filters', 'clashApp.services', 'clashApp.classes'])
+    .module('clashApp', ['ui.router', 'ui.bootstrap', 'clashApp.controllers', 'clashApp.filters', 'clashApp.services', 'clashApp.classes', 'clashApp.directives'])
 
     //  config routes
     .config(function($stateProvider, $urlRouterProvider, $locationProvider) {

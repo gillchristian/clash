@@ -19,6 +19,12 @@
 	justify-content: flex-start;
 }
 
+.box-center-around {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
 .box-wrap-center-around {
 	display: flex;
 	flex-wrap: wrap;
@@ -35,6 +41,13 @@
 .box-col-around {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-around;
+}
+
+.box-col-center-around {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: space-around;
 }
 /* --- tiems --- */

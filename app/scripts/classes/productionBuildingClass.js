@@ -16,9 +16,10 @@ angular.module('clashApp.classes')
       *
       * Constructor
       */		
-		var ProductionBuilding = function(model){
+		var ProductionBuilding = function(model, name){
 			this.differentBuildings = model.length;
 
+			this.name = name;
 			this.buildings = [];
          for (var i = 0; i < this.differentBuildings; i++) this.buildings.push( new TrainerClass(model[i]) ) ;
 		};

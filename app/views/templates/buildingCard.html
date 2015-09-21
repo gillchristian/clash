@@ -1,0 +1,20 @@
+
+<div class="card-img test-frame"><img src="http://gillchristian.com/clash/img/troops/earthquake.png" class="img-responsive img-rounded"/></div>
+<div class="building-info col-60 box-wrap-center-around">
+  <h1 class="h4 col-100">{{building.name}}</h1>
+  <p class="col-50">spaces</p>
+  <p class="col">time</p>
+  <p class="col">cost</p>
+  <p class="col">other</p>
+</div>
+<div class="box-wrap-center-around col-100">
+  <div ng-repeat="trainer in building.buildings track by $index" class="box-around col-100 img-row"><img src="http://gillchristian.com/clash/img/troops/witch.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/pig.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/valkirye.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/golem.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/lavahound.png" class="img-responsive img-circle img-small"/></div>
+</div>
+<div class="col-100 box-wrap-center-around test-frame">
+  <div class="col-100 test-frame">
+    <p>chose lvl of building</p>
+  </div>
+  <div ng-repeat="trainer in building.buildings track by $index" class="col45 test-frame">
+    <select ng-init="trainer.lvl = trainer.lvls[0]" ng-model="trainer.lvl" ng-options="lvl for lvl in trainer.lvls" class="form-control"></select>
+  </div>
+</div>

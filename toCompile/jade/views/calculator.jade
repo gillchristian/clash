@@ -1,6 +1,10 @@
-.calculator-title
-  h1.h2.center-text I'm just testing the army calculator!
-.army-view
+.calculator-title.center-text
+  h1.h2 I'm just testing the army calculator!
+.margin-10.center-text
   tabset(justified="true")
-    include ../includes/buildings
-    include ../includes/army
+    tab(heading='Town Hall (config)')
+      .box-wrap-around
+        building-card(ng-repeat='building in vm.buildings track by $index', building='building')
+    tab(ng-repeat='unitType in vm.unitTypes track by $index', heading='{{unitType.name}}')
+      .card-set.box-wrap-around
+        army-card(ng-repeat='unit in unitType.units track by $index', unit='unit')

@@ -1,0 +1,49 @@
+.card-img.test-frame
+  img.img-responsive.img-circle(ng-src="http://gillchristian.com/clash/img/troops/{{unit.unit}}.png")
+.col-60.box-wrap-center-around.test-frame
+  .col-100  
+    h1.h4 {{unit.name}}
+  .col-50.test-frame
+    span cost <br>
+    span {{unit.getActualCost() | number}}
+  .col-50.test-frame
+    span total cost <br>
+    span {{unit.getCost() | number}}
+  .col-50.test-frame
+    span time <br>
+    span {{unit.time | creation_time}}
+  .col-50.test-frame
+    span total time <br>
+    span {{unit.getTime() | creation_time}}
+.col-30.test-frame.form-group
+  label(for='amount') amount
+  input.form-control(type='text', name='amount', , ng-model='unit.amount')
+.col-30.test-frame.form-group
+  label(for='select') lvl
+  select.form-control(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls')
+  //- input.form-control(type='text')      
+.col-30.test-frame
+  span housing space: 
+  span {{unit.space}}
+.col-100.test-frame
+  span buildings distribution
+.col-45.test-frame.box-center-around
+  img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
+  .box-col-center-around
+    span {{unit.amount}}
+    span {{unit.getTime() | creation_time}}
+.col-45.test-frame.box-center-around
+  img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
+  .box-col-center-around
+    span {{unit.amount}}
+    span {{unit.getTime() | creation_time}}
+.col-45.test-frame.box-center-around
+  img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
+  .box-col-center-around
+    span {{unit.amount}}
+    span {{unit.getTime() | creation_time}}
+.col-45.test-frame.box-center-around
+  img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
+  .box-col-center-around
+    span {{unit.amount}}
+    span {{unit.getTime() | creation_time}}

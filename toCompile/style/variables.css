@@ -26,8 +26,11 @@ $jumbotron: #eceeef;
 $white: #fff;
 $black: #000;
 
+$roboto: 'Roboto', sans-serif;
+
 @alias {
 	fs: font-size;
+	fm: font-family;
 
 	bg: background;
 	bgc: background-color;
@@ -41,11 +44,15 @@ $black: #000;
 
 /*Fonts */
 @font-face {
-    font-family: ClashFont;
+    fm: ClashFont;
     src: url(fonts/supercell-magic-webfont.ttf);
 }
 
 .clash-font {
-    font-family: ClashFont, Courier !important;
+    fm: ClashFont, Courier !important;
     color: $clashGold !important;
+}
+
+.roboto {
+	fm: $roboto;
 }
