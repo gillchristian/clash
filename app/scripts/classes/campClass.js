@@ -19,6 +19,9 @@ angular.module('clashApp.classes')
          this.capacity  = model.capacity;
          this.lvls      = model.lvls;
          this.lvl       = model.lvl;
+         this.folder    = model.folder;
+         this.building  = model.building;
+         this.name      = model.name;
       }
 
       /**

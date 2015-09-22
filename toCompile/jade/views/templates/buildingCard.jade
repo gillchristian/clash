@@ -1,5 +1,5 @@
 .card-img.test-frame
-    img.img-responsive.img-rounded(src="http://gillchristian.com/clash/img/troops/earthquake.png")
+    img.img-responsive.img-rounded.img-md(ng-src="http://gillchristian.com/clash/assets/images/{{building.folder}}/{{building.building}}-{{building.lvl}}.png")
 .building-info.col-60.box-wrap-center-around.test-frame
   h1.h4.col-100.test-frame {{building.name}}
   p.col-50.test-frame capacity: {{building.getActualCapacity()}}

@@ -24,7 +24,10 @@ angular.module('clashApp.classes')
       * Constructor
       */
       var Trainer = function(model){
+         this.folder    = model.folder;
+         this.building  = model.building;
          this.name      = model.name;
+
          this.capacity  = model.capacity;
          this.lvls      = model.lvls;
          this.lvl       = model.lvl;

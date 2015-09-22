@@ -1,5 +1,5 @@
 .card-img.test-frame
-  img.img-responsive.img-circle(ng-src="http://gillchristian.com/clash/img/troops/{{unit.unit}}.png")
+  img.img-responsive.img-circle.img-md(ng-src="http://gillchristian.com/clash/assets/images/{{unit.folder}}/{{unit.unit}}-{{unit.lvl}}.png")
 .col-60.box-wrap-center-around.test-frame
   .col-100  
     h1.h4 {{unit.name}}
@@ -28,6 +28,6 @@
 .col-100.test-frame
   span buildings distribution
 .col-45.test-frame.box-center-around(ng-repeat='trainer in trainers')
-  img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
+  img.img-responsive.img-circle.img-small(ng-src="http://gillchristian.com/clash/assets/images/{{trainer.folder}}/{{trainer.building}}-{{trainer.lvl}}.png")
   .box-col-center-around
     span {{ trainer.amount[unit.id] }}

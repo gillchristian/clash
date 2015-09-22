@@ -29,12 +29,16 @@ building-card {
 
 .card-img {
 	display: block;
-	padding: 10px 5px 5px 15px;
 	/*margin: 0 auto;*/	
 }
 
 .img-small {
 	@mixin wh 35px, 35px;
+	margin: 5px 0;
+}
+
+.img-md {
+	@mixin wh 70px, 70px;
 	margin: 5px 0;
 }
 

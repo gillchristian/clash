@@ -8,7 +8,7 @@ angular.module('clashApp.controllers')
 
         var vm = this;
 
-        vm.url = window.location.href + 'assets/img/';
+        vm.url = 'http://gillchristian.com/clash/assets/images';
 
         //Services manipulation
         var servicesPromises = [
