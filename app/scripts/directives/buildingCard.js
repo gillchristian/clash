@@ -8,7 +8,9 @@
                restrict: 'E',
                templateUrl: 'app/views/templates/buildingCard.html',
                scope: {
-                  building: '='
+                  building: '=',
+                  type: '=',
+                  index: '=buildingId'
                }
             }
 

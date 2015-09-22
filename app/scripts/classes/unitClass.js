@@ -4,7 +4,7 @@
 
 //Factory for the Unit Class
 
-angular.module('clashApp.classes', [])
+angular.module('clashApp.classes')
    .factory('unitClass', [
       function(){
 
@@ -50,12 +50,12 @@ angular.module('clashApp.classes', [])
 
       // returns the cost at the actual lvl
       Unit.prototype.getActualCost = function() {
-         return this.cost[this.lvl - 1];
+         return this.cost[this.lvl];
       };
 
       // returns the total cost 
       Unit.prototype.getCost = function() {
-         return this.cost[this.lvl - 1] * this.amount;
+         return this.cost[this.lvl] * this.amount;
       };
 
       // returns the space the units take

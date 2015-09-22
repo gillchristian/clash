@@ -108,7 +108,7 @@ footer {
 }
 
 /* --- calculator layout --- */
-.calculator-title {
+.calculator-banner {
 	width: 100%;
 	height: 100px;
 	background-color: #eceeef;
@@ -133,7 +133,7 @@ footer {
 .margin-25 {
 	margin: 25px;
 }
-army-card,
+troop-card,
 building-card {
 	/*@mixin wh 300px, 250px;*/
 	width: 300px;
@@ -181,6 +181,7 @@ building-card {
 .img-small {
 	width: 35px;
 	height: 35px;
+	margin: 5px 0;
 }
 
 /* --- this is the building card stylesheet --- */

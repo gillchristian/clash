@@ -8,7 +8,7 @@
 }
 
 /* --- calculator layout --- */
-.calculator-title {
+.calculator-banner {
 	@mixin wh 100%, 100px;
 	bgc: $jumbotron;
 	margin-top: 35px;

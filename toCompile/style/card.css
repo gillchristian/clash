@@ -1,4 +1,4 @@
-army-card,
+troop-card,
 building-card {
 	/*@mixin wh 300px, 250px;*/
 	width: 300px;
@@ -35,6 +35,7 @@ building-card {
 
 .img-small {
 	@mixin wh 35px, 35px;
+	margin: 5px 0;
 }
 
 /* --- this is the building card stylesheet --- */

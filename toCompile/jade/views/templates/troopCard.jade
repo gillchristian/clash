@@ -27,23 +27,7 @@
   span {{unit.space}}
 .col-100.test-frame
   span buildings distribution
-.col-45.test-frame.box-center-around
+.col-45.test-frame.box-center-around(ng-repeat='trainer in trainers')
   img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
   .box-col-center-around
-    span {{unit.amount}}
-    span {{unit.getTime() | creation_time}}
-.col-45.test-frame.box-center-around
-  img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
-  .box-col-center-around
-    span {{unit.amount}}
-    span {{unit.getTime() | creation_time}}
-.col-45.test-frame.box-center-around
-  img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
-  .box-col-center-around
-    span {{unit.amount}}
-    span {{unit.getTime() | creation_time}}
-.col-45.test-frame.box-center-around
-  img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
-  .box-col-center-around
-    span {{unit.amount}}
-    span {{unit.getTime() | creation_time}}
+    span {{ trainer.amount[unit.id] }}

@@ -19,15 +19,6 @@
 </div>
 <div class="col-30 test-frame"><span>housing space: </span><span>{{unit.space}}</span></div>
 <div class="col-100 test-frame"><span>buildings distribution</span></div>
-<div class="col-45 test-frame box-center-around"><img src="http://gillchristian.com/clash/img/troops/witch.png" class="img-responsive img-circle img-small"/>
-  <div class="box-col-center-around"><span>{{unit.amount}}</span><span>{{unit.getTime() | creation_time}}</span></div>
-</div>
-<div class="col-45 test-frame box-center-around"><img src="http://gillchristian.com/clash/img/troops/witch.png" class="img-responsive img-circle img-small"/>
-  <div class="box-col-center-around"><span>{{unit.amount}}</span><span>{{unit.getTime() | creation_time}}</span></div>
-</div>
-<div class="col-45 test-frame box-center-around"><img src="http://gillchristian.com/clash/img/troops/witch.png" class="img-responsive img-circle img-small"/>
-  <div class="box-col-center-around"><span>{{unit.amount}}</span><span>{{unit.getTime() | creation_time}}</span></div>
-</div>
-<div class="col-45 test-frame box-center-around"><img src="http://gillchristian.com/clash/img/troops/witch.png" class="img-responsive img-circle img-small"/>
-  <div class="box-col-center-around"><span>{{unit.amount}}</span><span>{{unit.getTime() | creation_time}}</span></div>
+<div ng-repeat="trainer in trainers" class="col-45 test-frame box-center-around"><img src="http://gillchristian.com/clash/img/troops/witch.png" class="img-responsive img-circle img-small"/>
+  <div class="box-col-center-around"><span>{{ trainer.amount[unit.id] }}</span></div>
 </div>

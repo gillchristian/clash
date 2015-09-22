@@ -5,8 +5,8 @@
 //Factory for troops and buildings data.
 
 angular.module('clashApp.classes')
-   .factory('StagingBuildingClass', [
-      function(){
+   .factory('StagingBuildingClass', [ 'CampClass',
+      function(CampClass){
 
       // {
       //     "capacity": [0,20,30,35,40,45,50,55,60],
@@ -15,8 +15,14 @@ angular.module('clashApp.classes')
       // }
 
       // staging building class
-      var StagingBuilding = function(model){
-         this.buildingModel = model;
+      var StagingBuilding = function(model, name){
+         this.name = name;
+         this.differentBuildings = model.length;
+         this.showTroops = false;
+
+         this.buildings = [];
+
+         for (var i = 0; i < this.differentBuildings; i++) this.buildings.push( new CampClass(model[i]) ) ;
       };
 
       // staging buildings methods 
@@ -24,8 +30,8 @@ angular.module('clashApp.classes')
       // max amount of units alocated
       StagingBuilding.prototype.maxAmount = function() {
          var max = 0;
-         for (var i = this.buildingModel.length - 1; i >= 0; i--) {
-           max += this.buildingModel[i].capacity[this.buildingModel[i].lvl];
+         for (var i = this.differentBuildings - 1; i >= 0; i--) {
+           max += this.buildings[i].capacity[this.buildings[i].lvl];
          };
          return max;
       };

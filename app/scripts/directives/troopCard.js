@@ -1,13 +1,14 @@
 (function() {
    'use strict';
    angular.module('clashApp.directives', [])
-      .directive('armyCard', [
+      .directive('troopCard', [
          function() {
             return {
                restric: 'E',
-               templateUrl: 'app/views/templates/armyCard.html',
+               templateUrl: 'app/views/templates/troopCard.html',
                scope: {
-                  unit: '='
+                  unit: '=',
+                  trainers: '='
                }
             }
          }]);

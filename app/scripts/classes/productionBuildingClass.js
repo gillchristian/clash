@@ -2,6 +2,15 @@
 
 'use strict';
 
+/**
+* ----- DEPRECATED!!! -----
+* ----- DEPRECATED!!! -----
+* ----- DEPRECATED!!! -----
+* ----- DEPRECATED!!! -----
+* ----- DEPRECATED!!! -----
+*/
+
+
 //Factory for troops and buildings data.
 
 angular.module('clashApp.classes')
@@ -18,6 +27,7 @@ angular.module('clashApp.classes')
       */		
 		var ProductionBuilding = function(model, name){
 			this.differentBuildings = model.length;
+			this.showTroops = true;
 
 			this.name = name;
 			this.buildings = [];

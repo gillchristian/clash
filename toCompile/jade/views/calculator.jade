@@ -1,10 +1,14 @@
-.calculator-title.center-text
+.calculator-banner.center-text
   h1.h2 I'm just testing the army calculator!
 .margin-10.center-text
   tabset(justified="true")
+    //- units buildings cards      
     tab(heading='Town Hall (config)')
       .box-wrap-around
-        building-card(ng-repeat='building in vm.buildings track by $index', building='building')
-    tab(ng-repeat='unitType in vm.unitTypes track by $index', heading='{{unitType.name}}')
-      .card-set.box-wrap-around
-        army-card(ng-repeat='unit in unitType.units track by $index', unit='unit')
+        .box-wrap-around(ng-repeat='unitType in vm.unitTypes track by $index')
+          building-card(ng-repeat='trainer in unitType.trainers track by $index', building='trainer', type='unitType', building-id='$index')
+    //- units cards      
+    tab(ng-repeat='unitType in vm.unitTypes track by $index', heading='{{unitType.unitsName}}')
+      .box-wrap-around
+        button.btn.btn-primary(ng-click='vm.test()') test
+        troop-card(ng-repeat='unit in unitType.units track by $index', unit='unit', trainers='unitType.trainers')

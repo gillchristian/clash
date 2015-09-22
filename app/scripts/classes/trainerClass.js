@@ -12,11 +12,11 @@ angular.module('clashApp.classes')
       * Trainer building class -----------------------------
       * this class models a troop training building
       * {
+      *   "name": "Barrack"
       *   "capacity": [0,20,25,30,35,40,45,50,55,60,75],
       *   "lvls": [0,1,2,3,4,5,6,7,8,9,10],
       *   "lvl": 0,
       *   "amount" : [0,0,0,0,0,0,0,0,0,0],
-      *   "queue" : 0
       * }
       */
 
@@ -24,11 +24,13 @@ angular.module('clashApp.classes')
       * Constructor
       */
       var Trainer = function(model){
+         this.name      = model.name;
          this.capacity  = model.capacity;
          this.lvls      = model.lvls;
          this.lvl       = model.lvl;
-         this.amout     = model.amout;
-         this.queue     = model.queue;
+         this.amount    = model.amount;
+
+         this.showTroops = true;
       };
 
       /**
@@ -37,7 +39,8 @@ angular.module('clashApp.classes')
 
       // check if barrack has space left to produce units
       Trainer.prototype.hasSpaceFor = function(unitSpace) {
-         if (this.amout + unitSpace <= this.getActualCapacity())
+         console.log();
+         if (this.getQueue() + unitSpace <= this.getActualCapacity())
             return true;
          else return false;
       };
@@ -56,24 +59,15 @@ angular.module('clashApp.classes')
 
       // returns the capacity at the actual lvl
       Trainer.prototype.getActualCapacity = function() {
-         return this.capacity[this.lvl - 1];
+         return this.capacity[this.lvl];
       };
 
       // return total amount of queued units
-      Trainer.prototype.getQueuedUnits = function() {
+      Trainer.prototype.getQueue = function() {
          var queue = 0;
-         for (var i = 0; i < this.amout.length; i++)
-            queue += this.amout[i];
+         for (var i = 0; i < this.amount.length; i++)
+            queue += this.amount[i];
          return queue;
-      };
-
-      // returns the time the building will take to produce the units
-      Trainer.prototype.getTie = function(units) {
-         var time = 0;
-         for (var i = 0; i < this.amout; i++){
-            time += this.amout[i] * units[i].time;
-         }
-         return time;
       };
 
       /**
@@ -85,57 +79,35 @@ angular.module('clashApp.classes')
          if ( lvl >= this.lvls[0] && lvl <= this.lvls.last() ) this.lvl = lvl;
       };
 
-      // set amout for specific unit or for all the units at once
-      // pass only an array with the amount of each unit to set all amounts in one call
-      Trainer.prototype.setAmountOf = function(amount, id) {
+      // // set amount for specific unit or for all the units at once
+      // // pass only an array with the amount of each unit to set all amounts in one call
+      // Trainer.prototype.setAmountOf = function(amount, id) {
 
-         // when setting amount of all units the queue is reseted
-         if (id === undefined && amout.length === this.amout.length ){
-            this.setQueue(0);
-            for (var i = 0; i < amout.length; i++) {
-               this.increaseQueue(amout[i]);
-               this.amout[i] = amout[i];
-            }
-         }
+      //    // when setting amount of all units the queue is reseted
+      //    if (id === undefined && amount.length === this.amount.length ){
+      //       for (var i = 0; i < amount.length; i++) {
+      //          this.amount[i] = amount[i];
+      //       }
+      //    }
          
-         else {
-            if ( id >= this.amout[0] && id <= this.amout.last() ) {
-               this.increaseQueue(this.amout[id] - amount);
-               this.amout[id] = amout;
-            }
-            else return;
-         } 
-      };
+      //    else {
+      //       if ( id >= this.amount[0] && id <= this.amount.last() ) {
+      //          this.amount[id] = amount;
+      //       }
+      //       else return;
+      //    } 
+      // };
 
       // reset all the queued units / amount 
-      Trainer.prototype.resetQueue = function() {
-         this.queue = 0;
-         for (var i = 0; i < this.amout; i++)
-            this.amout[i] = 0;
+      Trainer.prototype.resetAmount = function() {
+         for (var i = 0; i < this.amount.length; i++){
+            this.amount[i] = 0;
+         }
       };
 
       // add one unit to the queued units
       Trainer.prototype.addUnit = function(id) {
-         if (id >= this.amout[0] && id <= this.amout.last())
-            this.amout[id]++;
-      };
-
-      // set queue
-      // pass no parameters to reset it to 0
-      Trainer.prototype.setQueue = function(amount) {
-         if (amount === undefined) 
-            this.queue = 0;
-         else   
-            this.queue = amout;
-      };
-
-      // increase queue
-      // pass no parameters to increase i one
-      Trainer.prototype.increaseQueue = function(amount) {
-         if (amout === undefined )
-            this.queue++;
-         else
-            this.queue += amout;
+            this.amount[id]++;
       };
 
       return Trainer;

@@ -1,7 +1,10 @@
 [
 	{
+        "name": "Dark Spell Factory",
         "capacity": [0,1,1,1],
         "lvls": [0,1,2,3],
-        "lvl": 0       
+        "lvl": 0,
+        "amount": [0,0,0],
+        "queue": 0
       }
 ]
