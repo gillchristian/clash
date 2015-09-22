@@ -32,6 +32,7 @@ angular.module('clashApp.classes')
          // public properties, assigned to 'this'
          this.id        = model.id;
          this.unit      = model.unit;
+         this.folder    = model.folder;
          this.name      = model.name;
          this.cost      = model.cost;
          this.lvls      = model.lvls;
