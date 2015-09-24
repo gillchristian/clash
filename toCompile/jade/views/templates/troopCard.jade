@@ -1,9 +1,8 @@
 .card-img.test-frame
-  //- img.img-responsive.img-circle.img-md(ng-src="http://gillchristian.com/clash/assets/images/{{unit.folder}}/{{unit.unit}}-{{unit.lvl}}.png")
   card-img(unit='unit', classes="'img-responsive img-md'")
 .col-60.box-wrap-center-around.test-frame
   .col-100  
-    h1.h4 {{unit.name}}
+    h1.h4 {{::unit.name}}
   .col-50.test-frame
     span cost <br>
     span {{unit.getActualCost() | number}}
@@ -12,7 +11,7 @@
     span {{unit.getCost() | number}}
   .col-50.test-frame
     span time <br>
-    span {{unit.time | creation_time}}
+    span {{::unit.time | creation_time}}
   .col-50.test-frame
     span total time <br>
     span {{unit.getTime() | creation_time}}
@@ -24,8 +23,7 @@
   select.form-control(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls')
   //- input.form-control(type='text')      
 .col-30.test-frame
-  span housing space: 
-  span {{unit.space}}
+  span housing space: {{::unit.space}}
 .col-100.test-frame
   span buildings distribution
 .col-45.test-frame.box-center-around(ng-repeat='trainer in trainers')
