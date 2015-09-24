@@ -8,7 +8,12 @@
   <p class="col-50 test-frame">total: {{building.getQueue()}}</p>
 </div>
 <div ng-show="building.showTroops" class="box-wrap-center-around col-100 test-frame">
-  <div class="box-around col-100 test-frame"><img src="http://gillchristian.com/clash/img/troops/witch.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/pig.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/valkirye.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/golem.png" class="img-responsive img-circle img-small"/><img src="http://gillchristian.com/clash/img/troops/lavahound.png" class="img-responsive img-circle img-small"/></div>
+  <div class="box-around col-100 test-frame">
+    <div ng-repeat="unit in type.units track by $index" ng-show="unit.amount &gt; 0" class="box-center-around">
+      <card-img ng-show="unit.amount &gt; 0" unit="unit" classes="'img-responsive img-circle img-small'"></card-img>
+      <p>{{building.amount[$index]}}</p>
+    </div>
+  </div>
 </div>
 <div class="col-100 box-wrap-center-around test-frame">
   <div class="col-50 test-frame">

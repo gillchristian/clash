@@ -6,14 +6,14 @@
             return {
                restrict: 'E',
                scope: {
-                  u: '=unit'
+                  unit: '=',
+                  classes: '='
                },
                templateUrl: 'app/views/templates/cardImg.html',
                link: function (scope, elm, attr) {
-                  var u = scope.u;
-                  if(scope.u.folder.match(/spell/i) !== null)  scope.src = "assets/images/" + u.folder + '/' + u.unit + '.png' ; 
-                  else scope.src = "assets/images/" + u.folder + '/' + u.unit + '-' + u.lvl + '.png';
-                  }
+                  if (scope.unit.folder.match(/spell/i) !== null)  scope.putLVL = false;
+                  else scope.putLVL = true;
                }
-         }]);
+            }
+      }]);
 })();

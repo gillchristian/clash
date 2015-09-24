@@ -1,1 +1,2 @@
-img.img-responsive.img-md(ng-src="{{src}}")
+img(ng-show='!putLVL', ng-src="assets/images/{{unit.folder}}/{{unit.unit}}.png", ng-class='classes')
+img(ng-show='putLVL', ng-src="assets/images/{{unit.folder}}/{{unit.unit}}-{{unit.lvl}}.png", ng-class='classes')

@@ -8,11 +8,9 @@
   p.col-50.test-frame total: {{building.getQueue()}}
 .box-wrap-center-around.col-100.test-frame(ng-show='building.showTroops')
   .box-around.col-100.test-frame
-    img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/witch.png")
-    img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/pig.png")
-    img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/valkirye.png")
-    img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/golem.png")
-    img.img-responsive.img-circle.img-small(src="http://gillchristian.com/clash/img/troops/lavahound.png")
+    .box-center-around(ng-repeat='unit in type.units track by $index', ng-show='unit.amount > 0')
+      card-img(ng-show='unit.amount > 0', unit='unit', classes="'img-responsive img-circle img-small'")
+      p {{building.amount[$index]}}
 .col-100.box-wrap-center-around.test-frame
   .col-50.test-frame
     p chose lvl of building
