@@ -8,8 +8,6 @@ angular.module('clashApp.controllers')
 
         var vm = this;
 
-        vm.url = 'http://gillchristian.com/clash/assets/images/';
-
         //Services manipulation
         var servicesPromises = [
             // unit types promises

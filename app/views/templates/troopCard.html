@@ -1,14 +1,14 @@
 
 <div class="card-img test-frame">
-  <card-img unit="unit"></card-img>
+  <card-img unit="unit" classes="'img-responsive img-md'"></card-img>
 </div>
 <div class="col-60 box-wrap-center-around test-frame">
   <div class="col-100"> 
-    <h1 class="h4">{{unit.name}}</h1>
+    <h1 class="h4">{{::unit.name}}</h1>
   </div>
   <div class="col-50 test-frame"><span>cost <br></span><span>{{unit.getActualCost() | number}}</span></div>
   <div class="col-50 test-frame"><span>total cost <br></span><span>{{unit.getCost() | number}}</span></div>
-  <div class="col-50 test-frame"><span>time <br></span><span>{{unit.time | creation_time}}</span></div>
+  <div class="col-50 test-frame"><span>time <br></span><span>{{::unit.time | creation_time}}</span></div>
   <div class="col-50 test-frame"><span>total time <br></span><span>{{unit.getTime() | creation_time}}</span></div>
 </div>
 <div class="col-30 test-frame form-group">
@@ -19,7 +19,7 @@
   <label for="select">lvl</label>
   <select ng-init="unit.lvl = unit.lvls[0]" ng-model="unit.lvl" ng-options="lvl for lvl in unit.lvls" class="form-control"></select>
 </div>
-<div class="col-30 test-frame"><span>housing space: </span><span>{{unit.space}}</span></div>
+<div class="col-30 test-frame"><span>housing space: {{::unit.space}}</span></div>
 <div class="col-100 test-frame"><span>buildings distribution</span></div>
 <div ng-repeat="trainer in trainers" class="col-45 test-frame box-center-around"><img ng-src="http://gillchristian.com/clash/assets/images/{{trainer.folder}}/{{trainer.building}}-{{trainer.lvl}}.png" class="img-responsive img-circle img-small"/>
   <div class="box-col-center-around"><span>{{ trainer.amount[unit.id] }}</span></div>
