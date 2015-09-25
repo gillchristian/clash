@@ -10,7 +10,8 @@
                scope: {
                   building: '=',
                   type: '=',
-                  index: '=buildingId'
+                  index: '=buildingId',
+                  watch: '&'
                }
             }
 

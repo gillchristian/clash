@@ -8,13 +8,13 @@
     <tab heading="Town Hall (config)">
       <div class="box-wrap-around">
         <div ng-repeat="unitType in vm.unitTypes track by $index" class="box-wrap-around">
-          <building-card ng-repeat="trainer in unitType.trainers track by $index" building="trainer" type="unitType" building-id="$index"></building-card>
+          <building-card ng-repeat="trainer in unitType.trainers track by $index" building="trainer" type="unitType" building-id="$index" watch="vm.theLoop()"></building-card>
         </div>
       </div>
     </tab>
     <tab ng-repeat="unitType in vm.unitTypes track by $index" heading="{{unitType.unitsName}}">
       <div class="box-wrap-around">
-        <troop-card ng-repeat="unit in unitType.units track by $index" unit="unit" trainers="unitType.trainers"></troop-card>
+        <troop-card ng-repeat="unit in unitType.units track by $index" unit="unit" trainers="unitType.trainers" watch="vm.theLoop()"></troop-card>
       </div>
     </tab>
   </tabset>

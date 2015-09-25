@@ -15,4 +15,4 @@
 .col-100.box-wrap-center-around.test-frame
   .col-50.test-frame
     p chose lvl of building
-  select.col-25.form-control(ng-model='building.lvl', ng-options='lvl for lvl in building.lvls', ng-change='vm.theLoop()')
+  select.col-25.form-control(ng-model='building.lvl', ng-options='lvl for lvl in building.lvls', ng-change='watch()')
