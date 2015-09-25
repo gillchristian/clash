@@ -1,2 +1,3 @@
-img(ng-if='!putLVL', ng-src="assets/images/{{::unit.folder}}/{{::unit.unit}}.png", ng-class='classes')
-img(ng-if='putLVL', ng-src="assets/images/{{::unit.folder}}/{{::unit.unit}}-{{unit.lvl}}.png", ng-class='classes')
+img(ng-if='!putLVL && isTroop', ng-src="assets/images/{{::unit.folder}}/{{::unit.unit}}.png", ng-class='classes')
+img(ng-if='putLVL && isTroop', ng-src="assets/images/{{::unit.folder}}/{{::unit.unit}}-{{unit.lvl}}.png", ng-class='classes')
+img(ng-if='isBuilding', ng-src="assets/images/{{::unit.folder}}/{{::unit.building}}-{{unit.lvl}}.png", ng-class='classes')

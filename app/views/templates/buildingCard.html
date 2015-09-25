@@ -1,5 +1,6 @@
 
-<div class="card-img test-frame"><img ng-src="http://gillchristian.com/clash/assets/images/{{::building.folder}}/{{::building.building}}-{{building.lvl}}.png" class="img-responsive img-rounded img-md"/>
+<div class="card-img test-frame">
+  <card-img unit="building" classes="img-responsive img-rounded img-md"></card-img>
 </div>
 <div class="building-info col-60 box-wrap-center-around test-frame">
   <h1 class="h4 col-100 test-frame">{{::building.name}}</h1>
@@ -8,11 +9,11 @@
   <p class="col-50 test-frame">cost</p>
   <p class="col-50 test-frame">total: {{building.getQueue()}}</p>
 </div>
-<div ng-show="building.showTroops" class="box-wrap-center-around col-100 test-frame">
-  <div class="box-around col-100 test-frame">
-    <div ng-repeat="unit in type.units track by $index" ng-show="unit.amount &gt; 0" class="box-center-around">
-      <card-img ng-show="unit.amount &gt; 0" unit="unit" classes="'img-responsive img-circle img-small'"></card-img>
-      <p>{{building.amount[$index]}}</p>
+<div class="box-wrap-center-around col-100 test-frame">
+  <div class="box-wrap-center-around col-100 test-frame">
+    <div ng-repeat="unit in type.units track by $index" ng-show="unit.amount &gt; 0 &amp;&amp; unit.lvl &gt; 0 &amp;&amp; building.amount[unit.id]" class="box-center-around">
+      <card-img unit="unit" classes="img-responsive img-circle img-small"></card-img>
+      <div class="box-col-center-around"></div><span>{{building.amount[$index]}}</span>
     </div>
   </div>
 </div>
@@ -20,5 +21,5 @@
   <div class="col-50 test-frame">
     <p>chose lvl of building</p>
   </div>
-  <select ng-model="building.lvl" ng-options="lvl for lvl in building.lvls" class="col-25 form-control"></select>
+  <select ng-model="building.lvl" ng-options="lvl for lvl in building.lvls" ng-change="vm.theLoop()" class="col-25 form-control"></select>
 </div>

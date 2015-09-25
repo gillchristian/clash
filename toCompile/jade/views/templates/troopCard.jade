@@ -1,5 +1,5 @@
 .card-img.test-frame
-  card-img(unit='unit', classes="'img-responsive img-md'")
+  card-img(unit='unit', classes="img-responsive img-md")
 .col-60.box-wrap-center-around.test-frame
   .col-100  
     h1.h4 {{::unit.name}}
@@ -27,6 +27,6 @@
 .col-100.test-frame
   span buildings distribution
 .col-45.test-frame.box-center-around(ng-repeat='trainer in trainers')
-  img.img-responsive.img-circle.img-small(ng-src="http://gillchristian.com/clash/assets/images/{{trainer.folder}}/{{trainer.building}}-{{trainer.lvl}}.png")
+  card-img(unit='trainer', classes="img-responsive img-circle img-small")
   .box-col-center-around
     span {{ trainer.amount[unit.id] }}

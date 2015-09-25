@@ -3,6 +3,7 @@
   <h1 class="h2">I'm just testing the army calculator!</h1>
 </div>
 <div class="margin-10 center-text">
+  <button ng-click="vm.theLoop()" class="btn btn-primary">test</button>
   <tabset justified="true">
     <tab heading="Town Hall (config)">
       <div class="box-wrap-around">
@@ -13,7 +14,6 @@
     </tab>
     <tab ng-repeat="unitType in vm.unitTypes track by $index" heading="{{unitType.unitsName}}">
       <div class="box-wrap-around">
-        <button ng-click="vm.test()" class="btn btn-primary">test</button>
         <troop-card ng-repeat="unit in unitType.units track by $index" unit="unit" trainers="unitType.trainers"></troop-card>
       </div>
     </tab>
