@@ -17,10 +17,10 @@
     span {{unit.getTime() | creation_time}}
 .col-30.test-frame.form-group
   label(for='amount') amount
-  input.form-control(type='text', name='amount', , ng-model='unit.amount')
+  input.form-control(type='text', name='amount', , ng-model='unit.amount', ng-change='watch()')
 .col-30.test-frame.form-group
   label(for='select') lvl
-  select.form-control(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls')
+  select.form-control(ng-init='unit.lvl = unit.lvls[0]', ng-model='unit.lvl', ng-options='lvl for lvl in unit.lvls', ng-change='watch()')
   //- input.form-control(type='text')      
 .col-30.test-frame
   span housing space: {{::unit.space}}

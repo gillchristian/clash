@@ -7,8 +7,8 @@
     tab(heading='Town Hall (config)')
       .box-wrap-around
         .box-wrap-around(ng-repeat='unitType in vm.unitTypes track by $index')
-          building-card(ng-repeat='trainer in unitType.trainers track by $index', building='trainer', type='unitType', building-id='$index')
+          building-card(ng-repeat='trainer in unitType.trainers track by $index', building='trainer', type='unitType', building-id='$index', watch='vm.theLoop()')
     //- units cards      
     tab(ng-repeat='unitType in vm.unitTypes track by $index', heading='{{unitType.unitsName}}')
       .box-wrap-around
-        troop-card(ng-repeat='unit in unitType.units track by $index', unit='unit', trainers='unitType.trainers')
+        troop-card(ng-repeat='unit in unitType.units track by $index', unit='unit', trainers='unitType.trainers', watch='vm.theLoop()')

@@ -8,7 +8,8 @@
                templateUrl: 'app/views/templates/troopCard.html',
                scope: {
                   unit: '=',
-                  trainers: '='
+                  trainers: '=',
+                  watch: '&'
                }
             }
          }]);
