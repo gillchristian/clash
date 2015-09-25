@@ -174,13 +174,18 @@ building-card {
 
 .card-img {
 	display: block;
-	padding: 10px 5px 5px 15px;
 	/*margin: 0 auto;*/	
 }
 
 .img-small {
 	width: 35px;
 	height: 35px;
+	margin: 5px 0;
+}
+
+.img-md {
+	width: 70px;
+	height: 70px;
 	margin: 5px 0;
 }
 
