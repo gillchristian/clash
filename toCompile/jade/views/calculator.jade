@@ -1,6 +1,7 @@
 .calculator-banner.center-text
   h1.h2 I'm just testing the army calculator!
 .margin-10.center-text
+  button.btn.btn-primary(ng-click='vm.theLoop()') test
   tabset(justified="true")
     //- units buildings cards      
     tab(heading='Town Hall (config)')
@@ -10,5 +11,4 @@
     //- units cards      
     tab(ng-repeat='unitType in vm.unitTypes track by $index', heading='{{unitType.unitsName}}')
       .box-wrap-around
-        button.btn.btn-primary(ng-click='vm.test()') test
         troop-card(ng-repeat='unit in unitType.units track by $index', unit='unit', trainers='unitType.trainers')

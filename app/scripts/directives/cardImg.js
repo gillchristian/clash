@@ -7,12 +7,17 @@
                restrict: 'E',
                scope: {
                   unit: '=',
-                  classes: '='
+                  classes: '@'
                },
                templateUrl: 'app/views/templates/cardImg.html',
                link: function (scope, elm, attr) {
-                  if (scope.unit.folder.match(/spell/i) !== null)  scope.putLVL = false;
-                  else scope.putLVL = true;
+                  if ( scope.unit.unit !== undefined ) {
+                     scope.isTroop = true;
+                     if (scope.unit.folder.match(/spell/i) !== null)  scope.putLVL = false;
+                     else scope.putLVL = true;
+                  }
+                  else scope.isBuilding = true; 
+
                }
             }
       }]);

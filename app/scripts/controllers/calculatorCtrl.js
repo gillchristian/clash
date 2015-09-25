@@ -56,25 +56,28 @@ angular.module('clashApp.controllers')
                 vm.camps
             ]
 
-            function test () {
+            function theLoop () {
                 vm.lightArmy.assingmentLoop();
+                vm.darkArmy.assingmentLoop();
+                // vm.lightSpells.assingmentLoop();
+                // vm.darkSpells.assingmentLoop();
             }
 
-            vm.test = test;
+            vm.theLoop = theLoop;
 
-            // //Watch light and dark troops totals to trigger troop asignment to barracks
-            // $scope.$watch("vm.lightArmy.spaceUsed()", function(newVal, oldVal) {
-            //     if (!newVal) return;
-            //     vm.lightArmy.assingmentLoop();
+            //Watch light and dark troops totals to trigger troop asignment to barracks
+            $scope.$watch("vm.lightArmy.spaceUsed()", function(newVal, oldVal) {
+                if (!newVal) return;
+                vm.lightArmy.assingmentLoop();
 
-            // });
+            });
 
-            // $scope.$watch("vm.darkArmy.spaceUsed()", function(newVal, oldVal) {
-            //     if (!newVal) return;
+            $scope.$watch("vm.darkArmy.spaceUsed()", function(newVal, oldVal) {
+                if (!newVal) return;
 
-            //     vm.darkArmy.assingmentLoop();
+                vm.darkArmy.assingmentLoop();
 
-            // });
+            });
     
         }); // ! then sucches function
     }]);

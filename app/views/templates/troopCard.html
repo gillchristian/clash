@@ -1,6 +1,6 @@
 
 <div class="card-img test-frame">
-  <card-img unit="unit" classes="'img-responsive img-md'"></card-img>
+  <card-img unit="unit" classes="img-responsive img-md"></card-img>
 </div>
 <div class="col-60 box-wrap-center-around test-frame">
   <div class="col-100"> 
@@ -21,6 +21,7 @@
 </div>
 <div class="col-30 test-frame"><span>housing space: {{::unit.space}}</span></div>
 <div class="col-100 test-frame"><span>buildings distribution</span></div>
-<div ng-repeat="trainer in trainers" class="col-45 test-frame box-center-around"><img ng-src="http://gillchristian.com/clash/assets/images/{{trainer.folder}}/{{trainer.building}}-{{trainer.lvl}}.png" class="img-responsive img-circle img-small"/>
+<div ng-repeat="trainer in trainers" class="col-45 test-frame box-center-around">
+  <card-img unit="trainer" classes="img-responsive img-circle img-small"></card-img>
   <div class="box-col-center-around"><span>{{ trainer.amount[unit.id] }}</span></div>
 </div>

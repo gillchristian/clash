@@ -80,7 +80,7 @@ angular.module('clashApp.classes', [])
       UnitType.prototype.assingmentLoop = function() {
          this.resetBuildingsQueue();
          for (var i = 0; i < this.differentUnits; i++) {
-            if (this.units[i].amount > 0)
+            if (this.units[i].amount > 0 && this.units[i].lvl > 0)
                for (var g = 0; g < this.units[i].amount; g++)
                   this.assignUnit(i);
          }
