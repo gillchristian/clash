@@ -18,7 +18,7 @@ Also if Supercell decides to make a public API I will work on some awesome featu
 
 You can check out the [Trello board](https://trello.com/b/HlEgELzK) of the app, maybe even add some comments there for any kind of suggestions, bugs or anything.
 
-Please if you see any bug, bad practice or problem you are welcome to submit an issue, or a pull request, and also features recommendations are *very* welecome, _if they are already pull request is even better! :wink:_
+You are also welcome to submit an issue, or a pull request, and also features recommendations are **_very_** welecome, _if they are already pull request is even better! :wink:_
 
 [gillchristian](http://gillchristian.com)
 
