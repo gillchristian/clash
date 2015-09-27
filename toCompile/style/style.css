@@ -24,8 +24,7 @@
 /* --- others --- */
 
 .test-frame{
-	border: 1px solid rgba($black, 0.05);
-	br: 3px;
+
 }
 
 input[type=number]::-webkit-inner-spin-button, 

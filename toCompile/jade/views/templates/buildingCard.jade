@@ -4,7 +4,7 @@
   h1.h4.col-100.test-frame {{::building.name}}
   p.col-50.test-frame capacity: {{building.getActualCapacity()}}
   p.col-50.test-frame {{type.getTrainerTime(index) | creation_time}}
-  p.col-50.test-frame cost
+  p.col-50.test-frame cost {{building.getCost(type.units)}}
   p.col-50.test-frame total: {{building.getQueue()}}
 .box-wrap-center-around.col-100.test-frame
   .box-wrap-center-around.col-100.test-frame

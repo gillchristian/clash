@@ -73,6 +73,14 @@ angular.module('clashApp.classes')
          return queue;
       };
 
+      Trainer.prototype.getCost = function(units) {
+         var cost = 0;
+         for (var i = 0; i < this.amount.length; i++) {
+            cost += this.amount[i] * units[i].getActualCost();
+         };
+         return cost;
+      };
+
       /**
       * Setters
       */
@@ -81,25 +89,6 @@ angular.module('clashApp.classes')
       Trainer.prototype.setLvl = function(lvl) {
          if ( lvl >= this.lvls[0] && lvl <= this.lvls.last() ) this.lvl = lvl;
       };
-
-      // // set amount for specific unit or for all the units at once
-      // // pass only an array with the amount of each unit to set all amounts in one call
-      // Trainer.prototype.setAmountOf = function(amount, id) {
-
-      //    // when setting amount of all units the queue is reseted
-      //    if (id === undefined && amount.length === this.amount.length ){
-      //       for (var i = 0; i < amount.length; i++) {
-      //          this.amount[i] = amount[i];
-      //       }
-      //    }
-         
-      //    else {
-      //       if ( id >= this.amount[0] && id <= this.amount.last() ) {
-      //          this.amount[id] = amount;
-      //       }
-      //       else return;
-      //    } 
-      // };
 
       // reset all the queued units / amount 
       Trainer.prototype.resetAmount = function() {

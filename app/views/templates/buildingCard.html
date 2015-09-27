@@ -6,7 +6,7 @@
   <h1 class="h4 col-100 test-frame">{{::building.name}}</h1>
   <p class="col-50 test-frame">capacity: {{building.getActualCapacity()}}</p>
   <p class="col-50 test-frame">{{type.getTrainerTime(index) | creation_time}}</p>
-  <p class="col-50 test-frame">cost</p>
+  <p class="col-50 test-frame">cost {{building.getCost(type.units)}}</p>
   <p class="col-50 test-frame">total: {{building.getQueue()}}</p>
 </div>
 <div class="box-wrap-center-around col-100 test-frame">

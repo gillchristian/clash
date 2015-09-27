@@ -213,6 +213,16 @@ building-card {
 	display: flex;
 }
 
+.box-wrap {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+
 .box-around {
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -406,8 +416,7 @@ building-card {
 /* --- others --- */
 
 .test-frame{
-	border: 1px solid rgba(0,0,0, 0.05);
-	border-radius: 3px;
+
 }
 
 input[type=number]::-webkit-inner-spin-button, 

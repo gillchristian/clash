@@ -8,6 +8,11 @@
 	display: flex;
 }
 
+.box-wrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+
 .box-around {
 	display: flex;
 	justify-content: space-around;
