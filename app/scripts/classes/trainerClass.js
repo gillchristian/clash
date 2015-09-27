@@ -42,18 +42,12 @@ angular.module('clashApp.classes')
 
       // check if barrack has space left to produce units
       Trainer.prototype.hasSpaceFor = function(unitSpace) {
-         console.log();
-         if (this.getQueue() + unitSpace <= this.getActualCapacity())
-            return true;
-         else return false;
+         return this.getQueue() + unitSpace <= this.getActualCapacity() ? true : false
       };
 
       // can produce a unit
       Trainer.prototype.canProduce = function(firstlvl) {
-         if ( this.lvl >= firstlvl )
-            return true;
-         else
-            return false;
+         return this.lvl > firstlvl ? true : false;
       };
 
       /**

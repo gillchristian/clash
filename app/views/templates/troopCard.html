@@ -6,10 +6,10 @@
   <div class="col-100"> 
     <h1 class="h4">{{::unit.name}}</h1>
   </div>
-  <div class="col-50 test-frame"><span>cost <br></span><span>{{unit.getActualCost() | number}}</span></div>
-  <div class="col-50 test-frame"><span>total cost <br></span><span>{{unit.getCost() | number}}</span></div>
-  <div class="col-50 test-frame"><span>time <br></span><span>{{::unit.time | creation_time}}</span></div>
-  <div class="col-50 test-frame"><span>total time <br></span><span>{{unit.getTime() | creation_time}}</span></div>
+  <div class="col-50 test-frame"><span><strong>cost</strong> <br></span><span>{{unit.getActualCost() | number}}</span></div>
+  <div class="col-50 test-frame"><span><strong>total cost</strong> <br></span><span>{{unit.getCost() | number}}</span></div>
+  <div class="col-50 test-frame"><span><strong>time</strong> <br></span><span>{{::unit.time | creationTime}}</span></div>
+  <div class="col-50 test-frame"><span><strong>total time</strong> <br></span><span>{{unit.getTime() | creationTime}}</span></div>
 </div>
 <div class="col-30 test-frame form-group">
   <label for="amount">amount</label>

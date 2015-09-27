@@ -4,7 +4,7 @@
 //Filter to show time in "xd xh xm xs" format
 
 angular.module('clashApp.filters', [])
-    .filter('creation_time', function (){
+    .filter('creationTime', function (){
         return function(seconds) {
             
             var days = Math.floor(seconds / 86400);
@@ -16,7 +16,7 @@ angular.module('clashApp.filters', [])
             if(hours > 0) timeString += (hours > 1) ? (hours + "h ") : (hours + "h ");
             if(minutes > 0) timeString += (minutes > 1) ? (minutes + "m ") : (minutes + "m ");
             if (seconds> 0) timeString += (seconds > 1) ? (seconds + "s") : (seconds + "s");
-            return timeString;
+            return timeString ? timeString : 0;
         }        
     }
 );

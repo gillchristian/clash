@@ -4,17 +4,17 @@
   .col-100  
     h1.h4 {{::unit.name}}
   .col-50.test-frame
-    span cost <br>
+    span <strong>cost</strong> <br>
     span {{unit.getActualCost() | number}}
   .col-50.test-frame
-    span total cost <br>
+    span <strong>total cost</strong> <br>
     span {{unit.getCost() | number}}
   .col-50.test-frame
-    span time <br>
-    span {{::unit.time | creation_time}}
+    span <strong>time</strong> <br>
+    span {{::unit.time | creationTime}}
   .col-50.test-frame
-    span total time <br>
-    span {{unit.getTime() | creation_time}}
+    span <strong>total time</strong> <br>
+    span {{unit.getTime() | creationTime}}
 .col-30.test-frame.form-group
   label(for='amount') amount
   input.form-control(type='text', name='amount', , ng-model='unit.amount', ng-change='watch()')
