@@ -31,6 +31,11 @@ angular.module('clashApp.classes', [])
          // init the different trainer buildings
          this.trainers = [];
          for (var i = 0; i < this.differentTrainers; i++) this.trainers.push( new TrainerClass(trainerModel[i]) );
+         
+         for (var i = 0; i < this.differentTrainers; i++)
+            for(var g = 0; g < this.differentUnits; g++)
+               this.trainers[i].unitSpaces[g] = this.units[g].space;
+
       };
 
       /**
@@ -101,7 +106,7 @@ angular.module('clashApp.classes', [])
          var bestBuilding = -1;
          // pick the possible buildings
          for (var i = 0; i < this.differentTrainers; i++)
-            if (this.trainers[i].hasSpaceFor(this.units[index].space) && this.trainers[i].canProduce(index))
+            if (this.trainers[i].hasSpaceFor(index) && this.trainers[i].canProduce(index))
                possibleBuildings.push(i);
          // find the best building with the lower time 
          for (var i = 0; i < possibleBuildings.length; i++){
