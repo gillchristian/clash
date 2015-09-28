@@ -1,13 +1,44 @@
-.calculator-banner.center-text
-  h1.h2 I'm just testing the army calculator!
+.calculator-banner.center-text.box-wrap-around
+  p.margin-10.test-frame <i class='fa fa-tint elixir'></i> cost elixir {{vm.lightArmy.getCost() + vm.lightSpells.getCost() | number}}
+  p.margin-10.test-frame <i class='fa fa-tint dark-elixir'></i> cost dark elixir {{vm.darkArmy.getCost() + vm.darkSpells.getCost() | number}}
+  p.margin-10.test-frame <i class='fa fa-users'></i> total troops {{vm.lightArmy.spacesUsed() + vm.darkArmy.spacesUsed() }}
+  p.margin-10.test-frame <i class='fa fa-flask'></i> total spells {{vm.lightSpells.spacesUsed() + vm.darkSpells.spacesUsed() }}
+  p.margin-10.test-frame <i class='fa fa-users'></i> max troops {{vm.camps.maxAmount()}}
+  p.margin-10.test-frame(ng-if='vm.darkSpells.trainers[0].getActualCapacity() == 0') <i class='fa fa-users'></i> max spells {{vm.lightSpells.trainers[0].getActualCapacity()}}
+  p.margin-10.test-frame(ng-if='vm.darkSpells.trainers[0].getActualCapacity() > 0') <i class='fa fa-users'></i> max spells {{vm.lightSpells.trainers[0].getActualCapacity() + 1}}
 .margin-10.center-text
   tabset(justified="true")
     //- units buildings cards      
-    tab(heading='Town Hall (config)')
+    tab(heading='Buildings')
       .box-wrap-around
-        .box-wrap-around(ng-repeat='unitType in vm.unitTypes track by $index')
-          building-card(ng-repeat='trainer in unitType.trainers track by $index', building='trainer', type='unitType', building-id='$index', watch='vm.theLoop()')
+        //- .box-wrap-around(ng-repeat='unitType in vm.unitTypes track by $index')
+        //- light trainers
+        building-card(ng-repeat='trainer in vm.lightArmy.trainers track by $index', building='trainer', type='vm.lightArmy', building-id='$index', watch='vm.theLoop()')
+        //- dark trainers
+        building-card(ng-repeat='trainer in vm.darkArmy.trainers track by $index', building='trainer', type='vm.darkArmy', building-id='$index', watch='vm.theLoop()')
+        //- light spells factory
+        building-card(ng-repeat='trainer in vm.lightSpells.trainers track by $index', building='trainer', type='vm.lightSpells', building-id='$index', watch='vm.theLoop()')
+        //- dark spells factory
+        building-card(ng-repeat='trainer in vm.darkSpells.trainers track by $index', building='trainer', type='vm.darkSpells', building-id='$index', watch='vm.theLoop()')
+        //-  camps
+        building-card(ng-repeat='camp in vm.camps.buildings track by $index', building='camp', type='vm.camps', building-id='$index', watch='vm.theLoop()')
     //- units cards      
     tab(ng-repeat='unitType in vm.unitTypes track by $index', heading='{{unitType.unitsName}}')
       .box-wrap-around
         troop-card(ng-repeat='unit in unitType.units track by $index', unit='unit', trainers='unitType.trainers', watch='vm.theLoop()')
+
+//- 
+  .calculator-banner.center-text
+    h1.h2 I'm just testing the army calculator!
+  .margin-10.center-text
+    tabset(justified="true")
+      //- units buildings cards      
+      tab(heading='Town Hall (config)')
+        .box-wrap-around
+          //- .box-wrap-around(ng-repeat='unitType in vm.unitTypes track by $index')
+          building-card(ng-repeat='trainer in unitType.trainers track by $index', building='trainer', type='unitType', building-id='$index', watch='vm.theLoop()')
+      //- units cards      
+      tab(ng-repeat='unitType in vm.unitTypes track by $index', heading='{{unitType.unitsName}}')
+        .box-wrap-around
+          troop-card(ng-repeat='unit in unitType.units track by $index', unit='unit', trainers='unitType.trainers', watch='vm.theLoop()')
+            icon icon-users
