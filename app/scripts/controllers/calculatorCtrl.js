@@ -59,8 +59,8 @@ angular.module('clashApp.controllers')
             function theLoop () {
                 vm.lightArmy.assingmentLoop();
                 vm.darkArmy.assingmentLoop();
-                // vm.lightSpells.assingmentLoop();
-                // vm.darkSpells.assingmentLoop();
+                vm.lightSpells.assingmentLoop();
+                vm.darkSpells.assingmentLoop();
             }
 
             vm.theLoop = theLoop;

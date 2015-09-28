@@ -53,9 +53,8 @@ angular.module('clashApp.classes', [])
       // total cost of its units 
       UnitType.prototype.getCost = function() {
          var cost = 0;
-
          for (var i =  0; i < this.differentUnits; i++) {
-            cost += this.units[i].getActualCost();
+            cost += this.units[i].getCost();
          }
          return cost;
       };
