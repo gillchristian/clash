@@ -155,7 +155,7 @@ troop-card,
 building-card {
 	/*@mixin wh 300px, 250px;*/
 	width: 300px;
-	min-height: 250px;
+	min-height: 230px;
     margin: 20px;
     padding-bottom: 10px;
     background-color: #f8f8f8;
@@ -198,13 +198,17 @@ building-card {
 .img-small {
 	width: 35px;
 	height: 35px;
-	margin: 5px 0;
+	margin: 2px 0;
 }
 
 .img-md {
+	width: 55px;
+	height: 55px;
+}
+
+.img-lg {
 	width: 70px;
 	height: 70px;
-	margin: 5px 0;
 }
 
 /* --- this is the building card stylesheet --- */
@@ -429,6 +433,10 @@ building-card {
 
 .center-text {
 	text-align: center;
+}
+
+.left-text {
+	text-align: left;
 }
 
 /* --- others --- */

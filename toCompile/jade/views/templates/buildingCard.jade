@@ -1,18 +1,26 @@
-.card-img.test-frame
+.box-center-around.col-100
+  h1.h4.col-40 {{::building.name}}
+  p.col-50
+    i.fa.fa-users 
+    |  {{building.getActualCapacity()}}   
+.card-img
   card-img(unit='building', classes="img-responsive img-rounded img-md")
-.building-info.col-60.box-wrap-center-around.test-frame
-  h1.h4.col-100.test-frame {{::building.name}}
-  p.col-50.test-frame capacity: {{building.getActualCapacity()}}
-  p.col-50.test-frame {{type.getTrainerTime(index) | creationTime}}
-  p.col-50.test-frame cost: {{building.getCost(type.units) | number}}
-  p.col-50.test-frame total: {{building.getQueue()}}
-.box-wrap-center-around.col-100.test-frame
-  .box-wrap-center-around.col-100.test-frame
-    .box-center-around(ng-repeat='unit in type.units track by $index', ng-show='unit.amount > 0 && unit.lvl > 0 && building.amount[unit.id]')
-      card-img( unit='unit', classes="img-responsive img-circle img-small")
-      .box-col-center-around
-      span {{building.amount[$index]}}
-.col-100.box-wrap-center-around.test-frame
-  .col-50.test-frame
-    p chose lvl of building
+.building-info.col-60.box-wrap-center-around
+  p.col-50
+    i.fa.fa-clock-o 
+    |  {{type.getTrainerTime(index) | creationTime}}
+.col-100.box-wrap-center-around
+  .col-10
+    p <strong>lvl</strong>
   select.col-25.form-control(ng-model='building.lvl', ng-options='lvl for lvl in building.lvls', ng-change='watch()')
+  p.col-25 
+    i.fa.fa-users 
+    |  {{building.getQueue()}}
+  p.col-25
+    i.fa.fa-tint 
+    |  {{building.getCost(type.units) | number}}
+.box-wrap-center-around.col-100
+  .box-center-around.col-20(ng-repeat='unit in type.units track by $index', ng-show='unit.amount > 0 && unit.lvl > 0 && building.amount[unit.id]')
+    card-img( unit='unit', classes="img-responsive img-circle img-small")
+    .box-col-center-around
+    span {{building.amount[$index]}}

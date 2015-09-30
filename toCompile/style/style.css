@@ -21,6 +21,10 @@
 	text-align: center;
 }
 
+.left-text {
+	text-align: left;
+}
+
 /* --- others --- */
 
 .test-frame{
