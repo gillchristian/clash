@@ -1,25 +1,25 @@
 
-<div class="card-img test-frame">
+<div class="box-center-around col-100">
+  <h1 class="h4 col-40">{{::building.name}}</h1>
+  <p class="col-50"><i class="fa fa-users"> </i> {{building.getActualCapacity()}}   </p>
+</div>
+<div class="card-img">
   <card-img unit="building" classes="img-responsive img-rounded img-md"></card-img>
 </div>
-<div class="building-info col-60 box-wrap-center-around test-frame">
-  <h1 class="h4 col-100 test-frame">{{::building.name}}</h1>
-  <p class="col-50 test-frame">capacity: {{building.getActualCapacity()}}</p>
-  <p class="col-50 test-frame">{{type.getTrainerTime(index) | creationTime}}</p>
-  <p class="col-50 test-frame">cost: {{building.getCost(type.units) | number}}</p>
-  <p class="col-50 test-frame">total: {{building.getQueue()}}</p>
+<div class="building-info col-60 box-wrap-center-around">
+  <p class="col-50"><i class="fa fa-clock-o"> </i> {{type.getTrainerTime(index) | creationTime}}</p>
 </div>
-<div class="box-wrap-center-around col-100 test-frame">
-  <div class="box-wrap-center-around col-100 test-frame">
-    <div ng-repeat="unit in type.units track by $index" ng-show="unit.amount &gt; 0 &amp;&amp; unit.lvl &gt; 0 &amp;&amp; building.amount[unit.id]" class="box-center-around">
-      <card-img unit="unit" classes="img-responsive img-circle img-small"></card-img>
-      <div class="box-col-center-around"></div><span>{{building.amount[$index]}}</span>
-    </div>
-  </div>
-</div>
-<div class="col-100 box-wrap-center-around test-frame">
-  <div class="col-50 test-frame">
-    <p>chose lvl of building</p>
+<div class="col-100 box-wrap-center-around">
+  <div class="col-10">
+    <p><strong>lvl</strong></p>
   </div>
   <select ng-model="building.lvl" ng-options="lvl for lvl in building.lvls" ng-change="watch()" class="col-25 form-control"></select>
+  <p class="col-25"> <i class="fa fa-users"> </i> {{building.getQueue()}}</p>
+  <p class="col-25"><i class="fa fa-tint"> </i> {{building.getCost(type.units) | number}}</p>
+</div>
+<div class="box-wrap-center-around col-100">
+  <div ng-repeat="unit in type.units track by $index" ng-show="unit.amount &gt; 0 &amp;&amp; unit.lvl &gt; 0 &amp;&amp; building.amount[unit.id]" class="box-center-around col-20">
+    <card-img unit="unit" classes="img-responsive img-circle img-small"></card-img>
+    <div class="box-col-center-around"></div><span>{{building.amount[$index]}}</span>
+  </div>
 </div>

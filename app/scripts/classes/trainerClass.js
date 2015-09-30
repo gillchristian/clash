@@ -71,7 +71,7 @@ angular.module('clashApp.classes')
       Trainer.prototype.getCost = function(units) {
          var cost = 0;
          for (var i = 0; i < this.amount.length; i++) {
-            cost += this.amount[i] * this.unitSpaces[i];
+            cost += this.amount[i] * units[i].getActualCost();
          };
          return cost;
       };
