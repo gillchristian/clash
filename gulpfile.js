@@ -3,6 +3,7 @@
 var gulp            = require('gulp'),
     rename          = require('gulp-rename'),
     sourcemaps      = require('gulp-sourcemaps'),
+    webpack         = require('webpack-stream'),
     // --- jade plugins
     plumber         = require('gulp-plumber'),
     jade            = require('gulp-jade'),
@@ -81,6 +82,7 @@ gulp.task(TASKS.watch.jade, function () {
 gulp.task(TASKS.watch.all, function () {
     gulp.watch( FILES.jade.all, [TASKS.dev.jade]);
     gulp.watch( FILES.css.all, [TASKS.dev.style]);
+    gulp.watch( FILES.js.all, [TASKS.js.webpack]);
 });
 
 
@@ -103,6 +105,20 @@ gulp.task(TASKS.production.style, function (){
 gulp.task(TASKS.production.ready, [TASKS.dev.jade , TASKS.production.style], function() {
 
 });
+
+// js bundle --- webpack
+// --------------------------------------------------------
+gulp.task(TASKS.js.webpack, function (){
+    
+    let configjs = require('./webpack.config.js');
+    
+    return gulp.src(FILES.js.src)
+      .pipe( webpack( configjs ) )
+      .pipe( rename('bundle.js') )
+      .pipe( gulp.dest(FILES.js.bundle) );  
+
+});
+
 
 // default
 // --------------------------------------------------------

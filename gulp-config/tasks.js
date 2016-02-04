@@ -1,4 +1,4 @@
-var TASKS = {
+const TASKS = {
         dev: {
             style: 'css',
             jade: 'jade'
@@ -7,6 +7,9 @@ var TASKS = {
             all: 'watch',
             style: 'css:watch',
             jade: 'jade:watch'
+        },
+        js: {
+          webpack: 'js'
         },
         production: {
             ready: 'build',  

@@ -1,4 +1,4 @@
-var FILES = {
+const FILES = {
         css: {
             source: 'toCompile/style/style.css',
             all: 'toCompile/style/**/*.css',
@@ -14,6 +14,11 @@ var FILES = {
                 angularViews: 'app/views/',
                 others: 'app/html/'
             }
+        },
+        js: {
+          src: 'src/js/index.js',
+          bundle: 'build/js/',
+          all: 'src/js/**/*.js'
         }
     };
 

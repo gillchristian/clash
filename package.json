@@ -4,11 +4,16 @@
   "description": "Started 'Maqueteo' folder with some gulp tasks",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server --watch-poll --inline --progress --colors",
+    "build": "webpack --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "gillchristian",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
     "csswring": "^3.0.7",
     "gulp": "^3.9.0",
     "gulp-jade": "^1.0.1",
@@ -22,6 +27,13 @@
     "postcss-cssstats": "^1.0.0",
     "postcss-import": "^7.0.0",
     "postcss-mixins": "^1.0.0",
-    "postcss-nested": "^1.0.0"
+    "postcss-nested": "^1.0.0",
+    "webpack": "^1.12.12",
+    "webpack-stream": "^3.1.0"
+  },
+  "dependencies": {
+    "angular": "^1.4.9",
+    "angular-ui-bootstrap": "^1.1.2",
+    "angular-ui-router": "^0.2.17"
   }
 }
