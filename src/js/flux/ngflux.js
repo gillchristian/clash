@@ -8,4 +8,4 @@ let ngFlux = angular.module('ngFlux', [])
 	.factory('AppActions', AppActions)
 	.factory('StoreSingleton', StoreSingleton);
 
-export { ngFlux };
+export default ngFlux;
