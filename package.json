@@ -1,11 +1,11 @@
 {
-  "name": "Maqueteo",
+  "name": "clash",
   "version": "1.0.0",
-  "description": "Started 'Maqueteo' folder with some gulp tasks",
+  "description": "clash of clans army calculator",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --watch-poll --inline --progress --colors",
     "build": "webpack --progress --colors",
+    "watch": "webpack --progress --colors -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "gillchristian",
@@ -28,6 +28,7 @@
     "postcss-import": "^7.0.0",
     "postcss-mixins": "^1.0.0",
     "postcss-nested": "^1.0.0",
+    "tii": "^0.1.1",
     "webpack": "^1.12.12",
     "webpack-stream": "^3.1.0"
   },
