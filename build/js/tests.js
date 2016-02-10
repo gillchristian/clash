@@ -45,6 +45,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	/**
+	 * Classes imports
+	 */
 
 	var _tii = __webpack_require__(14);
 
@@ -99,11 +102,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var clashTests = new _tii2.default();
-
-	/**
-	 * Classes imports
-	 */
-
 	/**
 	 * Tests Imports
 	 */
@@ -117,7 +115,7 @@
 
 	// --- Staging Building Class ---
 
-	// returning a mock just to reuse the unit
+	// returning mocks that are reused in other files
 	var unitMocks = (0, _tests_stagingbuilding2.default)(clashTests, _tests_camp.armyCampModel, _stagingbuilding2.default, _unit2.default);
 
 	// --- Trainer Class ---
@@ -3386,11 +3384,10 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	/**
+	* Key mirror tests
+	*/
 	function keyMirrorTests(tests, keyMirror) {
-
-		/**
-	 * Key mirror tests
-	 */
 		var mirrored = keyMirror(['SOME_ACTION', 'ANOTHER_ACTION']);
 		var actionsObject = {
 			SOME_ACTION: 'SOME_ACTION',
@@ -3446,9 +3443,8 @@
 	/**
 	 * Staging building tests
 	 */
-
 	function stagingBuildingTests(tests, model, StagingBuilding, Unit) {
-	  var unitMock = new Unit({
+	  var unitModel = {
 	    "id": 4,
 	    "unit": "wallbreaker",
 	    "name": "Wall Breaker",
@@ -3459,20 +3455,10 @@
 	    "time": 120,
 	    "space": 2,
 	    "amount": 0
-	  });
+	  };
 
-	  var unitMock2 = new Unit({
-	    "id": 4,
-	    "unit": "wallbreaker",
-	    "name": "Wall Breaker",
-	    "folder": "troops/light/wallbreaker",
-	    "cost": [0, 1000, 1500, 2000, 2500, 3000, 3500],
-	    "lvls": [0, 1, 2, 3, 4, 5, 6],
-	    "lvl": 0,
-	    "time": 120,
-	    "space": 2,
-	    "amount": 0
-	  });
+	  var unitMock = new Unit(unitModel);
+	  var unitMock2 = new Unit(unitModel);
 
 	  var stagingModel = [model, model, model];
 	  var stagingName = 'stagin buildings';
@@ -3497,7 +3483,6 @@
 	  .beFalse();
 
 	  var unitsMockArray = [unitMock, unitMock2];
-
 	  tests.when('limitExeeded should be false when trying to alocate less units than the capacity').should(stagingTest.limitExeeded([].concat(unitsMockArray, unitsMockArray, unitsMockArray))) // 40 x 3 = 120 spaces
 	  .beTrue();
 
@@ -3515,24 +3500,24 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	var mockUnitsModel = [{ "id": 0, "unit": "barbarian", "name": "Barbarian", "folder": "troops/light/barbarian", "cost": [0, 25, 40, 60, 100, 150, 200, 250], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 20, "space": 1, "amount": 0 }, { "id": 1, "unit": "archer", "name": "Archer", "folder": "troops/light/archer", "cost": [0, 50, 80, 120, 160, 300, 400, 500], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 25, "space": 1, "amount": 0 }, { "id": 2, "unit": "goblin", "name": "Goblin", "folder": "troops/light/goblin", "cost": [0, 25, 40, 60, 80, 100, 150], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 30, "space": 1, "amount": 0 }, { "id": 3, "unit": "giant", "name": "Giant", "folder": "troops/light/giant", "cost": [0, 250, 750, 1250, 1750, 2250, 3000, 3500], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 120, "space": 5, "amount": 0 }, { "id": 4, "unit": "wallbreaker", "name": "Wall Breaker", "folder": "troops/light/wallbreaker", "cost": [0, 1000, 1500, 2000, 2500, 3000, 3500], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 120, "space": 2, "amount": 0 }, { "id": 5, "unit": "balloon", "name": "Balloon", "folder": "troops/light/balloon", "cost": [0, 2000, 2500, 3000, 3500, 4000, 4500], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 480, "space": 5, "amount": 0 }, { "id": 6, "unit": "wizard", "name": "Wizard", "folder": "troops/light/wizard", "cost": [0, 1500, 2000, 2500, 3000, 3500, 4000], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 480, "space": 4, "amount": 0 }, { "id": 7, "unit": "healer", "name": "Healer", "folder": "troops/light/healer", "cost": [0, 5000, 6000, 8000, 10000], "lvls": [0, 1, 2, 3, 4], "lvl": 0, "time": 900, "space": 14, "amount": 0 }, { "id": 8, "unit": "dragon", "name": "Dragon", "folder": "troops/light/dragon", "cost": [0, 25000, 29000, 33000, 37000, 42000], "lvls": [0, 1, 2, 3, 4, 5], "lvl": 0, "time": 1800, "space": 20, "amount": 0 }, { "id": 9, "unit": "pekka", "name": "P.E.K.K.A.", "folder": "troops/light/pekka", "cost": [0, 28000, 32000, 36000, 40000, 45000], "lvls": [0, 1, 2, 3, 4, 5], "lvl": 0, "time": 2700, "space": 25, "amount": 0 }];
+
+	var mockBarrack = {
+		"name": "Barrack",
+		"building": "barrack",
+		"folder": "barracks",
+		"capacity": [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75],
+		"lvls": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+		"lvl": 0,
+		"amount": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	};
+
 	/**
 	 * Tests for UnitType 
 	 */
 	function unitTypeTests(tests, UnitType) {
 
-		var mockBarrack = {
-			"name": "Barrack",
-			"building": "barrack",
-			"folder": "barracks",
-			"capacity": [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75],
-			"lvls": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-			"lvl": 0,
-			"amount": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-		};
-
 		var mockTrainersModel = [mockBarrack, mockBarrack, mockBarrack, mockBarrack];
-
-		var mockUnitsModel = [{ "id": 0, "unit": "barbarian", "name": "Barbarian", "folder": "troops/light/barbarian", "cost": [0, 25, 40, 60, 100, 150, 200, 250], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 20, "space": 1, "amount": 0 }, { "id": 1, "unit": "archer", "name": "Archer", "folder": "troops/light/archer", "cost": [0, 50, 80, 120, 160, 300, 400, 500], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 25, "space": 1, "amount": 0 }, { "id": 2, "unit": "goblin", "name": "Goblin", "folder": "troops/light/goblin", "cost": [0, 25, 40, 60, 80, 100, 150], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 30, "space": 1, "amount": 0 }, { "id": 3, "unit": "giant", "name": "Giant", "folder": "troops/light/giant", "cost": [0, 250, 750, 1250, 1750, 2250, 3000, 3500], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 120, "space": 5, "amount": 0 }, { "id": 4, "unit": "wallbreaker", "name": "Wall Breaker", "folder": "troops/light/wallbreaker", "cost": [0, 1000, 1500, 2000, 2500, 3000, 3500], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 120, "space": 2, "amount": 0 }, { "id": 5, "unit": "balloon", "name": "Balloon", "folder": "troops/light/balloon", "cost": [0, 2000, 2500, 3000, 3500, 4000, 4500], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 480, "space": 5, "amount": 0 }, { "id": 6, "unit": "wizard", "name": "Wizard", "folder": "troops/light/wizard", "cost": [0, 1500, 2000, 2500, 3000, 3500, 4000], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 480, "space": 4, "amount": 0 }, { "id": 7, "unit": "healer", "name": "Healer", "folder": "troops/light/healer", "cost": [0, 5000, 6000, 8000, 10000], "lvls": [0, 1, 2, 3, 4], "lvl": 0, "time": 900, "space": 14, "amount": 0 }, { "id": 8, "unit": "dragon", "name": "Dragon", "folder": "troops/light/dragon", "cost": [0, 25000, 29000, 33000, 37000, 42000], "lvls": [0, 1, 2, 3, 4, 5], "lvl": 0, "time": 1800, "space": 20, "amount": 0 }, { "id": 9, "unit": "pekka", "name": "P.E.K.K.A.", "folder": "troops/light/pekka", "cost": [0, 28000, 32000, 36000, 40000, 45000], "lvls": [0, 1, 2, 3, 4, 5], "lvl": 0, "time": 2700, "space": 25, "amount": 0 }];
 
 		var unitTypeMock = new UnitType(mockUnitsModel, 'Ligth troops', mockTrainersModel, 'Barracks');
 
@@ -3845,7 +3830,6 @@
 	 * Trainer building test
 	 */
 	function trainerClassTests(tests, unitsMockArray, Trainer) {
-
 		var trainerTest = new Trainer({
 			"name": "Dark Barrack",
 			"building": "dark-barrack",
@@ -3859,11 +3843,9 @@
 		trainerTest.unitSpaces = [2, 2]; // setting spaces manualy from the unitMockArray units
 		trainerTest.amount = [10, 10]; // setting amount of queue manualy
 		trainerTest.setLvl(5);
-
 		tests.when('has space for a unit, when amount queued is less than capacity').should(trainerTest.hasSpaceFor(1)).beTrue();
 
 		trainerTest.amount = [20, 20]; // setting amount of queue manualy
-
 		tests.when('has space for a unit, when amount queued is the same than capacity').should(trainerTest.hasSpaceFor(1)).beFalse();
 
 		// --- actual lvl set to 5, should produce units lower than that
@@ -3878,24 +3860,20 @@
 		tests.when('Trainer.unitsCost(), cost of the queued units').should(trainerTest.unitsCost(unitsMockArray)).equal(40 * 1500); // 40 x 1500 (wallbracker at lvl 2, the mocked unit)
 
 		trainerTest.setLvl(11); // this should not work, lvl should still be five (set previously)
-
 		tests.when('Trainer.setLvl() should not change the lvl for one out of range').should(trainerTest.lvl).not(11);
 
 		tests.when('Trainer.setLvl() should not change the lvl for one out of range').should(trainerTest.lvl).equal(5);
 
 		// --- reseting amount for the test --
 		trainerTest.resetAmount();
-
 		tests.when('Trinaer.resetAmount() should reset the amount to 0 for each unit').should(trainerTest.amount).equal([0, 0]);
 
 		// --- adding a unit should increase the amount ---
 		trainerTest.addUnit(1);
-
 		tests.when('Trinaer.resetAmount() should reset the amount to 0 for each unit').should(trainerTest.amount).equal([0, 1]);
 
 		trainerTest.addUnit(0);
 		trainerTest.addUnit(1);
-
 		tests.when('Trinaer.resetAmount() should reset the amount to 0 for each unit').should(trainerTest.amount).equal([1, 2]);
 	}
 
@@ -3925,7 +3903,6 @@
 		tests.when('Unit.totalTime() should return the total time to finish the units').should(unitMock.totalTime()).equal(10 * 120);
 
 		unitMock.setLvl(11); // this should not work, lvl should still be 2 (set previously)
-
 		tests.when('Unit.setLvl() should not change the lvl for one out of range').should(unitMock.lvl).not(11);
 
 		tests.when('Unit.setLvl() should not change the lvl for one out of range').should(unitMock.lvl).equal(2);

@@ -1,22 +1,8 @@
 /**
  * Staging building tests
  */
-
 function stagingBuildingTests(tests, model, StagingBuilding ,Unit){
-  let unitMock = new Unit({
-      "id": 4,
-      "unit": "wallbreaker",
-      "name": "Wall Breaker",
-      "folder": "troops/light/wallbreaker",
-      "cost": [0, 1000,1500,2000,2500,3000,3500],
-      "lvls": [0, 1,2,3,4,5,6],
-      "lvl": 0,
-      "time": 120,
-      "space": 2,
-      "amount": 0
-  });
-  
-  let unitMock2 = new Unit({
+  let unitModel = {
       "id": 4,
       "unit": "wallbreaker",
       "name": "Wall Breaker",
@@ -27,8 +13,10 @@ function stagingBuildingTests(tests, model, StagingBuilding ,Unit){
       "time": 120,
       "space": 2,
       "amount": 0
-  });
+  };
   
+  let unitMock = new Unit(unitModel);
+  let unitMock2 = new Unit(unitModel);
     
   const stagingModel = [model, model, model];
   const stagingName = 'stagin buildings';
@@ -61,14 +49,12 @@ function stagingBuildingTests(tests, model, StagingBuilding ,Unit){
     .beFalse();
     
   let unitsMockArray = [unitMock, unitMock2];
-    
   tests
     .when('limitExeeded should be false when trying to alocate less units than the capacity')
     .should( stagingTest.limitExeeded([...unitsMockArray, ...unitsMockArray, ...unitsMockArray]) ) // 40 x 3 = 120 spaces
   	.beTrue();
 
     return { unitsMockArray, unitMock, unitMock2 }
-
 }
 
 export default stagingBuildingTests;

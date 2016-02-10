@@ -1,20 +1,3 @@
-/**
- * Tests for UnitType 
- */
-function unitTypeTests(tests, UnitType){
-
-	let mockBarrack =   {
-		"name": "Barrack",
-		"building": "barrack",
-		"folder": "barracks",
-		"capacity": [0,20,25,30,35,40,45,50,55,60,75],
-		"lvls": [0,1,2,3,4,5,6,7,8,9,10],
-		"lvl": 0,
-		"amount" : [0,0,0,0,0,0,0,0,0,0]
-	};
-	
-	let mockTrainersModel = [mockBarrack, mockBarrack, mockBarrack, mockBarrack];
-	
 	let mockUnitsModel = [
 		{"id":0,"unit":"barbarian","name":"Barbarian","folder":"troops/light/barbarian","cost":[0,25,40,60,100,150,200,250],"lvls":[0,1,2,3,4,5,6,7],"lvl": 0,"time": 20,"space": 1,"amount":0},
 		{"id":1,"unit":"archer","name":"Archer","folder":"troops/light/archer","cost":[0,50,80,120,160,300,400,500],"lvls":[0,1,2,3,4,5,6,7],"lvl":0,"time":25,"space":1,"amount":0},
@@ -27,6 +10,23 @@ function unitTypeTests(tests, UnitType){
 		{"id":8,"unit":"dragon","name":"Dragon","folder":"troops/light/dragon","cost":[0,25000,29000,33000,37000, 42000],"lvls":[0,1,2,3,4,5],"lvl":0,"time":1800,"space": 20,"amount":0},
 		{"id":9,"unit":"pekka","name":"P.E.K.K.A.","folder":"troops/light/pekka","cost":[0,28000,32000,36000,40000,45000],"lvls":[0,1,2,3,4,5],"lvl":0,"time":2700,"space": 25,"amount":0}
 	];
+
+	let mockBarrack =   {
+		"name": "Barrack",
+		"building": "barrack",
+		"folder": "barracks",
+		"capacity": [0,20,25,30,35,40,45,50,55,60,75],
+		"lvls": [0,1,2,3,4,5,6,7,8,9,10],
+		"lvl": 0,
+		"amount" : [0,0,0,0,0,0,0,0,0,0]
+	};
+
+/**
+ * Tests for UnitType 
+ */
+function unitTypeTests(tests, UnitType){
+	
+	let mockTrainersModel = [mockBarrack, mockBarrack, mockBarrack, mockBarrack];
 	
 	let unitTypeMock = new UnitType(mockUnitsModel, 'Ligth troops', mockTrainersModel, 'Barracks');
 	
@@ -51,7 +51,6 @@ function unitTypeTests(tests, UnitType){
 		.when('constructor creating units (testing by checking the names of the created units)')
 		.should(unitNames)
 		.equal( unitTypeMock.units.map(unit => unit.name) );
-	
 	
 	let unitSpaces = mockUnitsModel.map( unit => unit.space ); // array with unit spaces
 	tests
@@ -135,7 +134,6 @@ function unitTypeTests(tests, UnitType){
 		.when('available trainer for healer')
 		.should( unitTypeMock.findAvailableTrainers(unitTypeMock.units[6]) )
 		.equal([2]);
-	
 	
 	unitTypeMock.trainers[0].amount = [5,5,0,0,0,0,0,0,0,0]; // 15 spaces left, only barbarians & archers
 	unitTypeMock.trainers[1].amount = [0,0,0,7,2,0,0,0,0,0]; // one space left

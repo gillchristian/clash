@@ -2,7 +2,6 @@
  * Trainer building test
  */
 function trainerClassTests(tests, unitsMockArray, Trainer){
-	
 	let trainerTest = new Trainer({
 		"name": "Dark Barrack",
 		"building": "dark-barrack",
@@ -16,14 +15,12 @@ function trainerClassTests(tests, unitsMockArray, Trainer){
 	trainerTest.unitSpaces = [2, 2]; // setting spaces manualy from the unitMockArray units
 	trainerTest.amount = [10,10]; // setting amount of queue manualy
 	trainerTest.setLvl(5);
-	
 	tests
 		.when('has space for a unit, when amount queued is less than capacity')
 		.should(trainerTest.hasSpaceFor(1))
 		.beTrue();
 	
 	trainerTest.amount = [20,20]; // setting amount of queue manualy
-	
 	tests
 		.when('has space for a unit, when amount queued is the same than capacity')
 		.should(trainerTest.hasSpaceFor(1))
@@ -56,7 +53,6 @@ function trainerClassTests(tests, unitsMockArray, Trainer){
 		.equal(40 * 1500) // 40 x 1500 (wallbracker at lvl 2, the mocked unit)
 	
 	trainerTest.setLvl(11); // this should not work, lvl should still be five (set previously)
-	
 	tests
 		.when('Trainer.setLvl() should not change the lvl for one out of range' )
 		.should(trainerTest.lvl)
@@ -69,7 +65,6 @@ function trainerClassTests(tests, unitsMockArray, Trainer){
 		
 	// --- reseting amount for the test --
 	trainerTest.resetAmount();
-	
 	tests
 		.when('Trinaer.resetAmount() should reset the amount to 0 for each unit')
 		.should(trainerTest.amount)
@@ -78,7 +73,6 @@ function trainerClassTests(tests, unitsMockArray, Trainer){
 		
 	// --- adding a unit should increase the amount --- 
 	trainerTest.addUnit(1);
-	
 	tests
 		.when('Trinaer.resetAmount() should reset the amount to 0 for each unit')
 		.should(trainerTest.amount)
@@ -86,7 +80,6 @@ function trainerClassTests(tests, unitsMockArray, Trainer){
 		
 	trainerTest.addUnit(0);
 	trainerTest.addUnit(1);
-	
 	tests
 		.when('Trinaer.resetAmount() should reset the amount to 0 for each unit')
 		.should(trainerTest.amount)

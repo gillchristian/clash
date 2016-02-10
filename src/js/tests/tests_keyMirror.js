@@ -1,8 +1,7 @@
+/**
+* Key mirror tests
+*/
 function keyMirrorTests(tests, keyMirror){
-	
-	/**
-	* Key mirror tests
-	*/
 	var mirrored = keyMirror(['SOME_ACTION', 'ANOTHER_ACTION']);
 	var actionsObject = {
 		SOME_ACTION: 'SOME_ACTION',

@@ -22,5 +22,4 @@ function campClassTests(tests, Camp){
 		.equal(testCamp.capacity[5]);
 }
 
-
 export { armyCampModel, campClassTests };

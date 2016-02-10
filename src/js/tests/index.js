@@ -1,11 +1,9 @@
 'use strict';
-import Tii from 'tii';
-
-var clashTests = new Tii();
-
 /**
  * Classes imports
  */
+import Tii from 'tii';
+
 import keyMirror from '../helpers/keyMirror';
 
 import Camp from '../classes/camp.class';
@@ -14,7 +12,7 @@ import StagingBuilding from '../classes/stagingbuilding.class';
 import Unit from '../classes/unit.class';
 import UnitType from '../classes/unittype.class';
 
-
+var clashTests = new Tii();
 /**
  * Tests Imports
  */
@@ -28,7 +26,7 @@ campClassTests(clashTests, Camp);
 
 // --- Staging Building Class ---
 import stagingBuildingTests from './tests_stagingbuilding.class'
-// returning a mock just to reuse the unit
+// returning mocks that are reused in other files
 let unitMocks = stagingBuildingTests(clashTests, armyCampModel, StagingBuilding, Unit);
 
 // --- Trainer Class ---

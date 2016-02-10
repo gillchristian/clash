@@ -9,7 +9,6 @@ function unitClassTests(tests, unitMock){
 		.should( unitMock.actualCost() )
 		.equal(1500) // cost at lvl 2, set after creation
 	
-	
 	tests
 		.when('Unit.totalCost() should return the total cost')
 		.should( unitMock.totalCost() )
@@ -25,9 +24,7 @@ function unitClassTests(tests, unitMock){
 		.should( unitMock.totalTime() )
 		.equal( 10 * 120 );
 	
-	
 	unitMock.setLvl(11); // this should not work, lvl should still be 2 (set previously)
-	
 	tests
 		.when('Unit.setLvl() should not change the lvl for one out of range' )
 		.should(unitMock.lvl)
