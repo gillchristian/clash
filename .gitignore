@@ -5,3 +5,4 @@ jsconfig.json
 .vscode/*
 typings/*
 *.log
+TODO.txt
