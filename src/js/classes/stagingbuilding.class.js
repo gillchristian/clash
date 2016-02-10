@@ -26,7 +26,7 @@ export default class StagingBuilding {
 	 */
 	maxAmount(){
 		return this.buildings
-							.map( (building, i) => building.capacity[i].lvl )
+							.map( (building, i) => building.actualCapacity() )
 							.reduce( (a, b) => a + b );
 	}
 	
@@ -36,7 +36,7 @@ export default class StagingBuilding {
 	 * @param {array[Unit]}
 	 */
 	limitExeeded(units){
-		let total = this.units.map( unit => unit.spaceUsed() ).reduce( (a, b) => a + b );
+		let total = units.map( unit => unit.spaceUsed() ).reduce( (a, b) => a + b );
 		return this.maxAmount() < total;
 	}
 }

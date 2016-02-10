@@ -40,29 +40,559 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	//const Tii = require('tii');
 
-	var _tii = __webpack_require__(12);
+	var _tii = __webpack_require__(14);
 
 	var _tii2 = _interopRequireDefault(_tii);
 
+	var _keyMirror = __webpack_require__(13);
+
+	var _keyMirror2 = _interopRequireDefault(_keyMirror);
+
+	var _camp = __webpack_require__(15);
+
+	var _camp2 = _interopRequireDefault(_camp);
+
+	var _stagingbuilding = __webpack_require__(16);
+
+	var _stagingbuilding2 = _interopRequireDefault(_stagingbuilding);
+
+	var _unit = __webpack_require__(17);
+
+	var _unit2 = _interopRequireDefault(_unit);
+
+	var _trainer = __webpack_require__(18);
+
+	var _trainer2 = _interopRequireDefault(_trainer);
+
+	var _unittype = __webpack_require__(19);
+
+	var _unittype2 = _interopRequireDefault(_unittype);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var test = new _tii2.default();
+	var clashTests = new _tii2.default();
 
-	test.verboseOutput();
+	/**
+	 * Key mirror tests
+	 */
+	var mirrored = (0, _keyMirror2.default)(['SOME_ACTION', 'ANOTHER_ACTION']);
+	var actionsObject = {
+		SOME_ACTION: 'SOME_ACTION',
+		ANOTHER_ACTION: 'ANOTHER_ACTION'
+	};
+	clashTests.when('key mirror').should(mirrored).equal(actionsObject);
 
-	test.when('sarasa').should(1).equal(1);
+	/**
+	 * Camp class tests
+	 */
+
+	var armyCampModel = {
+		"name": "Army Camp",
+		"building": "army-camp",
+		"folder": "army-camps",
+		"capacity": [0, 20, 30, 35, 40, 45, 50, 55, 60],
+		"lvl": 0,
+		"lvls": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+	};
+
+	var testCamp = new _camp2.default(armyCampModel);
+	testCamp.lvl = 5;
+
+	clashTests.when('camp.actualCapacity() == camp.capacity[lvl]').should(testCamp.actualCapacity()).equal(testCamp.capacity[5]);
+
+	/**
+	 * Staging building tests
+	 */
+
+	var stagingModel = [armyCampModel, armyCampModel, armyCampModel];
+	var stagingName = 'stagin buildings';
+
+	var stagingTest = new _stagingbuilding2.default(stagingModel, stagingName);
+
+	clashTests.when('staging constructor creates new camps').should(stagingTest.buildings.length).equal(3);
+
+	stagingTest.buildings[0].lvl = 1; // capacity 20
+	stagingTest.buildings[1].lvl = 2; // capacity 30
+	stagingTest.buildings[2].lvl = 8; // capacity 60 --- total 110
+
+	clashTests.when('StagingBuilding.maxAmount() should equal capacity of its camps').should(stagingTest.maxAmount()).equal(110); // <-- manualy set capacity by chaging the camps lvls
+
+	var unitMock = new _unit2.default({
+		"id": 4,
+		"unit": "wallbreaker",
+		"name": "Wall Breaker",
+		"folder": "troops/light/wallbreaker",
+		"cost": [0, 1000, 1500, 2000, 2500, 3000, 3500],
+		"lvls": [0, 1, 2, 3, 4, 5, 6],
+		"lvl": 0,
+		"time": 120,
+		"space": 2,
+		"amount": 0
+	});
+
+	unitMock.setLvl(2);
+	unitMock.amount = 10; // takes 20 capacity spaces
+
+	var unitMock2 = new _unit2.default({
+		"id": 4,
+		"unit": "wallbreaker",
+		"name": "Wall Breaker",
+		"folder": "troops/light/wallbreaker",
+		"cost": [0, 1000, 1500, 2000, 2500, 3000, 3500],
+		"lvls": [0, 1, 2, 3, 4, 5, 6],
+		"lvl": 0,
+		"time": 120,
+		"space": 2,
+		"amount": 0
+	});
+
+	unitMock2.setLvl(2);
+	unitMock2.amount = 10; // takes 20 capacity spaces
+
+	clashTests.when('limitExeeded should be false when trying to alocate less units than the capacity').should(stagingTest.limitExeeded([unitMock, unitMock2])) // 40 spaces
+	.beFalse();
+
+	var unitsMockArray = [unitMock, unitMock2];
+
+	clashTests.when('limitExeeded should be false when trying to alocate less units than the capacity').should(stagingTest.limitExeeded([].concat(unitsMockArray, unitsMockArray, unitsMockArray))) // 40 x 3 = 120 spaces
+	.beTrue();
+
+	/**
+	 * Trainer building test
+	 */
+
+	var trainerTest = new _trainer2.default({
+		"name": "Dark Barrack",
+		"building": "dark-barrack",
+		"folder": "dark-barracks",
+		"capacity": [0, 40, 50, 60, 70, 80, 90],
+		"lvls": [0, 1, 2, 3, 4, 5, 6],
+		"lvl": 0,
+		"amount": [0, 0, 0, 0, 0, 0]
+	});
+
+	trainerTest.unitSpaces = [2, 2]; // setting spaces manualy from the unitMockArray units
+	trainerTest.amount = [10, 10]; // setting amount of queue manualy
+	trainerTest.setLvl(5);
+
+	clashTests.when('has space for a unit, when amount queued is less than capacity').should(trainerTest.hasSpaceFor(1)).beTrue();
+
+	trainerTest.amount = [20, 20]; // setting amount of queue manualy
+
+	clashTests.when('has space for a unit, when amount queued is the same than capacity').should(trainerTest.hasSpaceFor(1)).beFalse();
+
+	// --- actual lvl set to 5, should produce units lower than that
+	clashTests.when('Trainer.canTrain(), actual lvl set to 5, should produce units lower than that').should(trainerTest.canTrain(5)).beFalse();
+
+	clashTests.when('Trainer.canTrain(), actual lvl set to 5, should produce units lower than that').should(trainerTest.canTrain(4)).beTrue();
+
+	clashTests.when('Trainer.actualCapacity()').should(trainerTest.actualCapacity()).equal(80); // capacity for this lvl
+
+	clashTests.when('Trainer.queuedUnits(), amount of the queued units').should(trainerTest.queuedUnits()).equal(80); // 40 * 2
+
+	clashTests.when('Trainer.unitsCost(), cost of the queued units').should(trainerTest.unitsCost(unitsMockArray)).equal(40 * 1500); // 40 x 1500 (wallbracker at lvl 2, the mocked unit)
+
+	trainerTest.setLvl(11); // this should not work, lvl should still be five (set previously)
+
+	clashTests.when('Trainer.setLvl() should not change the lvl for one out of range').should(trainerTest.lvl).not(11);
+
+	clashTests.when('Trainer.setLvl() should not change the lvl for one out of range').should(trainerTest.lvl).equal(5);
+
+	// --- reseting amount for the test --
+	trainerTest.resetAmount();
+
+	clashTests.when('Trinaer.resetAmount() should reset the amount to 0 for each unit').should(trainerTest.amount).equal([0, 0]);
+
+	// --- adding a unit should increase the amount ---
+	trainerTest.addUnit(1);
+
+	clashTests.when('Trinaer.resetAmount() should reset the amount to 0 for each unit').should(trainerTest.amount).equal([0, 1]);
+
+	trainerTest.addUnit(0);
+	trainerTest.addUnit(1);
+
+	clashTests.when('Trinaer.resetAmount() should reset the amount to 0 for each unit').should(trainerTest.amount).equal([1, 2]);
+
+	/**
+	 * Testing for Units
+	 * 
+	 * using unitMock
+	 */
+
+	clashTests.when('Unit.actualCost() should return the actual cost').should(unitMock.actualCost()).equal(1500); // cost at lvl 2, set after creation
+
+	clashTests.when('Unit.totalCost() should return the total cost').should(unitMock.totalCost()).equal(10 * 1500);
+
+	clashTests.when('Unit.spaceUsed() should return the space used').should(unitMock.spaceUsed()).equal(10 * 2);
+
+	clashTests.when('Unit.totalTime() should return the total time to finish the units').should(unitMock.totalTime()).equal(10 * 120);
+
+	unitMock.setLvl(11); // this should not work, lvl should still be 2 (set previously)
+
+	clashTests.when('Unit.setLvl() should not change the lvl for one out of range').should(unitMock.lvl).not(11);
+
+	clashTests.when('Unit.setLvl() should not change the lvl for one out of range').should(unitMock.lvl).equal(2);
+
+	/**
+	 * Tests for UnitType 
+	 */
+
+	var mockBarrack = {
+		"name": "Barrack",
+		"building": "barrack",
+		"folder": "barracks",
+		"capacity": [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75],
+		"lvls": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+		"lvl": 0,
+		"amount": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	};
+
+	var mockTrainersModel = [mockBarrack, mockBarrack, mockBarrack, mockBarrack];
+
+	var mockUnitsModel = [{ "id": 0, "unit": "barbarian", "name": "Barbarian", "folder": "troops/light/barbarian", "cost": [0, 25, 40, 60, 100, 150, 200, 250], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 20, "space": 1, "amount": 0 }, { "id": 1, "unit": "archer", "name": "Archer", "folder": "troops/light/archer", "cost": [0, 50, 80, 120, 160, 300, 400, 500], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 25, "space": 1, "amount": 0 }, { "id": 2, "unit": "goblin", "name": "Goblin", "folder": "troops/light/goblin", "cost": [0, 25, 40, 60, 80, 100, 150], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 30, "space": 1, "amount": 0 }, { "id": 3, "unit": "giant", "name": "Giant", "folder": "troops/light/giant", "cost": [0, 250, 750, 1250, 1750, 2250, 3000, 3500], "lvls": [0, 1, 2, 3, 4, 5, 6, 7], "lvl": 0, "time": 120, "space": 5, "amount": 0 }, { "id": 4, "unit": "wallbreaker", "name": "Wall Breaker", "folder": "troops/light/wallbreaker", "cost": [0, 1000, 1500, 2000, 2500, 3000, 3500], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 120, "space": 2, "amount": 0 }, { "id": 5, "unit": "balloon", "name": "Balloon", "folder": "troops/light/balloon", "cost": [0, 2000, 2500, 3000, 3500, 4000, 4500], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 480, "space": 5, "amount": 0 }, { "id": 6, "unit": "wizard", "name": "Wizard", "folder": "troops/light/wizard", "cost": [0, 1500, 2000, 2500, 3000, 3500, 4000], "lvls": [0, 1, 2, 3, 4, 5, 6], "lvl": 0, "time": 480, "space": 4, "amount": 0 }, { "id": 7, "unit": "healer", "name": "Healer", "folder": "troops/light/healer", "cost": [0, 5000, 6000, 8000, 10000], "lvls": [0, 1, 2, 3, 4], "lvl": 0, "time": 900, "space": 14, "amount": 0 }, { "id": 8, "unit": "dragon", "name": "Dragon", "folder": "troops/light/dragon", "cost": [0, 25000, 29000, 33000, 37000, 42000], "lvls": [0, 1, 2, 3, 4, 5], "lvl": 0, "time": 1800, "space": 20, "amount": 0 }, { "id": 9, "unit": "pekka", "name": "P.E.K.K.A.", "folder": "troops/light/pekka", "cost": [0, 28000, 32000, 36000, 40000, 45000], "lvls": [0, 1, 2, 3, 4, 5], "lvl": 0, "time": 2700, "space": 25, "amount": 0 }];
+
+	var unitTypeMock = new _unittype2.default(mockUnitsModel, 'Ligth troops', mockTrainersModel, 'Barracks');
+
+	clashTests.when('testing constructor creating trainers').should(mockTrainersModel.length).equal(unitTypeMock.trainers.length);
+
+	clashTests.when('testing constructor creating units').should(mockUnitsModel.length).equal(unitTypeMock.units.length);
+
+	clashTests.when('constructor creating trainers (testing by checking the names of the created trainers)').should(['Barrack', 'Barrack', 'Barrack', 'Barrack']).equal(unitTypeMock.trainers.map(function (trainer) {
+		return trainer.name;
+	}));
+
+	var unitNames = mockUnitsModel.map(function (unit) {
+		return unit.name;
+	}); // array with unit names
+	clashTests.when('constructor creating units (testing by checking the names of the created units)').should(unitNames).equal(unitTypeMock.units.map(function (unit) {
+		return unit.name;
+	}));
+
+	var unitSpaces = mockUnitsModel.map(function (unit) {
+		return unit.space;
+	}); // array with unit spaces
+	clashTests.when('constructor generated trainers arrays of unit spaces').should(unitSpaces).equal(unitTypeMock.trainers[0].unitSpaces);
+
+	var _iteratorNormalCompletion = true;
+	var _didIteratorError = false;
+	var _iteratorError = undefined;
+
+	try {
+		for (var _iterator = unitTypeMock.units[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+			var unit = _step.value;
+
+			unit.amount = 1;
+			unit.setLvl(1);
+		}
+	} catch (err) {
+		_didIteratorError = true;
+		_iteratorError = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion && _iterator.return) {
+				_iterator.return();
+			}
+		} finally {
+			if (_didIteratorError) {
+				throw _iteratorError;
+			}
+		}
+	}
+
+	clashTests.when('UnitType.UspaceUsed() should return the space used by all the queued units').should(unitTypeMock.spaceUsed()).equal(unitSpaces.reduce(function (a, b) {
+		return a + b;
+	}));
+
+	// array with unit costs at lvl 1 (set to all units)
+	var unitsCost = mockUnitsModel.map(function (unit) {
+		return unit.cost[1];
+	});
+	clashTests.when('UnitType.cost() should return the cost of all queued units').should(unitTypeMock.cost()).equal(unitsCost.reduce(function (a, b) {
+		return a + b;
+	}));
+
+	// array with units training time
+	var unitsTime = mockUnitsModel.map(function (unit) {
+		return unit.time;
+	});
+	clashTests.when('UnitType.cost() should return the time to produce all queued units').should(unitTypeMock.time()).equal(unitsTime.reduce(function (a, b) {
+		return a + b;
+	}));
+
+	// adding a barbarian, a pekka, a dragon and a baloon to the trainer 1
+	unitTypeMock.trainers[1].addUnit(0);
+	unitTypeMock.trainers[1].addUnit(9);
+	unitTypeMock.trainers[1].addUnit(8);
+	unitTypeMock.trainers[1].addUnit(5);
+
+	clashTests.when('trainer queue (amount) should reflect the added units').should(unitTypeMock.trainers[1].amount).equal([1, 0, 0, 0, 0, 1, 0, 0, 1, 1]);
+
+	unitTypeMock.resetTrainersQueue();
+	clashTests.when('UnitType.resetTrainersQueue() should reset the trainers queue to [...0]').should(unitTypeMock.trainers[1].amount).equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+
+	// --- Setting the lvls of trainers ---
+	unitTypeMock.trainers[0].setLvl(2);
+	unitTypeMock.trainers[1].setLvl(5);
+	unitTypeMock.trainers[2].setLvl(9);
+	unitTypeMock.trainers[3].setLvl(10);
+
+	unitTypeMock.trainers[0].amount = [5, 5, 0, 0, 0, 0, 0, 0, 0, 0]; // 15 spaces left, only barbarians & archers
+	unitTypeMock.trainers[1].amount = [0, 0, 0, 7, 2, 0, 0, 0, 0, 0]; // one space left
+	unitTypeMock.trainers[2].amount = [0, 0, 0, 0, 0, 0, 0, 0, 2, 0]; // 20 spaces left, no pekkas
+	unitTypeMock.trainers[3].amount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 3]; // full, can produce all
+
+	clashTests.when('available trainer for pekka').should(unitTypeMock.findAvailableTrainers(unitTypeMock.units[9])).equal([]);
+
+	clashTests.when('available trainer for archer').should(unitTypeMock.findAvailableTrainers(unitTypeMock.units[1])).equal([0, 1, 2]);
+
+	clashTests.when('available trainer for dragon').should(unitTypeMock.findAvailableTrainers(unitTypeMock.units[7])).equal([2]);
+
+	clashTests.when('available trainer for wall-braker').should(unitTypeMock.findAvailableTrainers(unitTypeMock.units[4])).equal([2]);
+
+	clashTests.when('available trainer for healer').should(unitTypeMock.findAvailableTrainers(unitTypeMock.units[6])).equal([2]);
+
+	unitTypeMock.trainers[0].amount = [5, 5, 0, 0, 0, 0, 0, 0, 0, 0]; // 15 spaces left, only barbarians & archers
+	unitTypeMock.trainers[1].amount = [0, 0, 0, 7, 2, 0, 0, 0, 0, 0]; // one space left
+	unitTypeMock.trainers[2].amount = [0, 0, 0, 0, 0, 0, 0, 0, 2, 0]; // 20 spaces left, no pekkas
+	unitTypeMock.trainers[3].amount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 2]; // 25 spaces left, can produce all
+
+	var availableTrainers = unitTypeMock.findAvailableTrainers(unitTypeMock.units[8]);
+	clashTests.when('available trainer for dragon').should(availableTrainers).equal([2, 3]);
+
+	var bestTrainer = unitTypeMock.findBestTrainer(unitTypeMock.units[8], availableTrainers);
+
+	clashTests.when('best trainer --- lvl').should(bestTrainer.lvl).equal(unitTypeMock.trainers[2].lvl);
+	clashTests.when('best trainer --- amount').should(bestTrainer.amount).equal(unitTypeMock.trainers[2].amount);
+
+	unitTypeMock.assingUnit(unitTypeMock.units[8]);
+	clashTests.when('assing dragon, should be added to the 3rd trainer').should(unitTypeMock.trainers[2].amount).equal([0, 0, 0, 0, 0, 0, 0, 0, 3, 0]);
+
+	unitTypeMock.assingUnit(unitTypeMock.units[8]);
+	clashTests.when('assing another dragon, should be added to the 4th trainer').should(unitTypeMock.trainers[3].amount).equal([0, 0, 0, 0, 0, 0, 0, 0, 1, 2]);
+	/**
+	 * More find available trainers / best trainers tests
+	 */
+	unitTypeMock.trainers[0].amount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]; // 15 spaces left, only barbarians & archers
+	unitTypeMock.trainers[1].amount = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]; // one space left
+	unitTypeMock.trainers[2].amount = [0, 0, 0, 0, 0, 0, 0, 1, 0, 0]; // 20 spaces left, no pekkas
+	unitTypeMock.trainers[3].amount = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // 25 spaces left, can produce all
+
+	// --- Setting the lvls of trainers ---
+	var _iteratorNormalCompletion2 = true;
+	var _didIteratorError2 = false;
+	var _iteratorError2 = undefined;
+
+	try {
+		for (var _iterator2 = unitTypeMock.trainers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+			var trainer = _step2.value;
+
+			trainer.setLvl(10);
+		}
+	} catch (err) {
+		_didIteratorError2 = true;
+		_iteratorError2 = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion2 && _iterator2.return) {
+				_iterator2.return();
+			}
+		} finally {
+			if (_didIteratorError2) {
+				throw _iteratorError2;
+			}
+		}
+	}
+
+	availableTrainers = unitTypeMock.findAvailableTrainers(unitTypeMock.units[6]);
+	clashTests.when('available trainer for wizard, after adding pekka, drag and healer').should(availableTrainers).equal([0, 1, 2, 3]);
+
+	bestTrainer = unitTypeMock.findBestTrainer(unitTypeMock.units[6], [0, 1, 2, 3]);
+	clashTests.when('best trainer for wizard, after adding pekka, drag and healer').should(bestTrainer.amount).equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+	clashTests.when('best trainer for wizard, after adding pekka, drag and healer').should(bestTrainer.amount).not([0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);
+	clashTests.when('best trainer for wizard, after adding pekka, drag and healer').should(bestTrainer.amount).not([0, 0, 0, 0, 0, 0, 0, 0, 1, 0]);
+	clashTests.when('best trainer for wizard, after adding pekka, drag and healer').should(bestTrainer.amount).not([0, 0, 0, 0, 0, 0, 0, 1, 0, 0]);
+
+	unitTypeMock.sortUnitsByTime();
+	clashTests.when('sorting by time --- DESC').should(unitTypeMock.units.map(function (unit) {
+		return unit.time;
+	})).equal([2700, 1800, 900, 480, 480, 120, 120, 30, 25, 20]);
+
+	unitTypeMock.sortUnitsById();
+	clashTests.when('sorting by id --- ASC').should(unitTypeMock.units.map(function (unit) {
+		return unit.id;
+	})).equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+	/**
+	 * Creating a new UnitType mock and testing the loop from scratch
+	 */
+	var unitTypeLoopTest = new _unittype2.default(mockUnitsModel, 'Ligth troops', mockTrainersModel, 'Barracks');
+
+	/**
+	 * Setting all trainers to lvl 10
+	 */
+	var _iteratorNormalCompletion3 = true;
+	var _didIteratorError3 = false;
+	var _iteratorError3 = undefined;
+
+	try {
+		for (var _iterator3 = unitTypeLoopTest.trainers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+			var trainer = _step3.value;
+
+			trainer.setLvl(10);
+		} /**
+	    * Setting all units to lvl 1 and amount 1
+	    */
+	} catch (err) {
+		_didIteratorError3 = true;
+		_iteratorError3 = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion3 && _iterator3.return) {
+				_iterator3.return();
+			}
+		} finally {
+			if (_didIteratorError3) {
+				throw _iteratorError3;
+			}
+		}
+	}
+
+	var _iteratorNormalCompletion4 = true;
+	var _didIteratorError4 = false;
+	var _iteratorError4 = undefined;
+
+	try {
+		for (var _iterator4 = unitTypeLoopTest.units[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+			var unit = _step4.value;
+
+			unit.setLvl(1);
+			unit.amount = 1;
+		}
+	} catch (err) {
+		_didIteratorError4 = true;
+		_iteratorError4 = err;
+	} finally {
+		try {
+			if (!_iteratorNormalCompletion4 && _iterator4.return) {
+				_iterator4.return();
+			}
+		} finally {
+			if (_didIteratorError4) {
+				throw _iteratorError4;
+			}
+		}
+	}
+
+	clashTests.when('checking units lvls').should(unitTypeLoopTest.units.map(function (unit) {
+		return unit.lvl;
+	})).equal([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+
+	clashTests.when('checking units amount').should(unitTypeLoopTest.units.map(function (unit) {
+		return unit.amount;
+	})).equal([1, 1, 1, 1, 1, 1, 1, 1, 1, 1]);
+
+	clashTests.when('checking trainers lvl').should(unitTypeLoopTest.trainers.map(function (trainer) {
+		return trainer.lvl;
+	})).equal([10, 10, 10, 10]);
+
+	// --- run the assigment loop ---
+	unitTypeLoopTest.assingmentLoop();
+
+	clashTests.when('units to be sorted by id after the loop').should(unitTypeLoopTest.units.map(function (unit) {
+		return unit.id;
+	})).equal([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+	clashTests.when('same amount of units and assigned units in trainers').should(unitTypeLoopTest.units.map(function (unit) {
+		return unit.amount * unit.space;
+	}).reduce(function (a, b) {
+		return a + b;
+	})).equal(unitTypeLoopTest.trainers.map(function (trainer) {
+		return trainer.queuedUnits();
+	}).reduce(function (a, b) {
+		return a + b;
+	}));
+
+	/**
+	 * Testing the trainers amount of units after the loop
+	 */
+
+	/*
+	 *	--- Should be ----------------
+	 *	| #0   | #1   | #2   | #3   |
+	 *	------------------------------
+	 *	0|      |   20 |      |      |
+	 *	1|      |   25 |      |      |
+	 *	2|      |   30 |      |      |
+	 *	3|      |  120 |      |      |
+	 *	4|  120 |      |      |      |
+	 *	5|  480 |      |      |      |
+	 *	6|  480 |      |      |      |
+	 *	7|      |  900 |      |      |
+	 *	8|      |      | 1800 |      |
+	 *	9|      |      |      | 2700 |
+	 *	Total ------------------------
+	 *	 | 1080 | 1095 | 1800 | 2700 | 
+	*/
+	clashTests.when('assingment loop --- resulting amounts #0').should(unitTypeLoopTest.trainers[0].amount).equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 1]);
+	clashTests.when('assingment loop --- resulting amounts #1').should(unitTypeLoopTest.trainers[1].amount).equal([0, 0, 0, 0, 0, 0, 0, 0, 1, 0]);
+	clashTests.when('assingment loop --- resulting amounts #2').should(unitTypeLoopTest.trainers[2].amount).equal([1, 1, 1, 1, 0, 0, 0, 1, 0, 0]);
+	clashTests.when('assingment loop --- resulting amounts #3').should(unitTypeLoopTest.trainers[3].amount).equal([0, 0, 0, 0, 1, 1, 1, 0, 0, 0]);
+
+	/**
+	 * Testing queue time after the loop
+	 */
+	clashTests.when('assingment loop --- resulting time #0').should(unitTypeLoopTest.trainers[0].time()).equal(2700);
+	clashTests.when('assingment loop --- resulting time #1').should(unitTypeLoopTest.trainers[1].time()).equal(1800);
+	clashTests.when('assingment loop --- resulting time #2').should(unitTypeLoopTest.trainers[2].time()).equal(1095);
+	clashTests.when('assingment loop --- resulting time #3').should(unitTypeLoopTest.trainers[3].time()).equal(1080);
+
+	clashTests.results();
 
 /***/ },
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */
+/***/ function(module, exports) {
 
-/***/ 12:
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Key mirror
+	 * 
+	 * @param { array[string] }
+	 * @return { object } an object with values mirroring the keys
+	 */
+	function keyMirror(array) {
+	  var obj = {};
+	  array.map(function (value) {
+	    obj[value] = value;
+	  });
+	  return obj;
+	}
+
+	exports.default = keyMirror;
+
+/***/ },
+/* 14 */
 /***/ function(module, exports) {
 
 	module.exports =
@@ -2478,6 +3008,793 @@
 	/***/ }
 	/******/ ]);
 
-/***/ }
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
 
-/******/ });
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Models the camps
+	 */
+
+	var Camp = function () {
+
+		/**
+	  * @param {object} model
+	  */
+
+		function Camp(model) {
+			_classCallCheck(this, Camp);
+
+			this.capacity = model.capacity;
+			this.lvls = model.lvls;
+			this.lvl = model.lvl;
+			this.folder = model.folder;
+			this.building = model.building;
+			this.name = model.name;
+		}
+
+		/**
+	  * Actual capacity
+	  * 
+	  * @return {int}
+	  */
+
+		_createClass(Camp, [{
+			key: "actualCapacity",
+			value: function actualCapacity() {
+				return this.capacity[this.lvl];
+			}
+		}]);
+
+		return Camp;
+	}();
+
+	exports.default = Camp;
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _camp = __webpack_require__(15);
+
+	var _camp2 = _interopRequireDefault(_camp);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Handles all the staging buildings of a specific kind
+	 */
+
+	var StagingBuilding = function () {
+		/**
+	  * @param {array} array of Camp models
+	  * @param {string} buildings name
+	  */
+
+		function StagingBuilding(model, name) {
+			_classCallCheck(this, StagingBuilding);
+
+			this.name = name;
+			this.differentBuildings = model.length;
+			this.showTroops = false;
+
+			this.buildings = [];
+
+			var _iteratorNormalCompletion = true;
+			var _didIteratorError = false;
+			var _iteratorError = undefined;
+
+			try {
+				for (var _iterator = model[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+					var value = _step.value;
+
+					this.buildings.push(new _camp2.default(value));
+				}
+			} catch (err) {
+				_didIteratorError = true;
+				_iteratorError = err;
+			} finally {
+				try {
+					if (!_iteratorNormalCompletion && _iterator.return) {
+						_iterator.return();
+					}
+				} finally {
+					if (_didIteratorError) {
+						throw _iteratorError;
+					}
+				}
+			}
+		}
+
+		/**
+	  * Units that can fit in
+	  * 
+	  * @return {int} amount
+	  */
+
+		_createClass(StagingBuilding, [{
+			key: 'maxAmount',
+			value: function maxAmount() {
+				return this.buildings.map(function (building, i) {
+					return building.actualCapacity();
+				}).reduce(function (a, b) {
+					return a + b;
+				});
+			}
+
+			/**
+	   * Checks if capacity is exeeded
+	   * 
+	   * @param {array[Unit]}
+	   */
+
+		}, {
+			key: 'limitExeeded',
+			value: function limitExeeded(units) {
+				var total = units.map(function (unit) {
+					return unit.spaceUsed();
+				}).reduce(function (a, b) {
+					return a + b;
+				});
+				return this.maxAmount() < total;
+			}
+		}]);
+
+		return StagingBuilding;
+	}();
+
+	exports.default = StagingBuilding;
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Models a single unit
+	 */
+
+	var Unit = function () {
+		/**
+	  * @param {object} model
+	  */
+
+		function Unit(model) {
+			_classCallCheck(this, Unit);
+
+			this.id = model.id;
+			this.unit = model.unit;
+			this.folder = model.folder;
+			this.name = model.name;
+			this.cost = model.cost;
+			this.lvls = model.lvls;
+			this.lvl = model.lvl;
+			this.time = model.time;
+			this.space = model.space;
+			this.amount = model.amount;
+		}
+
+		/**
+	  * Gets the actual costof a single unit
+	  * 
+	  * @return {int} cost
+	  */
+
+		_createClass(Unit, [{
+			key: "actualCost",
+			value: function actualCost() {
+				return this.cost[this.lvl];
+			}
+
+			/**
+	   * Gets the total cost
+	   * 
+	   * @return {int} cost
+	   */
+
+		}, {
+			key: "totalCost",
+			value: function totalCost() {
+				return this.actualCost() * this.amount;
+			}
+
+			/**
+	   * Space used by the units
+	   * 
+	   */
+
+		}, {
+			key: "spaceUsed",
+			value: function spaceUsed() {
+				return this.space * this.amount;
+			}
+
+			/**
+	   * Time to produce all the units
+	   */
+
+		}, {
+			key: "totalTime",
+			value: function totalTime() {
+				return this.time * this.amount;
+			}
+
+			/**
+	   * Set lvl of the unit
+	   * 
+	   * @param {int} lvl
+	   */
+
+		}, {
+			key: "setLvl",
+			value: function setLvl(lvl) {
+				if (lvl >= this.lvls[0] && lvl <= this.lvls.last()) this.lvl = lvl;
+			}
+		}]);
+
+		return Unit;
+	}();
+
+	exports.default = Unit;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Models a troop training building
+	 */
+
+	var Trainer = function () {
+
+		/**
+	  * @param {object} model
+	  */
+
+		function Trainer(model) {
+			_classCallCheck(this, Trainer);
+
+			this.folder = model.folder;
+			this.building = model.building;
+			this.name = model.name;
+			this.capacity = model.capacity;
+			this.lvls = model.lvls;
+			this.lvl = model.lvl;
+			this.amount = model.amount;
+			this.unitSpaces = []; // populated with the space the units take
+			this.unitsTime = []; // populated with the time the units take
+
+			this.showTroops = true;
+		}
+		/**
+	  * Checks if there is space left to produce units
+	  * 
+	  * @param {int} unit index
+	  * @return {bool}
+	  */
+
+		_createClass(Trainer, [{
+			key: "hasSpaceFor",
+			value: function hasSpaceFor(index) {
+				return this.queuedUnits() + this.unitSpaces[index] <= this.actualCapacity();
+			}
+
+			/**
+	   * Checks if a unit is available for production
+	   * 
+	   * the first lvl correspons to the id of the unit
+	   * because each lvl the trainer can produce a new unit
+	   * and units are ordered by its id
+	   * 
+	   * @param {int} first lvl the unit is produced at
+	   * @return {bool}
+	   */
+
+		}, {
+			key: "canTrain",
+			value: function canTrain(firstLvl) {
+				return this.lvl > firstLvl;
+			}
+
+			/**
+	   * Gets the actual capacity
+	   * 
+	   * @return {int} capacity
+	   */
+
+		}, {
+			key: "actualCapacity",
+			value: function actualCapacity() {
+				return this.capacity[this.lvl];
+			}
+
+			/**
+	   * Get amount of queued units
+	   * 
+	   * @return {int} amount
+	   */
+
+		}, {
+			key: "queuedUnits",
+			value: function queuedUnits() {
+				var _this = this;
+
+				return this.amount.map(function (val, i) {
+					return _this.amount[i] * _this.unitSpaces[i];
+				}).reduce(function (a, b) {
+					return a + b;
+				});
+			}
+
+			/**
+	   * Time to produce all queued units
+	   */
+
+		}, {
+			key: "time",
+			value: function time() {
+				var _this2 = this;
+
+				return this.amount.map(function (amount, i) {
+					return amount * _this2.unitsTime[i];
+				}).reduce(function (a, b) {
+					return a + b;
+				});
+			}
+
+			/**
+	   * Get the cost of the queued units
+	   * 
+	   * @param {array[Unit]} units
+	   * @return {int} cost
+	   */
+
+		}, {
+			key: "unitsCost",
+			value: function unitsCost(units) {
+				var _this3 = this;
+
+				return this.amount.map(function (val, i) {
+					return _this3.amount[i] * units[i].actualCost();
+				}).reduce(function (a, b) {
+					return a + b;
+				});
+			}
+
+			/**
+	   * Set the level
+	   * 
+	   * @param {int} lvl
+	   */
+
+		}, {
+			key: "setLvl",
+			value: function setLvl(lvl) {
+				if (lvl >= this.lvls[0] && lvl <= this.lvls.last()) this.lvl = lvl;
+			}
+
+			/**
+	   * Reset Amount
+	   */
+
+		}, {
+			key: "resetAmount",
+			value: function resetAmount() {
+				this.amount = this.amount.map(function () {
+					return 0;
+				});
+			}
+
+			/**
+	   * Add one unit to the queue units
+	   * 
+	   * @param {int} unit index
+	   */
+
+		}, {
+			key: "addUnit",
+			value: function addUnit(id) {
+				this.amount[id]++;
+			}
+		}]);
+
+		return Trainer;
+	}();
+
+	exports.default = Trainer;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _unit = __webpack_require__(17);
+
+	var _unit2 = _interopRequireDefault(_unit);
+
+	var _trainer = __webpack_require__(18);
+
+	var _trainer2 = _interopRequireDefault(_trainer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var UnitType = function () {
+		/**
+	  * @param {object} unit model
+	  * @param {string} unit name
+	  * @param {object} trainers models
+	  * @param {string} trainers name
+	  */
+
+		function UnitType(unitsModel, unitsName, trainersModel, trainersName) {
+			_classCallCheck(this, UnitType);
+
+			this.names = {
+				units: unitsName,
+				trainers: trainersName
+			};
+			this.initUnits(unitsModel);
+			this.initTrainers(trainersModel);
+		}
+
+		/**
+	  * Initializes the units
+	  */
+
+		_createClass(UnitType, [{
+			key: 'initUnits',
+			value: function initUnits(unitsModel) {
+				this.units = [];
+				var _iteratorNormalCompletion = true;
+				var _didIteratorError = false;
+				var _iteratorError = undefined;
+
+				try {
+					for (var _iterator = unitsModel[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+						var unitModel = _step.value;
+
+						this.units.push(new _unit2.default(unitModel));
+					}
+				} catch (err) {
+					_didIteratorError = true;
+					_iteratorError = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion && _iterator.return) {
+							_iterator.return();
+						}
+					} finally {
+						if (_didIteratorError) {
+							throw _iteratorError;
+						}
+					}
+				}
+			}
+
+			/**
+	   * Initializes the trainers
+	   */
+
+		}, {
+			key: 'initTrainers',
+			value: function initTrainers(trainersModel) {
+				this.trainers = [];
+				var _iteratorNormalCompletion2 = true;
+				var _didIteratorError2 = false;
+				var _iteratorError2 = undefined;
+
+				try {
+					for (var _iterator2 = trainersModel[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+						var trainerModel = _step2.value;
+
+						this.trainers.push(new _trainer2.default(trainerModel));
+					}
+				} catch (err) {
+					_didIteratorError2 = true;
+					_iteratorError2 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion2 && _iterator2.return) {
+							_iterator2.return();
+						}
+					} finally {
+						if (_didIteratorError2) {
+							throw _iteratorError2;
+						}
+					}
+				}
+
+				var _iteratorNormalCompletion3 = true;
+				var _didIteratorError3 = false;
+				var _iteratorError3 = undefined;
+
+				try {
+					for (var _iterator3 = this.trainers[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+						var trainer = _step3.value;
+
+						trainer.unitSpaces = this.units.map(function (unit) {
+							return unit.space;
+						});
+						trainer.unitsTime = this.units.map(function (unit) {
+							return unit.time;
+						});
+					}
+				} catch (err) {
+					_didIteratorError3 = true;
+					_iteratorError3 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion3 && _iterator3.return) {
+							_iterator3.return();
+						}
+					} finally {
+						if (_didIteratorError3) {
+							throw _iteratorError3;
+						}
+					}
+				}
+			}
+
+			/**
+	   * Space taken by units
+	   * 
+	   * @return {int} space
+	   */
+
+		}, {
+			key: 'spaceUsed',
+			value: function spaceUsed() {
+				return this.units.map(function (unit) {
+					return unit.spaceUsed();
+				}).reduce(function (a, b) {
+					return a + b;
+				});
+			}
+
+			/**
+	   * Total cost of units
+	   * 
+	   * @return {int} cost
+	   */
+
+		}, {
+			key: 'cost',
+			value: function cost() {
+				return this.units.map(function (unit) {
+					return unit.totalCost();
+				}).reduce(function (a, b) {
+					return a + b;
+				});
+			}
+
+			/**
+	   * Total time to produce units
+	   * 
+	   * @return {int} units
+	   */
+
+		}, {
+			key: 'time',
+			value: function time() {
+				return this.units.map(function (unit) {
+					return unit.totalTime();
+				}).reduce(function (a, b) {
+					return a + b;
+				});
+			}
+
+			/**
+	   * Troop assingment
+	   * loops through all the units and assings them to the barracks
+	   */
+
+		}, {
+			key: 'assingmentLoop',
+			value: function assingmentLoop() {
+				this.resetTrainersQueue();
+				this.sortUnitsByTime();
+				// --- loop through each unit ---
+				var _iteratorNormalCompletion4 = true;
+				var _didIteratorError4 = false;
+				var _iteratorError4 = undefined;
+
+				try {
+					for (var _iterator4 = this.units[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+						var unit = _step4.value;
+
+						if (unit.lvl > 0 && unit.amount > 0)
+							// --- assing each unit ---
+							for (var i = 0; i < unit.amount; i++) {
+								this.assingUnit(unit);
+							}
+					}
+				} catch (err) {
+					_didIteratorError4 = true;
+					_iteratorError4 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion4 && _iterator4.return) {
+							_iterator4.return();
+						}
+					} finally {
+						if (_didIteratorError4) {
+							throw _iteratorError4;
+						}
+					}
+				}
+
+				this.sortUnitsById();
+			}
+
+			/**
+	   * Assings a unit to a trainer
+	   * 
+	   * @param {Unit} unit to add
+	   */
+
+		}, {
+			key: 'assingUnit',
+			value: function assingUnit(unit) {
+				var availableTrainers = this.findAvailableTrainers(unit);
+				if (availableTrainers.length) {
+					var bestTrainer = this.findBestTrainer(unit, availableTrainers);
+					bestTrainer.addUnit(unit.id);
+				}
+			}
+
+			/**
+	   * Find the best building to assing a unit
+	   * 
+	   * @param {Unit} unit to add
+	   * @param {array[int]} available trainers indexes
+	   * @retunr {Trainer} best trainer
+	   */
+
+		}, {
+			key: 'findBestTrainer',
+			value: function findBestTrainer(unit, trainers) {
+				var _this = this;
+
+				// --- find the trainer with lower time queue ---
+				var bestTrainers = trainers.map(function (i) {
+					return { time: _this.trainers[i].time() + unit.time, i: i };
+				});
+				bestTrainers.sort(function (a, b) {
+					if (a.time > b.time) return 1;
+					if (a.time < b.time) return -1;else 0;
+				});
+				return this.trainers[bestTrainers[0].i];
+			}
+
+			/**
+	   * Find the trainers that can produce a unit
+	   * 
+	   * @param {Unit} unit to add
+	   * @retunr {array[Trainer]} trainers
+	   */
+
+		}, {
+			key: 'findAvailableTrainers',
+			value: function findAvailableTrainers(unit) {
+				var availableTrainers = [];
+				this.trainers.map(function (trainer, i) {
+					if (trainer.hasSpaceFor(unit.id) && trainer.canTrain(unit.id)) availableTrainers.push(i);
+				});
+				return availableTrainers;
+			}
+
+			/**
+	   * Resets the buildings queues and amounts
+	   */
+
+		}, {
+			key: 'resetTrainersQueue',
+			value: function resetTrainersQueue() {
+				var _iteratorNormalCompletion5 = true;
+				var _didIteratorError5 = false;
+				var _iteratorError5 = undefined;
+
+				try {
+					for (var _iterator5 = this.trainers[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+						var trainer = _step5.value;
+
+						trainer.resetAmount();
+					}
+				} catch (err) {
+					_didIteratorError5 = true;
+					_iteratorError5 = err;
+				} finally {
+					try {
+						if (!_iteratorNormalCompletion5 && _iterator5.return) {
+							_iterator5.return();
+						}
+					} finally {
+						if (_didIteratorError5) {
+							throw _iteratorError5;
+						}
+					}
+				}
+			}
+
+			/**
+	   * Sort (DESC) units by time
+	   */
+
+		}, {
+			key: 'sortUnitsByTime',
+			value: function sortUnitsByTime() {
+				this.units.sort(function (a, b) {
+					if (a.time < b.time) return 1;
+					if (a.time > b.time) return -1;
+				});
+			}
+
+			/**
+	   * Sort (ASC) units by id
+	   */
+
+		}, {
+			key: 'sortUnitsById',
+			value: function sortUnitsById() {
+				this.units.sort(function (a, b) {
+					if (a.id < b.id) return -1;
+					if (a.id > b.id) return 1;
+				});
+			}
+		}]);
+
+		return UnitType;
+	}();
+
+	exports.default = UnitType;
+
+/***/ }
+/******/ ]);

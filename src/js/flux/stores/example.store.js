@@ -1,4 +1,4 @@
-import Store from './Store';
+import Store from './store';
 import DispatcherSingleton from '../dispatcher/dispatcher';
 import ActionTypes from '../constants/constants';
 

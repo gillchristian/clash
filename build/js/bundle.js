@@ -54,9 +54,13 @@
 
 	var _angularUiBootstrap2 = _interopRequireDefault(_angularUiBootstrap);
 
+	var _ngflux = __webpack_require__(5);
+
+	var _ngflux2 = _interopRequireDefault(_ngflux);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('clashApp', [_angularUiBootstrap2.default]);
+	_angular2.default.module('clashApp', [_angularUiBootstrap2.default, _ngflux2.default]);
 
 /***/ },
 /* 1 */
@@ -36820,6 +36824,1640 @@
 	angular.module('ui.bootstrap.datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.uib-datepicker .uib-title{width:100%;}.uib-day button,.uib-month button,.uib-year button{min-width:100%;}.uib-datepicker-popup.dropdown-menu{display:block;}.uib-button-bar{padding:10px 9px 2px;}</style>'); });
 	angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); });
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); });
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _angular = __webpack_require__(1);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _app = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./actions/app.actions\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var _app2 = _interopRequireDefault(_app);
+
+	var _example = __webpack_require__(7);
+
+	var _example2 = _interopRequireDefault(_example);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//import DispatcherSingleton from './dispatcher/dispatcher';
+
+	var ngFlux = _angular2.default.module('ngFlux', []).factory('AppActions', _app2.default).factory('StoreSingleton', _example2.default);
+
+	exports.default = ngFlux;
+
+/***/ },
+/* 6 */,
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _store = __webpack_require__(8);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _dispatcher = __webpack_require__(10);
+
+	var _dispatcher2 = _interopRequireDefault(_dispatcher);
+
+	var _constants = __webpack_require__(12);
+
+	var _constants2 = _interopRequireDefault(_constants);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/**
+	 * Define the store with its methods 
+	 */
+
+	var SomeStore = function (_Store) {
+	  _inherits(SomeStore, _Store);
+
+	  function SomeStore() {
+	    _classCallCheck(this, SomeStore);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(SomeStore).call(this));
+	  }
+
+	  /**
+	   * State getter
+	   */
+
+	  _createClass(SomeStore, [{
+	    key: 'getState',
+	    value: function getState() {
+	      return { someState: 'sarasa' };
+	    }
+	  }]);
+
+	  return SomeStore;
+	}(_store2.default);
+
+	var StoreInstance = new SomeStore();
+
+	/**
+	 * Register an instance of the store to the dispatcher
+	 */
+	StoreInstance.dispatchToken = _dispatcher2.default.register(function (action) {
+
+	  /**
+	   * Act according to the actions required by the app
+	   */
+	  switch (action.type) {
+	    /**
+	     * Compares the persons by age
+	     */
+	    case _constants2.default.SOME_ACTION:
+	      StoreInstance.emitChange();
+	      break;
+	  }
+	});
+
+	/**
+	 * Create the factory function 
+	 * 
+	 * exposes an API to the ngApp
+	 */
+	var StoreSingleton = function StoreSingleton() {
+	  return {
+	    getState: function getState() {
+	      return StoreInstance.getState();
+	    }
+	  };
+	};
+	exports.default = StoreSingleton;
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _events = __webpack_require__(9);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var CHANGE_EVENT = 'change';
+
+	var Store = function (_EventEmitter) {
+	  _inherits(Store, _EventEmitter);
+
+	  function Store() {
+	    _classCallCheck(this, Store);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Store).call(this));
+	  }
+
+	  _createClass(Store, [{
+	    key: 'emitChange',
+	    value: function emitChange() {
+	      this.emit(CHANGE_EVENT);
+	    }
+	  }, {
+	    key: 'addChangeListener',
+	    value: function addChangeListener(callback) {
+	      this.on(CHANGE_EVENT, callback);
+	    }
+	  }, {
+	    key: 'removeChangeListener',
+	    value: function removeChangeListener(callback) {
+	      this.removeListener(CHANGE_EVENT, callback);
+	    }
+	  }]);
+
+	  return Store;
+	}(_events.EventEmitter);
+
+	Store.dispatchToken = null;
+
+	exports.default = Store;
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+	function EventEmitter() {
+	  this._events = this._events || {};
+	  this._maxListeners = this._maxListeners || undefined;
+	}
+	module.exports = EventEmitter;
+
+	// Backwards-compat with node 0.10.x
+	EventEmitter.EventEmitter = EventEmitter;
+
+	EventEmitter.prototype._events = undefined;
+	EventEmitter.prototype._maxListeners = undefined;
+
+	// By default EventEmitters will print a warning if more than 10 listeners are
+	// added to it. This is a useful default which helps finding memory leaks.
+	EventEmitter.defaultMaxListeners = 10;
+
+	// Obviously not all Emitters should be limited to 10. This function allows
+	// that to be increased. Set to zero for unlimited.
+	EventEmitter.prototype.setMaxListeners = function(n) {
+	  if (!isNumber(n) || n < 0 || isNaN(n))
+	    throw TypeError('n must be a positive number');
+	  this._maxListeners = n;
+	  return this;
+	};
+
+	EventEmitter.prototype.emit = function(type) {
+	  var er, handler, len, args, i, listeners;
+
+	  if (!this._events)
+	    this._events = {};
+
+	  // If there is no 'error' event listener then throw.
+	  if (type === 'error') {
+	    if (!this._events.error ||
+	        (isObject(this._events.error) && !this._events.error.length)) {
+	      er = arguments[1];
+	      if (er instanceof Error) {
+	        throw er; // Unhandled 'error' event
+	      }
+	      throw TypeError('Uncaught, unspecified "error" event.');
+	    }
+	  }
+
+	  handler = this._events[type];
+
+	  if (isUndefined(handler))
+	    return false;
+
+	  if (isFunction(handler)) {
+	    switch (arguments.length) {
+	      // fast cases
+	      case 1:
+	        handler.call(this);
+	        break;
+	      case 2:
+	        handler.call(this, arguments[1]);
+	        break;
+	      case 3:
+	        handler.call(this, arguments[1], arguments[2]);
+	        break;
+	      // slower
+	      default:
+	        args = Array.prototype.slice.call(arguments, 1);
+	        handler.apply(this, args);
+	    }
+	  } else if (isObject(handler)) {
+	    args = Array.prototype.slice.call(arguments, 1);
+	    listeners = handler.slice();
+	    len = listeners.length;
+	    for (i = 0; i < len; i++)
+	      listeners[i].apply(this, args);
+	  }
+
+	  return true;
+	};
+
+	EventEmitter.prototype.addListener = function(type, listener) {
+	  var m;
+
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  if (!this._events)
+	    this._events = {};
+
+	  // To avoid recursion in the case that type === "newListener"! Before
+	  // adding it to the listeners, first emit "newListener".
+	  if (this._events.newListener)
+	    this.emit('newListener', type,
+	              isFunction(listener.listener) ?
+	              listener.listener : listener);
+
+	  if (!this._events[type])
+	    // Optimize the case of one listener. Don't need the extra array object.
+	    this._events[type] = listener;
+	  else if (isObject(this._events[type]))
+	    // If we've already got an array, just append.
+	    this._events[type].push(listener);
+	  else
+	    // Adding the second element, need to change to array.
+	    this._events[type] = [this._events[type], listener];
+
+	  // Check for listener leak
+	  if (isObject(this._events[type]) && !this._events[type].warned) {
+	    if (!isUndefined(this._maxListeners)) {
+	      m = this._maxListeners;
+	    } else {
+	      m = EventEmitter.defaultMaxListeners;
+	    }
+
+	    if (m && m > 0 && this._events[type].length > m) {
+	      this._events[type].warned = true;
+	      console.error('(node) warning: possible EventEmitter memory ' +
+	                    'leak detected. %d listeners added. ' +
+	                    'Use emitter.setMaxListeners() to increase limit.',
+	                    this._events[type].length);
+	      if (typeof console.trace === 'function') {
+	        // not supported in IE 10
+	        console.trace();
+	      }
+	    }
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+	EventEmitter.prototype.once = function(type, listener) {
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  var fired = false;
+
+	  function g() {
+	    this.removeListener(type, g);
+
+	    if (!fired) {
+	      fired = true;
+	      listener.apply(this, arguments);
+	    }
+	  }
+
+	  g.listener = listener;
+	  this.on(type, g);
+
+	  return this;
+	};
+
+	// emits a 'removeListener' event iff the listener was removed
+	EventEmitter.prototype.removeListener = function(type, listener) {
+	  var list, position, length, i;
+
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  if (!this._events || !this._events[type])
+	    return this;
+
+	  list = this._events[type];
+	  length = list.length;
+	  position = -1;
+
+	  if (list === listener ||
+	      (isFunction(list.listener) && list.listener === listener)) {
+	    delete this._events[type];
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+
+	  } else if (isObject(list)) {
+	    for (i = length; i-- > 0;) {
+	      if (list[i] === listener ||
+	          (list[i].listener && list[i].listener === listener)) {
+	        position = i;
+	        break;
+	      }
+	    }
+
+	    if (position < 0)
+	      return this;
+
+	    if (list.length === 1) {
+	      list.length = 0;
+	      delete this._events[type];
+	    } else {
+	      list.splice(position, 1);
+	    }
+
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.removeAllListeners = function(type) {
+	  var key, listeners;
+
+	  if (!this._events)
+	    return this;
+
+	  // not listening for removeListener, no need to emit
+	  if (!this._events.removeListener) {
+	    if (arguments.length === 0)
+	      this._events = {};
+	    else if (this._events[type])
+	      delete this._events[type];
+	    return this;
+	  }
+
+	  // emit removeListener for all listeners on all events
+	  if (arguments.length === 0) {
+	    for (key in this._events) {
+	      if (key === 'removeListener') continue;
+	      this.removeAllListeners(key);
+	    }
+	    this.removeAllListeners('removeListener');
+	    this._events = {};
+	    return this;
+	  }
+
+	  listeners = this._events[type];
+
+	  if (isFunction(listeners)) {
+	    this.removeListener(type, listeners);
+	  } else if (listeners) {
+	    // LIFO order
+	    while (listeners.length)
+	      this.removeListener(type, listeners[listeners.length - 1]);
+	  }
+	  delete this._events[type];
+
+	  return this;
+	};
+
+	EventEmitter.prototype.listeners = function(type) {
+	  var ret;
+	  if (!this._events || !this._events[type])
+	    ret = [];
+	  else if (isFunction(this._events[type]))
+	    ret = [this._events[type]];
+	  else
+	    ret = this._events[type].slice();
+	  return ret;
+	};
+
+	EventEmitter.prototype.listenerCount = function(type) {
+	  if (this._events) {
+	    var evlistener = this._events[type];
+
+	    if (isFunction(evlistener))
+	      return 1;
+	    else if (evlistener)
+	      return evlistener.length;
+	  }
+	  return 0;
+	};
+
+	EventEmitter.listenerCount = function(emitter, type) {
+	  return emitter.listenerCount(type);
+	};
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
+	}
+
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
+
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
+
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _bloodyFlux = __webpack_require__(11);
+
+	var DispatcherSingleton = new _bloodyFlux.Dispatcher();
+
+	exports.default = DispatcherSingleton;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	(function webpackUniversalModuleDefinition(root, factory) {
+		if(true)
+			module.exports = factory(__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())));
+		else if(typeof define === 'function' && define.amd)
+			define(["react"], factory);
+		else if(typeof exports === 'object')
+			exports["Flux"] = factory(require("react"));
+		else
+			root["Flux"] = factory(root["React"]);
+	})(this, function(__WEBPACK_EXTERNAL_MODULE_6__) {
+	return /******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
+	/******/
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
+	/******/
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
+	/******/
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
+	/******/
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+	/******/
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
+	/******/
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
+	/******/
+	/******/
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
+	/******/
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+	/******/
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "";
+	/******/
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		module.exports = __webpack_require__(1);
+
+
+	/***/ },
+	/* 1 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		"use strict";
+
+		var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+		var Store = _interopRequire(__webpack_require__(2));
+
+		var Dispatcher = _interopRequire(__webpack_require__(3));
+
+		var StoreReceiver = _interopRequire(__webpack_require__(4));
+
+		var InitialData = _interopRequire(__webpack_require__(5));
+
+		module.exports = {
+		  Store: Store,
+		  Dispatcher: Dispatcher,
+		  StoreReceiver: StoreReceiver,
+		  // for linters
+		  storeReceiver: StoreReceiver,
+		  InitialData: InitialData,
+		  version: ("1.3.2") };
+
+	/***/ },
+	/* 2 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		"use strict";
+
+		var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+		var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+
+		var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+		var canUseDOM = typeof document !== "undefined" && typeof document.querySelector == "function";
+
+		var Store = (function () {
+		  function Store() {
+		    this.listeners = new Set();
+
+		    _classCallCheck(this, Store);
+
+		    this.reactions = this.getActionHandlers();
+		    this.dispatcher = null;
+		    this.dispatchToken = null;
+		    this.actionHandler = this.actionHandler.bind(this);
+		    this._getOriginalState();
+		  }
+
+		  _prototypeProperties(Store, null, {
+		    _getOriginalState: {
+
+		      /**
+		       * gets the original state from the DOM if the page has been pre-rendered
+		       */
+
+		      value: function _getOriginalState() {
+		        if (canUseDOM) {
+		          var node = document.querySelector("[data-storename=" + this.constructor.displayName + "]");
+		          if (!node) {
+		            return;
+		          }
+		          this.state = JSON.parse(node.innerHTML);
+		          // remove the script after we took the data from it
+		          node.parentNode.removeChild(node);
+		        }
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    registerDispatcher: {
+
+		      /**
+		       * binds the store instance to its dispatcher, saves a `dispatchToken`
+		       * to let the store use the dispatcher `waitFor` if needed.
+		       *
+		       * @param {Object} dispatcher
+		       */
+
+		      value: function registerDispatcher(dispatcher) {
+		        this.dispatcher = dispatcher;
+		        this.dispatchToken = this.dispatcher.register(this.actionHandler);
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    setState: {
+
+		      /**
+		       * merges `nextState` with the current `state` and emits a change event
+		       * if `shouldStoreEmitChange` returns a truthy value
+		       *
+		       * @param {Object} nextState
+		       */
+
+		      value: function setState(nextState) {
+		        var prevState = this.state;
+		        this.state = _extends({}, prevState, nextState);
+		        if (this.shouldStoreEmitChange(prevState, this.state)) {
+		          this.emitChange();
+		        }
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    replaceState: {
+
+		      /**
+		       * replaces the state by `nextState`
+		       *
+		       * @param {Object} nextState
+		       */
+
+		      value: function replaceState(nextState) {
+		        var prevState = this.state;
+		        this.state = _extends({}, nextState);
+		        if (this.shouldStoreEmitChange(prevState, this.state)) {
+		          this.emitChange();
+		        }
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    shouldStoreEmitChange: {
+
+		      /**
+		       * lets the user define from `prevState` & `nextState` if the store
+		       * should emit a change event. by default `true` is always returned
+		       *
+		       * @param {Object} prevState
+		       * @param {Object} nextState
+		       * @returns {Boolean}
+		       */
+
+		      value: function shouldStoreEmitChange(prevState, nextState) {
+		        return true;
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    actionHandler: {
+
+		      /**
+		       * direct callback of the dispatcher `dispatch` method. looks for
+		       * an action matching the same identifier in the registered reactions.
+		       *
+		       * @param {Object} action
+		       */
+
+		      value: function actionHandler(action) {
+		        if (!this.reactions.hasOwnProperty(action.type)) {
+		          return;
+		        }
+		        this.reactions[action.type].call(this, action);
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    addChangeListener: {
+
+		      /**
+		       * registers a `func` callback for the change event
+		       *
+		       * @param {Function} func
+		       */
+
+		      value: function addChangeListener(func) {
+		        this.listeners.add(func);
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    removeChangeListener: {
+
+		      /**
+		       * unregisters a `func` callback for the change event
+		       *
+		       * @param {Function} func
+		       */
+
+		      value: function removeChangeListener(func) {
+		        this.listeners["delete"](func);
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    emitChange: {
+
+		      /**
+		       * calls all the registered callback for the change event
+		       */
+
+		      value: function emitChange() {
+		        var _this = this;
+
+		        this.listeners.forEach(function (value) {
+		          value(_this.constructor.displayName);
+		        });
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    getActionHandlers: {
+
+		      /**
+		       * lets the user define what actions he wants to respond to
+		       *
+		       * example :
+		       *
+		       * class PostStore extends Store {
+		       *   receivePost(action) {
+		       *     this.setState({
+		       *       ...action.response
+		       *     })
+		       *   }
+		       *   getActionHandlers() {
+		       *     return {
+		       *       [ActionTypes.RECEIVE_POST] : this.receivePost
+		       *     }
+		       *   }
+		       * }
+		       *
+		       * @returns {Object}
+		       */
+
+		      value: function getActionHandlers() {
+		        return {};
+		      },
+		      writable: true,
+		      configurable: true
+		    }
+		  });
+
+		  return Store;
+		})();
+
+		module.exports = Store;
+
+		// used to keep the change listeners
+
+	/***/ },
+	/* 3 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		"use strict";
+
+		var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+		var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+
+		var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+		var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+		var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+		var FluxDispatcher = __webpack_require__(8).Dispatcher;
+
+		var _react = __webpack_require__(6);
+
+		var React = _interopRequire(_react);
+
+		var PropTypes = _react.PropTypes;
+
+		var Dispatcher = (function (FluxDispatcher) {
+		  function Dispatcher() {
+		    this.stores = new Map();
+
+		    _classCallCheck(this, Dispatcher);
+
+		    if (FluxDispatcher != null) {
+		      FluxDispatcher.apply(this, arguments);
+		    }
+		  }
+
+		  _inherits(Dispatcher, FluxDispatcher);
+
+		  _prototypeProperties(Dispatcher, {
+		    getContextType: {
+
+		      /**
+		       * returns the right contextType for dispatcher so that
+		       * you can emit actions from a react component.
+		       *
+		       * example :
+		       *
+		       * import {Dispatcher} from "bloody-flux"
+		       *
+		       * const MyComponent extends Component {
+		       *   static contextTypes = {
+		       *     ...Dispatcher.getContextType(),
+		       *     router : PropTypes.func,
+		       *   }
+		       * }
+		       *
+		       * @returns {Object}
+		       */
+
+		      value: function getContextType() {
+		        return {
+		          dispatcher: PropTypes.instanceOf(Dispatcher)
+		        };
+		      },
+		      writable: true,
+		      configurable: true
+		    }
+		  }, {
+		    registerStore: {
+
+		      /**
+		       * registers a store in the dispatcher
+		       *
+		       * @param {Object} store
+		       */
+
+		      value: function registerStore(store) {
+		        if (typeof store.constructor.displayName != "string") {
+		          throw new TypeError("Dispatcher Error : store " + store + " doesn't have a \"displayName\"");
+		        }
+		        if (typeof store.registerDispatcher != "function") {
+		          throw new TypeError("Dispatcher Error : " + store + "  doesn't have a valid " + "\"registerDispatcher\" method, expected a function, got " + ("" + store.registerDispatcher));
+		        }
+		        if (this.stores.has(store.constructor.displayName)) {
+		          throw new Error("Dispatcher Error : a " + store.constructor.displayName + " store is " + "already registered");
+		        }
+		        this.stores.set(store.constructor.displayName, store);
+		        store.registerDispatcher(this);
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    getStore: {
+
+		      /**
+		       * returns the registered store instance matching the `displayName`
+		       *
+		       * @param {String} displayName
+		       * @returns {Object} store
+		       */
+
+		      value: function getStore(displayName) {
+		        return this.stores.get(displayName);
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    dispatch: {
+
+		      /**
+		       * tests the action `type` presence an dispatches it
+		       *
+		       * @param {Object} action
+		       */
+
+		      value: function dispatch(action) {
+		        if (action == null) {
+		          throw new TypeError("Dispatcher.dispatch Error : missing action");
+		        }
+		        if (action.type == null) {
+		          throw new TypeError("Dispatcher.dispatch Error : " + ("invalid `type` parameter for action " + action));
+		        }
+		        _get(Object.getPrototypeOf(Dispatcher.prototype), "dispatch", this).call(this, action);
+		      },
+		      writable: true,
+		      configurable: true
+		    }
+		  });
+
+		  return Dispatcher;
+		})(FluxDispatcher);
+
+		module.exports = Dispatcher;
+
+		// used to keep track of the registered stores as the dispatcher
+		// is used to get them from a react component's context
+
+	/***/ },
+	/* 4 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		"use strict";
+
+		var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+		var _defineProperty = function (obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); };
+
+		var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+
+		var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+		var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+		var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+		var _react = __webpack_require__(6);
+
+		var React = _interopRequire(_react);
+
+		var Component = _react.Component;
+		var PropTypes = _react.PropTypes;
+
+		var Dispatcher = _interopRequire(__webpack_require__(3));
+
+		/**
+		 * StoreReceiver is a component factory that wraps a component
+		 * and lets it get data from all the stores defined in its statics
+		 * as props instead of state.
+		 *
+		 * enables the wrapped (or composed) component to be stateless and
+		 * therefore, more easily testable.
+		 *
+		 * example:
+		 *
+		 * class Post extends Component {
+		 *   static stores = {
+		 *     // StoreDisplayName : "propName"
+		 *     PostStore : "post",
+		 *   }
+		 *   render() {
+		 *     return (
+		 *       <div>
+		 *         <h1>{this.props.post.title}</h1>
+		 *       </div>
+		 *     )
+		 *   }
+		 * }
+		 *
+		 * wraps the component
+		 * export default StoreReceiver(Post)
+		 */
+
+		module.exports = function (ComposedComponent) {
+
+		  if (typeof ComposedComponent.stores !== "object") {
+		    var _name = ComposedComponent.name;
+		    throw new TypeError("StoreReceiver Error : " + ("missing \"stores\" parameter in " + _name + " component class."));
+		  }
+
+		  var stores = ComposedComponent.stores;
+		  var initialState = Object.keys(stores).reduce(function (acc, key) {
+		    acc[stores[key]] = null;
+		    return acc;
+		  }, {});
+
+		  var StoreReceiver = (function (Component) {
+		    function StoreReceiver() {
+		      this.state = initialState;
+
+		      _classCallCheck(this, StoreReceiver);
+
+		      this.updateStateFromStore = this.updateStateFromStore.bind(this);
+		    }
+
+		    _inherits(StoreReceiver, Component);
+
+		    _prototypeProperties(StoreReceiver, null, {
+		      getStore: {
+		        value: function getStore(name) {
+		          return this.context.dispatcher.getStore(name);
+		        },
+		        writable: true,
+		        configurable: true
+		      },
+		      forEachStore: {
+		        value: function forEachStore(func) {
+		          var _this = this;
+
+		          Object.keys(stores).forEach(function (key) {
+		            func(_this.getStore(key), key, stores[key]);
+		          });
+		        },
+		        writable: true,
+		        configurable: true
+		      },
+		      componentWillMount: {
+
+		        // used to get the store's initial state before first render
+
+		        value: function componentWillMount() {
+		          var nextState = {};
+		          this.forEachStore(function (store, key, propName) {
+		            nextState[propName] = store.state;
+		          });
+		          this.setState(nextState);
+		        },
+		        writable: true,
+		        configurable: true
+		      },
+		      componentDidMount: {
+		        value: function componentDidMount() {
+		          var _this = this;
+
+		          this.forEachStore(function (store) {
+		            store.addChangeListener(_this.updateStateFromStore);
+		          });
+		        },
+		        writable: true,
+		        configurable: true
+		      },
+		      componentWillUnmount: {
+		        value: function componentWillUnmount() {
+		          var _this = this;
+
+		          this.forEachStore(function (store) {
+		            store.removeChangeListener(_this.updateStateFromStore);
+		          });
+		        },
+		        writable: true,
+		        configurable: true
+		      },
+		      updateStateFromStore: {
+		        value: function updateStateFromStore(displayName) {
+		          var name = stores[displayName];
+		          this.setState(_defineProperty({}, name, this.getStore(displayName).state));
+		        },
+		        writable: true,
+		        configurable: true
+		      },
+		      render: {
+		        value: function render() {
+		          return React.createElement(ComposedComponent, _extends({}, this.props, this.state));
+		        },
+		        writable: true,
+		        configurable: true
+		      }
+		    });
+
+		    return StoreReceiver;
+		  })(Component);
+
+		  var contextTypes = {
+		    contextTypes: Dispatcher.getContextType() };
+
+		  Object.assign(StoreReceiver, ComposedComponent, contextTypes);
+
+		  return StoreReceiver;
+		};
+
+	/***/ },
+	/* 5 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		"use strict";
+
+		var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+		var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+
+		var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+		var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+		var _react = __webpack_require__(6);
+
+		var React = _interopRequire(_react);
+
+		var Component = _react.Component;
+		var PropTypes = _react.PropTypes;
+
+		var InitialDataScript = _interopRequire(__webpack_require__(7));
+
+		var InitialData = (function (Component) {
+		  function InitialData() {
+		    this.state = {
+		      isMounted: false };
+
+		    _classCallCheck(this, InitialData);
+
+		    if (Component != null) {
+		      Component.apply(this, arguments);
+		    }
+		  }
+
+		  _inherits(InitialData, Component);
+
+		  InitialData.propTypes = {
+		    stores: PropTypes.arrayOf(PropTypes.string).isRequired };
+
+		  _prototypeProperties(InitialData, null, {
+		    componentDidMount: {
+		      value: function componentDidMount() {
+		        this.setState({
+		          isMounted: true });
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    renderStoreData: {
+		      value: function renderStoreData(displayName) {
+		        return React.createElement(InitialDataScript, {
+		          key: displayName,
+		          storeName: displayName
+		        });
+		      },
+		      writable: true,
+		      configurable: true
+		    },
+		    render: {
+		      value: function render() {
+		        if (this.state.isMounted) {
+		          return null;
+		        }
+		        return React.createElement(
+		          "div",
+		          { hidden: true },
+		          this.props.stores.map(this.renderStoreData)
+		        );
+		      },
+		      writable: true,
+		      configurable: true
+		    }
+		  });
+
+		  return InitialData;
+		})(Component);
+
+		module.exports = InitialData;
+
+	/***/ },
+	/* 6 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
+
+	/***/ },
+	/* 7 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		"use strict";
+
+		var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+		var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+		var _prototypeProperties = function (child, staticProps, instanceProps) { if (staticProps) Object.defineProperties(child, staticProps); if (instanceProps) Object.defineProperties(child.prototype, instanceProps); };
+
+		var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+		var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+		var _react = __webpack_require__(6);
+
+		var React = _interopRequire(_react);
+
+		var Component = _react.Component;
+		var PropTypes = _react.PropTypes;
+
+		var Dispatcher = _interopRequire(__webpack_require__(3));
+
+		var InitialDataScript = (function (Component) {
+		  function InitialDataScript() {
+		    _classCallCheck(this, InitialDataScript);
+
+		    if (Component != null) {
+		      Component.apply(this, arguments);
+		    }
+		  }
+
+		  _inherits(InitialDataScript, Component);
+
+		  InitialDataScript.contextTypes = _extends({}, Dispatcher.getContextType());
+		  InitialDataScript.propTypes = {
+		    storeName: PropTypes.string.isRequired };
+
+		  _prototypeProperties(InitialDataScript, null, {
+		    render: {
+		      value: function render() {
+		        return React.createElement("script", {
+		          type: "text/json",
+		          "data-storename": this.props.storeName,
+		          dangerouslySetInnerHTML: {
+		            __html: JSON.stringify(this.context.dispatcher.getStore(this.props.storeName).state)
+		          } });
+		      },
+		      writable: true,
+		      configurable: true
+		    }
+		  });
+
+		  return InitialDataScript;
+		})(Component);
+
+		module.exports = InitialDataScript;
+
+	/***/ },
+	/* 8 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		/**
+		 * Copyright (c) 2014, Facebook, Inc.
+		 * All rights reserved.
+		 *
+		 * This source code is licensed under the BSD-style license found in the
+		 * LICENSE file in the root directory of this source tree. An additional grant
+		 * of patent rights can be found in the PATENTS file in the same directory.
+		 */
+
+		module.exports.Dispatcher = __webpack_require__(9)
+
+
+	/***/ },
+	/* 9 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		/*
+		 * Copyright (c) 2014, Facebook, Inc.
+		 * All rights reserved.
+		 *
+		 * This source code is licensed under the BSD-style license found in the
+		 * LICENSE file in the root directory of this source tree. An additional grant
+		 * of patent rights can be found in the PATENTS file in the same directory.
+		 *
+		 * @providesModule Dispatcher
+		 * @typechecks
+		 */
+
+		"use strict";
+
+		var invariant = __webpack_require__(10);
+
+		var _lastID = 1;
+		var _prefix = 'ID_';
+
+		/**
+		 * Dispatcher is used to broadcast payloads to registered callbacks. This is
+		 * different from generic pub-sub systems in two ways:
+		 *
+		 *   1) Callbacks are not subscribed to particular events. Every payload is
+		 *      dispatched to every registered callback.
+		 *   2) Callbacks can be deferred in whole or part until other callbacks have
+		 *      been executed.
+		 *
+		 * For example, consider this hypothetical flight destination form, which
+		 * selects a default city when a country is selected:
+		 *
+		 *   var flightDispatcher = new Dispatcher();
+		 *
+		 *   // Keeps track of which country is selected
+		 *   var CountryStore = {country: null};
+		 *
+		 *   // Keeps track of which city is selected
+		 *   var CityStore = {city: null};
+		 *
+		 *   // Keeps track of the base flight price of the selected city
+		 *   var FlightPriceStore = {price: null}
+		 *
+		 * When a user changes the selected city, we dispatch the payload:
+		 *
+		 *   flightDispatcher.dispatch({
+		 *     actionType: 'city-update',
+		 *     selectedCity: 'paris'
+		 *   });
+		 *
+		 * This payload is digested by `CityStore`:
+		 *
+		 *   flightDispatcher.register(function(payload) {
+		 *     if (payload.actionType === 'city-update') {
+		 *       CityStore.city = payload.selectedCity;
+		 *     }
+		 *   });
+		 *
+		 * When the user selects a country, we dispatch the payload:
+		 *
+		 *   flightDispatcher.dispatch({
+		 *     actionType: 'country-update',
+		 *     selectedCountry: 'australia'
+		 *   });
+		 *
+		 * This payload is digested by both stores:
+		 *
+		 *    CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
+		 *     if (payload.actionType === 'country-update') {
+		 *       CountryStore.country = payload.selectedCountry;
+		 *     }
+		 *   });
+		 *
+		 * When the callback to update `CountryStore` is registered, we save a reference
+		 * to the returned token. Using this token with `waitFor()`, we can guarantee
+		 * that `CountryStore` is updated before the callback that updates `CityStore`
+		 * needs to query its data.
+		 *
+		 *   CityStore.dispatchToken = flightDispatcher.register(function(payload) {
+		 *     if (payload.actionType === 'country-update') {
+		 *       // `CountryStore.country` may not be updated.
+		 *       flightDispatcher.waitFor([CountryStore.dispatchToken]);
+		 *       // `CountryStore.country` is now guaranteed to be updated.
+		 *
+		 *       // Select the default city for the new country
+		 *       CityStore.city = getDefaultCityForCountry(CountryStore.country);
+		 *     }
+		 *   });
+		 *
+		 * The usage of `waitFor()` can be chained, for example:
+		 *
+		 *   FlightPriceStore.dispatchToken =
+		 *     flightDispatcher.register(function(payload) {
+		 *       switch (payload.actionType) {
+		 *         case 'country-update':
+		 *           flightDispatcher.waitFor([CityStore.dispatchToken]);
+		 *           FlightPriceStore.price =
+		 *             getFlightPriceStore(CountryStore.country, CityStore.city);
+		 *           break;
+		 *
+		 *         case 'city-update':
+		 *           FlightPriceStore.price =
+		 *             FlightPriceStore(CountryStore.country, CityStore.city);
+		 *           break;
+		 *     }
+		 *   });
+		 *
+		 * The `country-update` payload will be guaranteed to invoke the stores'
+		 * registered callbacks in order: `CountryStore`, `CityStore`, then
+		 * `FlightPriceStore`.
+		 */
+
+		  function Dispatcher() {
+		    this.$Dispatcher_callbacks = {};
+		    this.$Dispatcher_isPending = {};
+		    this.$Dispatcher_isHandled = {};
+		    this.$Dispatcher_isDispatching = false;
+		    this.$Dispatcher_pendingPayload = null;
+		  }
+
+		  /**
+		   * Registers a callback to be invoked with every dispatched payload. Returns
+		   * a token that can be used with `waitFor()`.
+		   *
+		   * @param {function} callback
+		   * @return {string}
+		   */
+		  Dispatcher.prototype.register=function(callback) {
+		    var id = _prefix + _lastID++;
+		    this.$Dispatcher_callbacks[id] = callback;
+		    return id;
+		  };
+
+		  /**
+		   * Removes a callback based on its token.
+		   *
+		   * @param {string} id
+		   */
+		  Dispatcher.prototype.unregister=function(id) {
+		    invariant(
+		      this.$Dispatcher_callbacks[id],
+		      'Dispatcher.unregister(...): `%s` does not map to a registered callback.',
+		      id
+		    );
+		    delete this.$Dispatcher_callbacks[id];
+		  };
+
+		  /**
+		   * Waits for the callbacks specified to be invoked before continuing execution
+		   * of the current callback. This method should only be used by a callback in
+		   * response to a dispatched payload.
+		   *
+		   * @param {array<string>} ids
+		   */
+		  Dispatcher.prototype.waitFor=function(ids) {
+		    invariant(
+		      this.$Dispatcher_isDispatching,
+		      'Dispatcher.waitFor(...): Must be invoked while dispatching.'
+		    );
+		    for (var ii = 0; ii < ids.length; ii++) {
+		      var id = ids[ii];
+		      if (this.$Dispatcher_isPending[id]) {
+		        invariant(
+		          this.$Dispatcher_isHandled[id],
+		          'Dispatcher.waitFor(...): Circular dependency detected while ' +
+		          'waiting for `%s`.',
+		          id
+		        );
+		        continue;
+		      }
+		      invariant(
+		        this.$Dispatcher_callbacks[id],
+		        'Dispatcher.waitFor(...): `%s` does not map to a registered callback.',
+		        id
+		      );
+		      this.$Dispatcher_invokeCallback(id);
+		    }
+		  };
+
+		  /**
+		   * Dispatches a payload to all registered callbacks.
+		   *
+		   * @param {object} payload
+		   */
+		  Dispatcher.prototype.dispatch=function(payload) {
+		    invariant(
+		      !this.$Dispatcher_isDispatching,
+		      'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.'
+		    );
+		    this.$Dispatcher_startDispatching(payload);
+		    try {
+		      for (var id in this.$Dispatcher_callbacks) {
+		        if (this.$Dispatcher_isPending[id]) {
+		          continue;
+		        }
+		        this.$Dispatcher_invokeCallback(id);
+		      }
+		    } finally {
+		      this.$Dispatcher_stopDispatching();
+		    }
+		  };
+
+		  /**
+		   * Is this Dispatcher currently dispatching.
+		   *
+		   * @return {boolean}
+		   */
+		  Dispatcher.prototype.isDispatching=function() {
+		    return this.$Dispatcher_isDispatching;
+		  };
+
+		  /**
+		   * Call the callback stored with the given id. Also do some internal
+		   * bookkeeping.
+		   *
+		   * @param {string} id
+		   * @internal
+		   */
+		  Dispatcher.prototype.$Dispatcher_invokeCallback=function(id) {
+		    this.$Dispatcher_isPending[id] = true;
+		    this.$Dispatcher_callbacks[id](this.$Dispatcher_pendingPayload);
+		    this.$Dispatcher_isHandled[id] = true;
+		  };
+
+		  /**
+		   * Set up bookkeeping needed when dispatching.
+		   *
+		   * @param {object} payload
+		   * @internal
+		   */
+		  Dispatcher.prototype.$Dispatcher_startDispatching=function(payload) {
+		    for (var id in this.$Dispatcher_callbacks) {
+		      this.$Dispatcher_isPending[id] = false;
+		      this.$Dispatcher_isHandled[id] = false;
+		    }
+		    this.$Dispatcher_pendingPayload = payload;
+		    this.$Dispatcher_isDispatching = true;
+		  };
+
+		  /**
+		   * Clear bookkeeping used for dispatching.
+		   *
+		   * @internal
+		   */
+		  Dispatcher.prototype.$Dispatcher_stopDispatching=function() {
+		    this.$Dispatcher_pendingPayload = null;
+		    this.$Dispatcher_isDispatching = false;
+		  };
+
+
+		module.exports = Dispatcher;
+
+
+	/***/ },
+	/* 10 */
+	/***/ function(module, exports, __webpack_require__) {
+
+		/**
+		 * Copyright (c) 2014, Facebook, Inc.
+		 * All rights reserved.
+		 *
+		 * This source code is licensed under the BSD-style license found in the
+		 * LICENSE file in the root directory of this source tree. An additional grant
+		 * of patent rights can be found in the PATENTS file in the same directory.
+		 *
+		 * @providesModule invariant
+		 */
+
+		"use strict";
+
+		/**
+		 * Use invariant() to assert state which your program assumes to be true.
+		 *
+		 * Provide sprintf-style format (only %s is supported) and arguments
+		 * to provide information about what broke and what you were
+		 * expecting.
+		 *
+		 * The invariant message will be stripped in production, but the invariant
+		 * will remain to ensure logic does not differ in production.
+		 */
+
+		var invariant = function(condition, format, a, b, c, d, e, f) {
+		  if (false) {
+		    if (format === undefined) {
+		      throw new Error('invariant requires an error message argument');
+		    }
+		  }
+
+		  if (!condition) {
+		    var error;
+		    if (format === undefined) {
+		      error = new Error(
+		        'Minified exception occurred; use the non-minified dev environment ' +
+		        'for the full error message and additional helpful warnings.'
+		      );
+		    } else {
+		      var args = [a, b, c, d, e, f];
+		      var argIndex = 0;
+		      error = new Error(
+		        'Invariant Violation: ' +
+		        format.replace(/%s/g, function() { return args[argIndex++]; })
+		      );
+		    }
+
+		    error.framesToPop = 1; // we don't care about invariant's own frame
+		    throw error;
+		  }
+		};
+
+		module.exports = invariant;
+
+
+	/***/ }
+	/******/ ])
+	});
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _keyMirror = __webpack_require__(13);
+
+	var _keyMirror2 = _interopRequireDefault(_keyMirror);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Actions = ['SOME_ACTION']; /**
+	                                * App constants
+	                                */
+
+	var ActionTypes = (0, _keyMirror2.default)(Actions);
+
+	exports.default = ActionTypes;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/**
+	 * Key mirror
+	 * 
+	 * @param { array[string] }
+	 * @return { object } an object with values mirroring the keys
+	 */
+	function keyMirror(array) {
+	  var obj = {};
+	  array.map(function (value) {
+	    obj[value] = value;
+	  });
+	  return obj;
+	}
+
+	exports.default = keyMirror;
 
 /***/ }
 /******/ ]);

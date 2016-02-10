@@ -3,6 +3,9 @@
  */
 export default class Camp {
 	
+	/**
+	 * @param {object} model
+	 */
 	constructor(model){
 		this.capacity  = model.capacity;
 		this.lvls      = model.lvls;
@@ -18,6 +21,6 @@ export default class Camp {
 	 * @return {int}
 	 */
 	actualCapacity(){
-		return this.capacity[this.lvl - 1];
+		return this.capacity[this.lvl];
 	}
 }
