@@ -3,8 +3,8 @@ const path = require('path');
 // webpack.config.js
 module.exports = {
   entry: {
-    bundle: './src/js',
-    tests: './src/js/tests/index.js'
+    bundle: './src/js/',
+    tests: './src/js/tests/'
   },
   output: {
     path: __dirname + '/build/js',
@@ -14,11 +14,10 @@ module.exports = {
     loaders: [
       { 
 				test: /\.js$/, 
-				loader: 'babel',
+				loader: 'babel-loader',
         query: {
           presets: ['es2015']
-        },
-        exclude: [/node_modules/, /app/]
+        }
 			}
     ]
   }

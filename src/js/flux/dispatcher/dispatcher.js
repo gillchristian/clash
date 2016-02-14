@@ -1,4 +1,4 @@
-import { Dispatcher } from "bloody-flux";
+import { Dispatcher } from "flux";
 
 let DispatcherSingleton = new Dispatcher();
 
