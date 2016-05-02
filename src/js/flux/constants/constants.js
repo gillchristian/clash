@@ -5,7 +5,7 @@
 import keyMirror from '../../helpers/keyMirror';
 
 let Actions = [
-  'SOME_ACTION'
+  'LIGHT_TROOP_SET_LVL'
 ];
 
 const ActionTypes = keyMirror(Actions);

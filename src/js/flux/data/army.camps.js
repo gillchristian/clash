@@ -1,0 +1,39 @@
+/**
+ * Army capms model
+ */
+const armyCamps = [
+    {
+        name: "Army Camp",
+        building: "army-camp",
+        folder: "army-camps",
+        capacity: [0,20,30,35,40,45,50,55,60],
+        lvl: 0, 
+        lvls: [0,1,2,3,4,5,6,7,8]
+    },
+    {
+        name: "Army Camp",
+        building: "army-camp",
+        folder: "army-camps",
+        capacity: [0,20,30,35,40,45,50,55,60],
+        lvl: 0, 
+        lvls: [0,1,2,3,4,5,6,7,8]
+    },
+    {
+        name: "Army Camp",
+        building: "army-camp",
+        folder: "army-camps",
+        capacity: [0,20,30,35,40,45,50,55,60],
+        lvl: 0, 
+        lvls: [0,1,2,3,4,5,6,7,8]
+    },
+    {
+        name: "Army Camp",
+        building: "army-camp",
+        folder: "army-camps",
+        capacity: [0,20,30,35,40,45,50,55,60],
+        lvl: 0, 
+        lvls: [0,1,2,3,4,5,6,7,8]
+    }
+];
+
+export default armyCamps;

@@ -1,0 +1,17 @@
+/**
+ * Light Spells Factory mode
+ */
+const lightSpellsFactory = [
+	{
+        name: "Spell Factory",
+        building: "spell-factory",
+        folder: "spells-factory",
+        capacity: [0,2,4,6,8,10],
+        lvls: [0,1,2,3,4,5],
+        lvl: 0,
+        amount: [0,0,0,0,0],
+        queue: 0
+      }
+];
+
+export default lightSpellsFactory;

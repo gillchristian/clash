@@ -16106,9 +16106,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Actions = ['SOME_ACTION']; /**
-	                                * App constants
-	                                */
+	var Actions = ['LIGHT_TROOP_SET_LVL']; /**
+	                                        * App constants
+	                                        */
 
 	var ActionTypes = (0, _keyMirror2.default)(Actions);
 
